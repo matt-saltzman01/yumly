@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home_frag"
+            android:title="Home" />
+        <item
+            android:id="@+id/fridge_frag"
+            android:title="My Fridge" />
+        <item
+            android:id="@+id/my_recipes_frag"
+            android:title="Favorite Recipes" />
+        <item
+            android:id="@+id/cookbook_frag"
+            android:title="Cookbook" />
+        <item
+            android:id="@+id/settings_frag"
+            android:title="Settings" />
+    </group>
+
+</menu>
