@@ -209,6 +209,10 @@ public class MyFridgeFragment extends Fragment {
 
         List items = getItems();
 
+        /*Eventually this should be a GridView but I didn't know
+        that existed when I wrote this code. This will work fine for the
+        UI demo. -Isaac*/
+
         if (items.size() == 0) {
             fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
             fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);

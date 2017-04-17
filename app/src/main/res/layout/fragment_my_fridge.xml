@@ -88,6 +88,9 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
+        <!--Eventually this should be a GridView but I didn't know
+        that existed when I wrote this code. This will work fine
+        for the UI demo. -Isaac-->
         <ListView
             android:id="@+id/left_list"
             android:layout_width="0dp"
