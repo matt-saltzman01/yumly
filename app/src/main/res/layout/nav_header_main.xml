@@ -12,7 +12,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
-        android:text="Welcome to Yumly"
+        android:text="Welcome to Chefly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"/>

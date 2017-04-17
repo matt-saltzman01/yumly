@@ -152,6 +152,7 @@ public class MyFridgeFragment extends Fragment {
             }
         });
 
+
         if (fridge == null || fridge.size() == 0) {
             populateFridge();
         }

@@ -14,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         getFragmentManager().beginTransaction().replace(R.id.content_frame,
                 currentFragment).commit();
@@ -119,8 +118,6 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
 
-        //noinspection SimplifiableIfStatement
-
         boolean replace = false;
 
         if (id == R.id.action_search) {
@@ -152,5 +149,14 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void onFridgeButton(View view) {
+        currentFragment = myRecipesFragment;
+        currentTitle = "Recipe Search";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
     }
 }
