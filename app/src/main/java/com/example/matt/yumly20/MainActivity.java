@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements
         MyFridgeFragment.OnFragmentInteractionListener,
         MyRecipesFragment.OnFragmentInteractionListener,
         CookBookFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener{
+        SettingsFragment.OnFragmentInteractionListener,
+        RecipeFragment.OnFragmentInteractionListener { //temporary until recipe lists are built
 
 
     private static HomeScreenFragment homeScreenFragment = new HomeScreenFragment();
@@ -34,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements
     private static Fragment currentFragment = homeScreenFragment;
     private CharSequence currentTitle = "Home";
     private CharSequence mTitle;
+
+
+    //temporary until recipe lists are built
+    private static RecipeFragment recipeFragment = new RecipeFragment();
+
 
 
     @Override
@@ -79,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements
             currentFragment = myFridgeFragment;
             currentTitle = "My Fridge";
         } else if (id == R.id.my_recipes_frag) {
-            currentFragment = myRecipesFragment;
+            //temporary until recipe lists are built
+            currentFragment = recipeFragment;
             currentTitle = "Favorite Recipes";
         } else if (id == R.id.cookbook_frag) {
             currentFragment = cookBookFragment;

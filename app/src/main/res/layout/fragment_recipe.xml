@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.matt.yumly20.RecipeFragment">
+
+    <ImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/recipe_image"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Everyday Baked Chicken"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+        android:gravity="center"
+        android:textStyle="normal|bold"
+        android:textAlignment="viewStart" />
+
+    <TextView
+        android:id="@+id/orange_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/recipe_image"
+        android:background="@color/colorAccent" />
+
+    <LinearLayout
+        android:id="@+id/recipe_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orange_line1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/ingredients_button"
+            android:text="Ingredients"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".333" />
+
+        <Button
+            android:id="@+id/directions_button"
+            android:text="Directions"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".333" />
+
+        <Button
+            android:id="@+id/nutrition_button"
+            android:text="Nutrition"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".333" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/orange_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/recipe_tabs"
+        android:background="@color/colorAccent" />
+
+    <!--Switch to TabHost Unless getChildFragmentManager can work-->
+    <ListView
+        android:id="@+id/ingredients_component"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orange_line2"
+        android:layout_alignParentBottom="true" />
+
+    <ListView
+        android:id="@+id/directions_component"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orange_line2"
+        android:layout_alignParentBottom="true" />
+
+    <ListView
+        android:id="@+id/nutrition_component"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orange_line2"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
+

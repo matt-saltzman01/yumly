@@ -18,7 +18,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textAlignment="center"
             android:gravity="center"
-            android:background="@color/lightGrey" />
+            android:background="@color/mediumGrey" />
 
         <TextView
             android:id="@+id/cuisine_text"
@@ -287,7 +287,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textAlignment="center"
             android:gravity="center"
-            android:background="@color/lightGrey" />
+            android:background="@color/mediumGrey" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -383,7 +383,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textAlignment="center"
             android:gravity="center"
-            android:background="@color/lightGrey" />
+            android:background="@color/mediumGrey" />
 
         <LinearLayout
             android:layout_width="match_parent"

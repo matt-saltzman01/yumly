@@ -6,7 +6,6 @@
     android:weightSum="1"
     tools:context="com.example.matt.yumly20.MyFridgeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/food_types"
         android:layout_width="match_parent"
