@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class FridgeAdapter extends ArrayAdapter<String[]> {
 
         ImageView pic = (ImageView) fridgeView.findViewById(R.id.food_picture);
         TextView name = (TextView) fridgeView.findViewById(R.id.food_name);
+        CheckBox box = (CheckBox) fridgeView.findViewById(R.id.food_check);
 
         FoodItem item = (FoodItem) foodItems.get(position);
         name.setText(item.food);
@@ -88,6 +90,12 @@ public class FridgeAdapter extends ArrayAdapter<String[]> {
                 break;
             default:
                 break;
+        }
+
+        if (item.checked) {
+            box.setChecked(true);
+        } else {
+            box.setChecked(false);
         }
 
         return fridgeView;

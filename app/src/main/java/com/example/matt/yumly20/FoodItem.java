@@ -7,12 +7,14 @@ package com.example.matt.yumly20;
 public class FoodItem {
 
     public String food;
-    public String filename;
     public String group;
+    public String filename;
+    public boolean checked;
 
     public FoodItem(String f, String g, String file) {
         food = f;
         group = g;
         filename = file;
+        checked = false;
     }
 }
