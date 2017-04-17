@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -43,12 +44,13 @@ public class MainActivity extends AppCompatActivity implements
         //super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
+        android.support.v7.app.ActionBarDrawerToggle toggle = new
+                android.support.v7.app.ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -56,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, currentFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.content_frame,
+                currentFragment).commit();
         setTitle(currentTitle);
 
     }
@@ -110,19 +113,25 @@ public class MainActivity extends AppCompatActivity implements
         FragmentManager fragmentManager = getFragmentManager();
 
         //noinspection SimplifiableIfStatement
+
+        boolean replace = false;
+
         if (id == R.id.action_search) {
             //nothing for now
+        } else if (id == R.id.action_my_cart) {
+            if (!currentFragment.equals(myFridgeFragment)) {
+                currentFragment = myFridgeFragment;
+                currentTitle = "My Fridge";
+                replace = true;
+            }
         }
 
-        if (id == R.id.action_my_cart) {
-            currentFragment = myFridgeFragment;
-            currentTitle = "My Fridge";
+        if (replace) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, currentFragment)
+                    .commit();
+            setTitle(currentTitle);
         }
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, currentFragment)
-                .commit();
-        setTitle(currentTitle);
 
         return super.onOptionsItemSelected(item);
     }
