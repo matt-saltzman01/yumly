@@ -1,12 +1,20 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 
 /**
@@ -64,7 +72,10 @@ public class HomeScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_screen, container, false);
+        View view =  inflater.inflate(R.layout.fragment_home_screen, container, false);
+        buildImageScrolls(view);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +115,42 @@ public class HomeScreenFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void buildImageScrolls(View view) {
+
+        ArrayList<Integer> pics = new ArrayList<Integer>();
+        pics.add(R.drawable.ramen);
+        pics.add(R.drawable.brownies);
+        pics.add(R.drawable.tacos);
+        pics.add(R.drawable.salmon);
+
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.week_recipes_linear);
+        for (int i = 0; i < pics.size(); i++) {
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setId(i);
+            imageView.setPadding(0, 0, 0, 0);
+            imageView.setImageBitmap(BitmapFactory.decodeResource(
+                    getResources(), pics.get(i)));
+            imageView.setScaleType(ImageView.ScaleType.CENTER);
+            layout.addView(imageView);
+        }
+
+        pics = new ArrayList<Integer>();
+        pics.add(R.drawable.friedrice);
+        pics.add(R.drawable.guacamole);
+        pics.add(R.drawable.burger);
+        pics.add(R.drawable.pasta);
+
+        layout = (LinearLayout) view.findViewById(R.id.my_recipes_linear);
+        for (int i = 0; i < pics.size(); i++) {
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setId(i);
+            imageView.setPadding(0, 0, 0, 0);
+            imageView.setImageBitmap(BitmapFactory.decodeResource(
+                    getResources(), pics.get(i)));
+            imageView.setScaleType(ImageView.ScaleType.CENTER);
+            layout.addView(imageView);
+        }
     }
 }

@@ -2,40 +2,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
     tools:context="com.example.matt.yumly20.HomeScreenFragment">
 
     <TextView
         android:id="@+id/week_recipes_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:layout_marginTop="10dp"
         android:text="Recipes of the Week"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textAlignment="center" />
 
-    <ListView
-        android:id="@+id/week_recipes_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".33"
-        android:divider="@null" >
-    </ListView>
+    <HorizontalScrollView
+        android:id="@+id/week_recipes_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        android:fillViewport="false" >
+
+        <LinearLayout
+            android:id="@+id/week_recipes_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/my_recipes_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:layout_marginTop="25dp"
         android:text="My Recipes"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textAlignment="center" />
 
-    <ListView
-        android:id="@+id/my_recipes_list"
-        android:layout_width="0dp"
+    <HorizontalScrollView
+        android:id="@+id/my_recipes_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:id="@+id/my_recipes_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/to_fridge_button"
+        android:text="Go to My Fridge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight=".33"
-        android:divider="@null" >
-    </ListView>
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorAccent" />
 
 </LinearLayout>
