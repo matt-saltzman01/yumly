@@ -4,9 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,6 +32,13 @@ public class MyFridgeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FridgeAdapter fAdaptorL;
+    private FridgeAdapter fAdaptorC;
+    private FridgeAdapter fAdaptorR;
+
+    private List fridge = new ArrayList();
+    private String group;
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,17 +67,103 @@ public class MyFridgeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_fridge, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_fridge, container, false);
+
+        final Button meatButton = (Button) view.findViewById(R.id.meat_button);
+        final Button vegButton = (Button) view.findViewById(R.id.veg_button);
+        final Button dairyButton = (Button) view.findViewById(R.id.dairy_button);
+        final Button otherButton = (Button) view.findViewById(R.id.other_button);
+
+        meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                R.color.colorAccent));
+        vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                R.color.lightGrey));
+        dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                R.color.lightGrey));
+        otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                R.color.lightGrey));
+
+        group = "M/P";
+
+        meatButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.colorAccent));
+                vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+
+                group = "M/P";
+                setAdapters();
+            }
+        });
+        vegButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.colorAccent));
+                meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+
+                group = "F/V";
+                setAdapters();
+            }
+        });
+        dairyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.colorAccent));
+                vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+
+                group = "Dairy";
+                setAdapters();
+            }
+        });
+        otherButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.colorAccent));
+                vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+                meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.lightGrey));
+
+                group = "Other";
+                setAdapters();
+            }
+        });
+
+        if (fridge == null || fridge.size() == 0) {
+            populateFridge();
+        }
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setAdapters();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +203,74 @@ public class MyFridgeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void setAdapters() {
+
+        List items = getItems();
+
+        if (items.size() == 0) {
+            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
+            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
+            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
+        } else if (items.size() == 1) {
+            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
+            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
+            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
+        } else if (items.size() == 2) {
+            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items.subList(0, 1));
+            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items.subList(1, 2));
+            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
+        } else {
+            int third = (int) Math.ceil(((double) getItems().size()) / 3.0);
+            int twothirds = (int) Math.ceil(2.0 * ((double) getItems().size()) / 3.0);
+            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                    items.subList(0, third));
+            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                    items.subList(third, twothirds));
+            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                    items.subList(twothirds, items.size()));
+        }
+
+
+        ListView leftL = (ListView) getActivity().findViewById(R.id.left_list);
+        ListView centerL = (ListView) getActivity().findViewById(R.id.center_list);
+        ListView rightL = (ListView) getActivity().findViewById(R.id.right_list);
+
+        leftL.setAdapter(fAdaptorL);
+        centerL.setAdapter(fAdaptorC);
+        rightL.setAdapter(fAdaptorR);
+    }
+
+    public List getItems() {
+        List items = new ArrayList();
+        for (int a = 0; a < fridge.size(); a++) {
+            if (((FoodItem) fridge.get(a)).group.equals(group)) {
+                items.add(fridge.get(a));
+            }
+        }
+        return items;
+    }
+
+    public void populateFridge() {
+
+        if (fridge == null) {
+            fridge = new ArrayList();
+        }
+
+        fridge.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
+        fridge.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));
+        fridge.add(new FoodItem("Spinach", "F/V", "Spinach.jpg"));
+        fridge.add(new FoodItem("Corn Chips", "Other", "CornChips.jpg"));
+        fridge.add(new FoodItem("Milk", "Dairy", "Milk.jpg"));
+        fridge.add(new FoodItem("Ground Beef", "M/P", "GroundBeef.jpg"));
+        fridge.add(new FoodItem("Parmesan", "Dairy", "Parmesan.jpg"));
+        fridge.add(new FoodItem("Goat Cheese", "Dairy", "GoatCheese.jpg"));
+        fridge.add(new FoodItem("Chicken Breast", "M/P", "ChickenBreast.jpg"));
+        fridge.add(new FoodItem("Onion", "F/V", "Onion.jpg"));
+        fridge.add(new FoodItem("Tobasco", "Other", "Tobasco.jpg"));
+        fridge.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
+        fridge.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
+
     }
 }

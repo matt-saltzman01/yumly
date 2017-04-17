@@ -1,13 +1,93 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.matt.yumly20.MyFridgeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/food_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/meat_button"
+            android:text="Meat/Protein"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25" />
+
+        <Button
+            android:id="@+id/veg_button"
+            android:text="Fruit/Veggies"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25" />
+
+        <Button
+            android:id="@+id/dairy_button"
+            android:text="Dairy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25" />
+
+        <Button
+            android:id="@+id/other_button"
+            android:text="Other"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="My Fridge" />
+        android:layout_height="1dp"
+        android:background="@color/colorAccent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/fridge_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="What's in your fridge?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:id="@+id/item_lists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ListView
+            android:id="@+id/left_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:divider="@null" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/center_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:divider="@null" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/right_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:divider="@null" >
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>
