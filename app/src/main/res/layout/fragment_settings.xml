@@ -530,6 +530,16 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/find_recipes_button"
+            android:text="Save Settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/colorAccent" />
+
     </LinearLayout>
 
 </ScrollView>

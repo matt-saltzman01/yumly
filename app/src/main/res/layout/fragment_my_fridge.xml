@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,6 +11,7 @@
         android:id="@+id/food_types"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -45,25 +46,46 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/orange_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/food_types"
         android:background="@color/colorAccent" />
 
     <TextView
         android:id="@+id/fridge_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/orange_line"
         android:layout_marginTop="5dp"
         android:text="What's in your fridge?"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textAlignment="center" />
 
     <LinearLayout
+        android:id="@+id/button_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/find_recipes_button"
+            android:text="Find Recipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/item_lists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/button_linear"
+        android:layout_below="@id/fridge_question"
         android:orientation="horizontal"
-        android:layout_weight="1.1"
         android:weightSum="1">
 
         <ListView
@@ -92,14 +114,4 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/find_recipes_button"
-        android:text="Find Recipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/colorAccent" />
-
-</LinearLayout>
+</RelativeLayout>
