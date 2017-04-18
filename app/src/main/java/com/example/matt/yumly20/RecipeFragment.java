@@ -36,10 +36,17 @@ public class RecipeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ListView iView;
+    private ListView dView;
+    private ListView nView;
+
     private String component = "Ingredients";
     private IngredientAdapter iAdapter;
+    private DirectionAdapter dAdapter;
+
 
     private List ingredients = new ArrayList();
+    private List directions = new ArrayList();
 
     private OnFragmentInteractionListener mListener;
 
@@ -105,6 +112,13 @@ public class RecipeFragment extends Fragment {
                 nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
 
+                iView.setVisibility(View.VISIBLE);
+                dView.setVisibility(View.GONE);
+                nView.setVisibility(View.GONE);
+
+                component = "Ingredients";
+                setAdapters();
+
             }
         });
         directionsButton.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +129,13 @@ public class RecipeFragment extends Fragment {
                         R.color.lightGrey));
                 nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
+
+                iView.setVisibility(View.GONE);
+                dView.setVisibility(View.VISIBLE);
+                nView.setVisibility(View.GONE);
+
+                component = "Directions";
+                setAdapters();
             }
         });
         nutritionButton.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +146,13 @@ public class RecipeFragment extends Fragment {
                         R.color.lightGrey));
                 ingredientsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
+
+                iView.setVisibility(View.GONE);
+                dView.setVisibility(View.GONE);
+                nView.setVisibility(View.VISIBLE);
+
+                component = "Nutrition";
+                setAdapters();
             }
         });
 
@@ -134,6 +162,16 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
+        dView = (ListView) getActivity().findViewById(R.id.directions_component);
+        nView = (ListView) getActivity().findViewById(R.id.nutrition_component);
+
+        iView.setVisibility(View.VISIBLE);
+        dView.setVisibility(View.GONE);
+        nView.setVisibility(View.GONE);
+
+        component = "Ingredients";
         setAdapters();
     }
 
@@ -178,8 +216,6 @@ public class RecipeFragment extends Fragment {
 
     private void setAdapters() {
 
-        ListView iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
-
         if (component.equals("Ingredients")) {
 
             if (ingredients == null || ingredients.size() == 0) {
@@ -190,6 +226,20 @@ public class RecipeFragment extends Fragment {
 
         } else if (component.equals("Directions")) {
 
+            if (directions == null || directions.size() == 0) {
+                populateDirections();
+            }
+            dAdapter = new DirectionAdapter(getActivity(), R.layout.directions_item, directions);
+            dView.setAdapter(dAdapter);
+
+        } else if (component.equals("Nutrition")) {
+
+            if (directions == null || directions.size() == 0) {
+                populateDirections();
+            }
+            dAdapter = new DirectionAdapter(getActivity(), R.layout.directions_item, directions);
+            dView.setAdapter(dAdapter);
+
         }
     }
 
@@ -197,5 +247,20 @@ public class RecipeFragment extends Fragment {
         ingredients = new ArrayList();
         ingredients.add(new Ingredient("4", "chicken breasts"));
         ingredients.add(new Ingredient("1 teaspoon", "kosher salt"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "black pepper"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "onion powder"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "garlic powder"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "oregano"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "paprika"));
+    }
+
+    private void populateDirections() {
+        directions = new ArrayList();
+        directions.add("Preheat oven to 425 degrees.");
+        directions.add("Mix all of the dry spices together.");
+        directions.add("Spray a baking pan with oil and place the chicken breasts on the pan. ");
+        directions.add("Sprinkle the spice mixture over the chicken and rub with your hands." +
+                "Repeat on the other side.");
+        directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
     }
 }
