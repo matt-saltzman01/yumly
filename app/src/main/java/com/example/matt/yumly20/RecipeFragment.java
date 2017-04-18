@@ -95,7 +95,6 @@ public class RecipeFragment extends Fragment {
                 R.color.lightGrey));
         nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
-        setAdapters();
 
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -135,9 +134,7 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //Switch to TabHost Unless getChildFragmentManager can work
-        /*getChildFragmentManager().beginTransaction().replace(R.id.recipe_component,
-                currentComponent).commit();*/
+        setAdapters();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -181,7 +178,7 @@ public class RecipeFragment extends Fragment {
 
     private void setAdapters() {
 
-        final ListView iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
+        ListView iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
 
         if (component.equals("Ingredients")) {
 
@@ -189,7 +186,7 @@ public class RecipeFragment extends Fragment {
                 populateIngredients();
             }
             iAdapter = new IngredientAdapter(getActivity(), R.layout.ingredients_item, ingredients);
-            //iView.setAdapter(iAdapter);
+            iView.setAdapter(iAdapter);
 
         } else if (component.equals("Directions")) {
 

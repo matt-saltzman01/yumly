@@ -33,13 +33,15 @@ public class FridgeAdapter extends ArrayAdapter<String[]> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View fridgeView = convertView;
-
-        if (fridgeView == null) {
+        if (foodItems.get(position) == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            fridgeView = inflater.inflate(R.layout.fridge_item, parent, false);
+            return inflater.inflate(R.layout.plus_sign, parent, false);
         }
+
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View fridgeView = inflater.inflate(R.layout.fridge_item, parent, false);
 
         ImageView pic = (ImageView) fridgeView.findViewById(R.id.food_picture);
         TextView name = (TextView) fridgeView.findViewById(R.id.food_name);

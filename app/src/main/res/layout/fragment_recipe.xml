@@ -20,9 +20,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="Everyday Baked Chicken"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:gravity="center"
         android:textStyle="normal|bold"
+        android:textSize="24sp"
         android:textAlignment="viewStart" />
 
     <TextView

@@ -151,9 +151,18 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    public void onFridgeButton(View view) {
+    public void findRecipesButtonClick(View view) {
         currentFragment = myRecipesFragment;
         currentTitle = "Recipe Search";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
+    }
+
+    public void toFridgeButtonClick(View view) {
+        currentFragment = myFridgeFragment;
+        currentTitle = "My Fridge";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
                 .commit();

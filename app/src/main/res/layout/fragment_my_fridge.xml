@@ -76,7 +76,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:backgroundTint="@color/colorAccent"
-            android:onClick="onFridgeButton" />
+            android:onClick="findRecipesButtonClick" />
     </LinearLayout>
 
     <LinearLayout

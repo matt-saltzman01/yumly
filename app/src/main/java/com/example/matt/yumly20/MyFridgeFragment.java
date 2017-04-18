@@ -160,12 +160,6 @@ public class MyFridgeFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        setAdapters();
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -227,14 +221,12 @@ public class MyFridgeFragment extends Fragment {
             fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items.subList(1, 2));
             fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
         } else {
-            int third = (int) Math.ceil(((double) getItems().size()) / 3.0);
-            int twothirds = (int) Math.ceil(2.0 * ((double) getItems().size()) / 3.0);
             fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item,
-                    items.subList(0, third));
+                    splitList(items, 0));
             fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item,
-                    items.subList(third, twothirds));
+                    splitList(items, 1));
             fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item,
-                    items.subList(twothirds, items.size()));
+                    splitList(items, 2));
         }
 
 
@@ -247,17 +239,26 @@ public class MyFridgeFragment extends Fragment {
         rightL.setAdapter(fAdaptorR);
     }
 
-    public List getItems() {
+    private List getItems() {
         List items = new ArrayList();
         for (int a = 0; a < fridge.size(); a++) {
-            if (((FoodItem) fridge.get(a)).group.equals(group)) {
+            if (fridge.get(a) != null && ((FoodItem) fridge.get(a)).group.equals(group)) {
                 items.add(fridge.get(a));
             }
         }
+        items.add(null);
         return items;
     }
 
-    public void populateFridge() {
+    private List splitList(List items, int mod) {
+        List split = new ArrayList();
+        for (int a = mod; a < items.size(); a += 3) {
+            split.add(items.get(a));
+        }
+        return split;
+    }
+
+    private void populateFridge() {
 
         if (fridge == null) {
             fridge = new ArrayList();
@@ -276,6 +277,7 @@ public class MyFridgeFragment extends Fragment {
         fridge.add(new FoodItem("Tobasco", "Other", "Tobasco.jpg"));
         fridge.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
         fridge.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
+        fridge.add(null); //used to know where to put plus
 
     }
 }

@@ -40,16 +40,16 @@ public class IngredientAdapter extends ArrayAdapter<String[]> {
         if (ingredientsView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            ingredientsView = inflater.inflate(R.layout.fridge_item, parent, false);
+            ingredientsView = inflater.inflate(R.layout.ingredients_item, parent, false);
         }
 
         LinearLayout layout = (LinearLayout) ingredientsView.findViewById(R.id.ingredient_layout);
-        TextView name = (TextView) ingredientsView.findViewById(R.id.food_name);
+        TextView name = (TextView) ingredientsView.findViewById(R.id.ingredient_name);
 
         Ingredient item = (Ingredient) ingredients.get(position);
         name.setText(String.format("%s %s", item.amount, item.name));
 
-        if (position % 2 == 0) {
+        if (position % 2 == 1) {
             layout.setBackgroundColor(ContextCompat.getColor(ingredientsView.getContext(),
                     R.color.mediumGrey));
         } else {
