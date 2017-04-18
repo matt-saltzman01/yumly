@@ -81,7 +81,7 @@ public class MyFridgeFragment extends Fragment {
         final Button otherButton = (Button) view.findViewById(R.id.other_button);
 
         meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                R.color.colorAccent));
+                R.color.primary));
         vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
         dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -94,7 +94,7 @@ public class MyFridgeFragment extends Fragment {
         meatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -109,7 +109,7 @@ public class MyFridgeFragment extends Fragment {
         vegButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -124,7 +124,7 @@ public class MyFridgeFragment extends Fragment {
         dairyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -139,7 +139,7 @@ public class MyFridgeFragment extends Fragment {
         otherButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -166,6 +166,15 @@ public class MyFridgeFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (fridge == null || fridge.size() == 0) {
+            populateFridge();
+        }
+        setAdapters();
     }
 
     @Override

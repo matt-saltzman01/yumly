@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements
         //super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.primary));
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -21,7 +21,7 @@
         android:layout_marginBottom="5dp"
         android:text="Everyday Baked Chicken"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:gravity="center"
+        android:gravity="start"
         android:textStyle="normal|bold"
         android:textSize="24sp" />
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/recipe_image"
-        android:background="@color/colorAccent" />
+        android:background="@color/primary" />
 
     <LinearLayout
         android:id="@+id/recipe_tabs"
@@ -68,9 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/recipe_tabs"
-        android:background="@color/colorAccent" />
+        android:background="@color/primary" />
 
-    <!--Switch to TabHost Unless getChildFragmentManager can work-->
     <ListView
         android:id="@+id/ingredients_component"
         android:layout_width="wrap_content"
@@ -93,7 +92,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/orange_line2"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryBackground" >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -120,7 +120,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/colorAccent" />
+                android:progressTint="@color/primary" />
             <TextView
                 android:text="5.8% DV"
                 android:layout_width="match_parent"
@@ -134,7 +134,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_below="@id/recipe_image"
-            android:background="@color/colorAccent" />
+            android:background="@color/primary" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -161,7 +161,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/colorAccent" />
+                android:progressTint="@color/primary" />
             <TextView
                 android:text="0.8% DV"
                 android:layout_width="match_parent"
@@ -175,14 +175,14 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_below="@id/recipe_image"
-            android:background="@color/colorAccent" />
+            android:background="@color/primary" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <TextView
                 android:text="Fat"
@@ -202,7 +202,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/colorAccent" />
+                android:progressTint="@color/primary" />
             <TextView
                 android:text="5% DV"
                 android:layout_width="match_parent"
@@ -216,7 +216,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_below="@id/recipe_image"
-            android:background="@color/colorAccent" />
+            android:background="@color/primary" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -243,7 +243,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/colorAccent" />
+                android:progressTint="@color/primary" />
             <TextView
                 android:text="27% DV"
                 android:layout_width="match_parent"
@@ -257,7 +257,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_below="@id/recipe_image"
-            android:background="@color/colorAccent" />
+            android:background="@color/primary" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -284,7 +284,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/colorAccent" />
+                android:progressTint="@color/primary" />
             <TextView
                 android:text="45% DV"
                 android:layout_width="match_parent"

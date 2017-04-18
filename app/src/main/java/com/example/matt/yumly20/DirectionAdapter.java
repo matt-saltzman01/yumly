@@ -49,10 +49,10 @@ public class DirectionAdapter extends ArrayAdapter<String[]> {
 
         if (position % 2 == 1) {
             layout.setBackgroundColor(ContextCompat.getColor(directionsView.getContext(),
-                    R.color.mediumGrey));
+                    R.color.primaryBackgroundDark));
         } else {
             layout.setBackgroundColor(ContextCompat.getColor(directionsView.getContext(),
-                    R.color.lightGrey));
+                    R.color.primaryBackground));
         }
 
         return directionsView;

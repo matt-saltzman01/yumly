@@ -51,10 +51,10 @@ public class IngredientAdapter extends ArrayAdapter<String[]> {
 
         if (position % 2 == 1) {
             layout.setBackgroundColor(ContextCompat.getColor(ingredientsView.getContext(),
-                    R.color.mediumGrey));
+                    R.color.primaryBackgroundDark));
         } else {
             layout.setBackgroundColor(ContextCompat.getColor(ingredientsView.getContext(),
-                    R.color.lightGrey));
+                    R.color.primaryBackground));
         }
 
         return ingredientsView;

@@ -65,10 +65,10 @@
         android:text="Go to My Fridge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="center"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/primary"
         android:onClick="toFridgeButtonClick" />
 
 </LinearLayout>

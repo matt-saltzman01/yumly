@@ -98,7 +98,7 @@ public class RecipeFragment extends Fragment {
         final Button nutritionButton = (Button) view.findViewById(R.id.nutrition_button);
 
         ingredientsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                R.color.colorAccent));
+                R.color.primary));
         directionsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
         nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -107,7 +107,7 @@ public class RecipeFragment extends Fragment {
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ingredientsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 directionsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -124,7 +124,7 @@ public class RecipeFragment extends Fragment {
         directionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 directionsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 ingredientsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -141,7 +141,7 @@ public class RecipeFragment extends Fragment {
         nutritionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                        R.color.colorAccent));
+                        R.color.primary));
                 directionsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
                 ingredientsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
