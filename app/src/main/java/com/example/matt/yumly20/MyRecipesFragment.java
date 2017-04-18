@@ -7,9 +7,11 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,8 +30,8 @@ public class MyRecipesFragment extends Fragment {
 
     ListView lv;
     SearchView sv;
-    ArrayAdapter<String> ad;
-    String recipes[] = {"Chicken", "Bacon", "Ranch"};
+    RecipesAdapter rAdapter;
+    List recipes = new ArrayList();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -86,9 +88,21 @@ public class MyRecipesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, recipes);
-        lv = (ListView) getActivity().findViewById(R.id.recipeList);
-        lv.setAdapter(ad);
+
+        if (recipes == null || recipes.size() == 0) {
+            populateRecipes();
+        }
+
+        String[][] rArray = new String[recipes.size()][];
+        for (int a = 0; a < recipes.size(); a++) {
+            String[] rI = {(String) recipes.get(a)};
+            rArray[a] = rI;
+        }
+
+        rAdapter = new RecipesAdapter(getActivity(), R.layout.my_recipes_item, recipes);
+        lv = (ListView) getActivity().findViewById(R.id.recipes_list);
+        lv.setAdapter(rAdapter);
+
         sv = (SearchView) getActivity().findViewById(R.id.searchView);
         sv.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
@@ -99,11 +113,12 @@ public class MyRecipesFragment extends Fragment {
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        ad.getFilter().filter(newText);
+                        rAdapter.getFilter().filter(newText);
                         return false;
                     }
                 }
         );
+
     }
 
     @Override
@@ -137,4 +152,19 @@ public class MyRecipesFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private void populateRecipes() {
+        recipes = new ArrayList();
+        recipes.add("Fried Rice");
+        recipes.add("Everyday Baked Chicken");
+        recipes.add("Burger");
+        recipes.add("Crab Cake");
+        recipes.add("Guacamole");
+        recipes.add("Pasta");
+        recipes.add("Ramen");
+        recipes.add("Salmon");
+        recipes.add("Tacos");
+        recipes.add("Brownies");
+    }
+
 }

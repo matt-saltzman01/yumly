@@ -22,8 +22,7 @@
         android:text="Everyday Baked Chicken"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:gravity="start"
-        android:textStyle="normal|bold"
-        android:textSize="24sp" />
+        style="@style/RecipeTitleText" />
 
     <TextView
         android:id="@+id/orange_line1"

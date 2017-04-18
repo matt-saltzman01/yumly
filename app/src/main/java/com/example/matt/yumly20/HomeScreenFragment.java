@@ -145,7 +145,7 @@ public class HomeScreenFragment extends Fragment {
             layout.addView(imageView);
         }
 
-        pics = new ArrayList<Integer>();
+        pics = new ArrayList();
         pics.add(R.drawable.friedrice);
         pics.add(R.drawable.guacamole);
         pics.add(R.drawable.everydaybakedchicken);
