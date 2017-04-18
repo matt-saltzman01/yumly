@@ -120,10 +120,11 @@ public class HomeScreenFragment extends Fragment {
     public void buildImageScrolls(View view) {
 
         ArrayList<Integer> pics = new ArrayList<Integer>();
-        pics.add(R.drawable.ramen);
-        pics.add(R.drawable.brownies);
         pics.add(R.drawable.tacos);
+        pics.add(R.drawable.ramen);
         pics.add(R.drawable.salmon);
+        pics.add(R.drawable.crabcake);
+        pics.add(R.drawable.brownies);
 
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.week_recipes_linear);
         for (int i = 0; i < pics.size(); i++) {
@@ -133,12 +134,21 @@ public class HomeScreenFragment extends Fragment {
             imageView.setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), pics.get(i)));
             imageView.setScaleType(ImageView.ScaleType.CENTER);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getActivity()).myWeekClick(view);
+                }
+            });
+
             layout.addView(imageView);
         }
 
         pics = new ArrayList<Integer>();
         pics.add(R.drawable.friedrice);
         pics.add(R.drawable.guacamole);
+        pics.add(R.drawable.everydaybakedchicken);
         pics.add(R.drawable.burger);
         pics.add(R.drawable.pasta);
 
@@ -150,6 +160,14 @@ public class HomeScreenFragment extends Fragment {
             imageView.setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), pics.get(i)));
             imageView.setScaleType(ImageView.ScaleType.CENTER);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getActivity()).myRecipeClick(view);
+                }
+            });
+
             layout.addView(imageView);
         }
     }

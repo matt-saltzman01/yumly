@@ -176,9 +176,9 @@ public class RecipeFragment extends Fragment {
 
         if (component.equals("Ingredients")) {
             iView.setVisibility(View.VISIBLE);
-        } else if (component.equals("Ingredients")) {
+        } else if (component.equals("Directions")) {
             dView.setVisibility(View.VISIBLE);
-        } else if (component.equals("Ingredients")) {
+        } else if (component.equals("Nutrition")) {
             nView.setVisibility(View.VISIBLE);
         }
 

@@ -2,7 +2,6 @@ package com.example.matt.yumly20;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -32,15 +31,10 @@ public class MainActivity extends AppCompatActivity implements
     private static MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
     private static CookBookFragment cookBookFragment = new CookBookFragment();
     private static SettingsFragment settingsFragment = new SettingsFragment();
+
     private static Fragment currentFragment = homeScreenFragment;
     private CharSequence currentTitle = "Home";
     private CharSequence mTitle;
-
-
-    //temporary until recipe lists are built
-    private static RecipeFragment recipeFragment = new RecipeFragment();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +78,7 @@ public class MainActivity extends AppCompatActivity implements
             currentFragment = myFridgeFragment;
             currentTitle = "My Fridge";
         } else if (id == R.id.my_recipes_frag) {
-            //temporary until recipe lists are built
-            currentFragment = recipeFragment;
+            currentFragment = myRecipesFragment;
             currentTitle = "Favorite Recipes";
         } else if (id == R.id.cookbook_frag) {
             currentFragment = cookBookFragment;
@@ -163,6 +156,24 @@ public class MainActivity extends AppCompatActivity implements
     public void toFridgeButtonClick(View view) {
         currentFragment = myFridgeFragment;
         currentTitle = "My Fridge";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
+    }
+
+    public void myRecipeClick(View view) {
+        currentFragment = new RecipeFragment();
+        currentTitle = "Recipe Details";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
+    }
+
+    public void myWeekClick(View view) {
+        currentFragment = new RecipeFragment();
+        currentTitle = "Recipe Details";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
