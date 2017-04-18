@@ -12,9 +12,6 @@
             android:id="@+id/my_recipes_frag"
             android:title="Favorite Recipes" />
         <item
-            android:id="@+id/cookbook_frag"
-            android:title="Cookbook" />
-        <item
             android:id="@+id/settings_frag"
             android:title="Settings" />
     </group>

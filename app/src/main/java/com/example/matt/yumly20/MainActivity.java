@@ -21,15 +21,13 @@ public class MainActivity extends AppCompatActivity implements
         HomeScreenFragment.OnFragmentInteractionListener,
         MyFridgeFragment.OnFragmentInteractionListener,
         MyRecipesFragment.OnFragmentInteractionListener,
-        CookBookFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
-        RecipeFragment.OnFragmentInteractionListener { //temporary until recipe lists are built
+        RecipeFragment.OnFragmentInteractionListener {
 
 
     private static HomeScreenFragment homeScreenFragment = new HomeScreenFragment();
     private static MyFridgeFragment myFridgeFragment = new MyFridgeFragment();
     private static MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
-    private static CookBookFragment cookBookFragment = new CookBookFragment();
     private static SettingsFragment settingsFragment = new SettingsFragment();
 
     private static Fragment currentFragment = homeScreenFragment;
@@ -80,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements
         } else if (id == R.id.my_recipes_frag) {
             currentFragment = myRecipesFragment;
             currentTitle = "Favorite Recipes";
-        } else if (id == R.id.cookbook_frag) {
-            currentFragment = cookBookFragment;
-            currentTitle = "Cookbook";
         } else if (id == R.id.settings_frag) {
             currentFragment = settingsFragment;
             currentTitle = "Settings";
@@ -114,13 +109,21 @@ public class MainActivity extends AppCompatActivity implements
         boolean replace = false;
 
         if (id == R.id.action_search) {
-            //nothing for now
+
+            if (!currentFragment.equals(myRecipesFragment)) {
+                currentFragment = myRecipesFragment;
+                currentTitle = "Search Recipes";
+                replace = true;
+            }
+
         } else if (id == R.id.action_my_cart) {
+
             if (!currentFragment.equals(myFridgeFragment)) {
                 currentFragment = myFridgeFragment;
                 currentTitle = "My Fridge";
                 replace = true;
             }
+
         }
 
         if (replace) {
