@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class RecipeFragment extends Fragment {
 
     private ListView iView;
     private ListView dView;
-    private ListView nView;
+    private LinearLayout nView;
 
     private String component = "Ingredients";
     private IngredientAdapter iAdapter;
@@ -117,10 +118,9 @@ public class RecipeFragment extends Fragment {
                 nView.setVisibility(View.GONE);
 
                 component = "Ingredients";
-                setAdapters();
-
             }
         });
+
         directionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 directionsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -135,9 +135,9 @@ public class RecipeFragment extends Fragment {
                 nView.setVisibility(View.GONE);
 
                 component = "Directions";
-                setAdapters();
             }
         });
+
         nutritionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -152,7 +152,6 @@ public class RecipeFragment extends Fragment {
                 nView.setVisibility(View.VISIBLE);
 
                 component = "Nutrition";
-                setAdapters();
             }
         });
 
@@ -165,13 +164,24 @@ public class RecipeFragment extends Fragment {
 
         iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
         dView = (ListView) getActivity().findViewById(R.id.directions_component);
-        nView = (ListView) getActivity().findViewById(R.id.nutrition_component);
+        nView = (LinearLayout) getActivity().findViewById(R.id.nutrition_component);
 
-        iView.setVisibility(View.VISIBLE);
+        if (component == null) {
+            component = "Ingredients";
+        }
+
+        iView.setVisibility(View.GONE);
         dView.setVisibility(View.GONE);
         nView.setVisibility(View.GONE);
 
-        component = "Ingredients";
+        if (component.equals("Ingredients")) {
+            iView.setVisibility(View.VISIBLE);
+        } else if (component.equals("Ingredients")) {
+            dView.setVisibility(View.VISIBLE);
+        } else if (component.equals("Ingredients")) {
+            nView.setVisibility(View.VISIBLE);
+        }
+
         setAdapters();
     }
 
@@ -216,31 +226,19 @@ public class RecipeFragment extends Fragment {
 
     private void setAdapters() {
 
-        if (component.equals("Ingredients")) {
-
-            if (ingredients == null || ingredients.size() == 0) {
-                populateIngredients();
-            }
-            iAdapter = new IngredientAdapter(getActivity(), R.layout.ingredients_item, ingredients);
-            iView.setAdapter(iAdapter);
-
-        } else if (component.equals("Directions")) {
-
-            if (directions == null || directions.size() == 0) {
-                populateDirections();
-            }
-            dAdapter = new DirectionAdapter(getActivity(), R.layout.directions_item, directions);
-            dView.setAdapter(dAdapter);
-
-        } else if (component.equals("Nutrition")) {
-
-            if (directions == null || directions.size() == 0) {
-                populateDirections();
-            }
-            dAdapter = new DirectionAdapter(getActivity(), R.layout.directions_item, directions);
-            dView.setAdapter(dAdapter);
-
+        if (ingredients == null || ingredients.size() == 0) {
+            populateIngredients();
         }
+        iAdapter = new IngredientAdapter(getActivity(), R.layout.ingredients_item, ingredients);
+        iView.setAdapter(iAdapter);
+
+
+        if (directions == null || directions.size() == 0) {
+            populateDirections();
+        }
+        dAdapter = new DirectionAdapter(getActivity(), R.layout.directions_item, directions);
+        dView.setAdapter(dAdapter);
+
     }
 
     private void populateIngredients() {
