@@ -7,6 +7,9 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 
 
 /**
@@ -22,6 +25,11 @@ public class MyRecipesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    ListView lv;
+    SearchView sv;
+    ArrayAdapter<String> ad;
+    String recipes[] = {"Chicken", "Bacon", "Ranch"};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,7 +72,8 @@ public class MyRecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_recipes, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_recipes, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -72,6 +81,29 @@ public class MyRecipesFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, recipes);
+        lv = (ListView) getActivity().findViewById(R.id.recipeList);
+        lv.setAdapter(ad);
+        sv = (SearchView) getActivity().findViewById(R.id.searchView);
+        sv.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        ad.getFilter().filter(newText);
+                        return false;
+                    }
+                }
+        );
     }
 
     @Override
