@@ -1,4 +1,4 @@
-# yumly
+# Chefly
 
 Group project for UI and Mobile Apps at JHU.
 It should be titled Chefly.
