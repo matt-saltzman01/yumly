@@ -178,8 +178,6 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
-        getMenuInflater().inflate(R.menu.activity_main_drawer, navMenu);
-        super.onOptionsItemSelected(navMenu.findItem(R.id.action_my_fridge));
     }
 
     public void myRecipeClick(View view) {
@@ -207,8 +205,6 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
-        getMenuInflater().inflate(R.menu.activity_main_drawer, navMenu);
-        super.onOptionsItemSelected(navMenu.findItem(R.id.action_my_fridge));
     }
 
     public void noIngredientClick(View view) {
@@ -218,7 +214,5 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
-        getMenuInflater().inflate(R.menu.activity_main_drawer, navMenu);
-        super.onOptionsItemSelected(navMenu.findItem(R.id.action_my_fridge));
     }
 }
