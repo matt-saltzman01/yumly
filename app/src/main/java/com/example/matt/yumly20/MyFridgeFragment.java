@@ -152,9 +152,9 @@ public class MyFridgeFragment extends Fragment {
             }
         });
 
-        if (fridge == null || fridge.size() == 0) {
-            populateFridge();
-        }
+        //if (fridge == null || fridge.size() == 0) {
+        populateFridge();
+        //}
 
         return view;
     }
@@ -169,9 +169,9 @@ public class MyFridgeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (fridge == null || fridge.size() == 0) {
-            populateFridge();
-        }
+        //if (fridge == null || fridge.size() == 0) {
+        populateFridge();
+        //}
         setAdapters();
     }
 
@@ -267,9 +267,9 @@ public class MyFridgeFragment extends Fragment {
 
     private void populateFridge() {
 
-        if (fridge == null) {
-            fridge = new ArrayList();
-        }
+        //if (fridge == null) {
+        fridge = new ArrayList();
+        //}
 
         fridge.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
         fridge.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));
@@ -284,7 +284,6 @@ public class MyFridgeFragment extends Fragment {
         fridge.add(new FoodItem("Sourdough", "Carbs", "Sourdough.jpg"));
         fridge.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
         fridge.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
-        fridge.add(null); //used to know where to put plus
 
     }
 }

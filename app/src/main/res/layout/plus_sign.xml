@@ -13,7 +13,7 @@
         android:id="@+id/add_item_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:background="@drawable/plus" />
+        android:background="@drawable/plus_rev" />
 
     <Space
         android:layout_width="match_parent"

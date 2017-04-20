@@ -36,12 +36,14 @@ public class FridgeAdapter extends ArrayAdapter<String[]> {
         if (foodItems.get(position) == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            return inflater.inflate(R.layout.plus_sign, parent, false);
+            return inflater.inflate(R.layout.empty_item, parent, false);
         }
+
+        View fridgeView = convertView;
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View fridgeView = inflater.inflate(R.layout.fridge_item, parent, false);
+        fridgeView = inflater.inflate(R.layout.fridge_item, parent, false);
 
         ImageView pic = (ImageView) fridgeView.findViewById(R.id.food_picture);
         TextView name = (TextView) fridgeView.findViewById(R.id.food_name);

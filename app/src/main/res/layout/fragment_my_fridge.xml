@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.example.matt.yumly20.MyFridgeFragment">
@@ -79,42 +80,58 @@
             android:onClick="findRecipesButtonClick" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/item_lists"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/button_linear"
         android:layout_below="@id/fridge_question"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_above="@id/button_linear" >
 
-        <!--Eventually this should be a GridView but I didn't know
-        that existed when I wrote this code. This will work fine
-        for the UI demo. -Isaac-->
-        <ListView
-            android:id="@+id/left_list"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/item_lists"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:divider="@null" >
-        </ListView>
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <ListView
-            android:id="@+id/center_list"
-            android:layout_width="0dp"
+            <!--Eventually this should be a GridView but I didn't know
+            that existed when I wrote this code. This will work fine
+            for the UI demo. -Isaac-->
+            <ListView
+                android:id="@+id/left_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:divider="@null" >
+            </ListView>
+
+            <ListView
+                android:id="@+id/center_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:divider="@null" >
+            </ListView>
+
+            <ListView
+                android:id="@+id/right_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:divider="@null" >
+            </ListView>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:divider="@null" >
-        </ListView>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            app:backgroundTint="@color/primary"
+            app:srcCompat="@drawable/plus_blk" />
 
-        <ListView
-            android:id="@+id/right_list"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:divider="@null" >
-        </ListView>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
