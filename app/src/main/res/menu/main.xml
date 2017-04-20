@@ -8,8 +8,8 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_my_cart"
-        android:icon="@drawable/my_cart"
+        android:id="@+id/action_my_fridge"
+        android:icon="@drawable/fridge"
         android:title="My Cart"
         app:showAsAction="always" />
 

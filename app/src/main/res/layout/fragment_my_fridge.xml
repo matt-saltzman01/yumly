@@ -36,8 +36,8 @@
             android:layout_weight=".25" />
 
         <Button
-            android:id="@+id/other_button"
-            android:text="Other"
+            android:id="@+id/carbs_button"
+            android:text="Carbs"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25" />

@@ -78,7 +78,7 @@ public class MyFridgeFragment extends Fragment {
         final Button meatButton = (Button) view.findViewById(R.id.meat_button);
         final Button vegButton = (Button) view.findViewById(R.id.veg_button);
         final Button dairyButton = (Button) view.findViewById(R.id.dairy_button);
-        final Button otherButton = (Button) view.findViewById(R.id.other_button);
+        final Button carbsButton = (Button) view.findViewById(R.id.carbs_button);
 
         meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.primary));
@@ -86,7 +86,7 @@ public class MyFridgeFragment extends Fragment {
                 R.color.lightGrey));
         dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
-        otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+        carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
 
         group = "M/P";
@@ -99,7 +99,7 @@ public class MyFridgeFragment extends Fragment {
                         R.color.lightGrey));
                 dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
-                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
 
                 group = "M/P";
@@ -114,7 +114,7 @@ public class MyFridgeFragment extends Fragment {
                         R.color.lightGrey));
                 dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
-                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
 
                 group = "F/V";
@@ -129,16 +129,16 @@ public class MyFridgeFragment extends Fragment {
                         R.color.lightGrey));
                 meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
-                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
 
                 group = "Dairy";
                 setAdapters();
             }
         });
-        otherButton.setOnClickListener(new View.OnClickListener() {
+        carbsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                otherButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.primary));
                 vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
@@ -147,11 +147,10 @@ public class MyFridgeFragment extends Fragment {
                 meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                         R.color.lightGrey));
 
-                group = "Other";
+                group = "Carbs";
                 setAdapters();
             }
         });
-
 
         if (fridge == null || fridge.size() == 0) {
             populateFridge();
@@ -159,7 +158,6 @@ public class MyFridgeFragment extends Fragment {
 
         return view;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -276,14 +274,14 @@ public class MyFridgeFragment extends Fragment {
         fridge.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
         fridge.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));
         fridge.add(new FoodItem("Spinach", "F/V", "Spinach.jpg"));
-        fridge.add(new FoodItem("Corn Chips", "Other", "CornChips.jpg"));
+        fridge.add(new FoodItem("Corn Chips", "Carbs", "CornChips.jpg"));
         fridge.add(new FoodItem("Milk", "Dairy", "Milk.jpg"));
         fridge.add(new FoodItem("Ground Beef", "M/P", "GroundBeef.jpg"));
         fridge.add(new FoodItem("Parmesan", "Dairy", "Parmesan.jpg"));
         fridge.add(new FoodItem("Goat Cheese", "Dairy", "GoatCheese.jpg"));
         fridge.add(new FoodItem("Chicken Breast", "M/P", "ChickenBreast.jpg"));
         fridge.add(new FoodItem("Onion", "F/V", "Onion.jpg"));
-        fridge.add(new FoodItem("Tobasco", "Other", "Tobasco.jpg"));
+        fridge.add(new FoodItem("Sourdough", "Carbs", "Sourdough.jpg"));
         fridge.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
         fridge.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
         fridge.add(null); //used to know where to put plus

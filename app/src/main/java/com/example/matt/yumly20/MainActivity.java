@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements
     private static MyFridgeFragment myFridgeFragment = new MyFridgeFragment();
     private static MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
     private static SettingsFragment settingsFragment = new SettingsFragment();
+
+    private Menu navMenu;
 
     private static Fragment currentFragment = homeScreenFragment;
     private CharSequence currentTitle = "Home";
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 
         getFragmentManager().beginTransaction().replace(R.id.content_frame,
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements
                 replace = true;
             }
 
-        } else if (id == R.id.action_my_cart) {
+        } else if (id == R.id.action_my_fridge) {
 
             if (!currentFragment.equals(myFridgeFragment)) {
                 currentFragment = myFridgeFragment;
@@ -163,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
+        getMenuInflater().inflate(R.menu.activity_main_drawer, navMenu);
+        super.onOptionsItemSelected(navMenu.findItem(R.id.action_my_fridge));
     }
 
     public void myRecipeClick(View view) {

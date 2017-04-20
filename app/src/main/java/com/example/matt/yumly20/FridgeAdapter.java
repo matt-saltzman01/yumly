@@ -84,8 +84,8 @@ public class FridgeAdapter extends ArrayAdapter<String[]> {
             case "Goat Cheese":
                 pic.setImageResource(R.mipmap.goatcheese);
                 break;
-            case "Tobasco":
-                pic.setImageResource(R.mipmap.tobasco);
+            case "Sourdough":
+                pic.setImageResource(R.mipmap.sourdough);
                 break;
             case "Corn Chips":
                 pic.setImageResource(R.mipmap.cornchips);
