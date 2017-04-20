@@ -23,7 +23,7 @@ import java.util.List;
  * Use the {@link MyRecipesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyRecipesFragment extends Fragment {
+public class IngredientSearchFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,8 +31,8 @@ public class MyRecipesFragment extends Fragment {
 
     ListView lv;
     SearchView sv;
-    RecipesAdapter rAdapter;
-    List recipes = new ArrayList();
+    IngredientSearchAdapter iSAdapter;
+    List ingredients = new ArrayList();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -40,7 +40,7 @@ public class MyRecipesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MyRecipesFragment() {
+    public IngredientSearchFragment() {
         // Required empty public constructor
     }
 
@@ -75,7 +75,7 @@ public class MyRecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_recipes, container, false);
+        View view = inflater.inflate(R.layout.fragment_ingredient_search, container, false);
         return view;
     }
 
@@ -90,21 +90,16 @@ public class MyRecipesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (recipes == null || recipes.size() == 0) {
+        if (ingredients == null || ingredients.size() == 0) {
             populateRecipes();
         }
 
-        String[][] rArray = new String[recipes.size()][];
-        for (int a = 0; a < recipes.size(); a++) {
-            String[] rI = {(String) recipes.get(a)};
-            rArray[a] = rI;
-        }
+        iSAdapter = new IngredientSearchAdapter(getActivity(), R.layout.ingredient_search_item,
+                ingredients);
+        lv = (ListView) getActivity().findViewById(R.id.ingredient_search_list);
+        lv.setAdapter(iSAdapter);
 
-        rAdapter = new RecipesAdapter(getActivity(), R.layout.my_recipes_item, recipes);
-        lv = (ListView) getActivity().findViewById(R.id.recipes_list);
-        lv.setAdapter(rAdapter);
-
-        sv = (SearchView) getActivity().findViewById(R.id.mr_search_view);
+        sv = (SearchView) getActivity().findViewById(R.id.is_search_view);
         sv.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
@@ -114,7 +109,7 @@ public class MyRecipesFragment extends Fragment {
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        rAdapter.getFilter().filter(newText);
+                        iSAdapter.getFilter().filter(newText);
                         return false;
                     }
                 }
@@ -124,7 +119,7 @@ public class MyRecipesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ((MainActivity) getActivity()).myRecipeClick(view);
+                ((MainActivity) getActivity()).newIngredientClick(view);
             }
         });
 
@@ -163,17 +158,25 @@ public class MyRecipesFragment extends Fragment {
     }
 
     private void populateRecipes() {
-        recipes = new ArrayList();
-        recipes.add("Fried Rice");
-        recipes.add("Everyday Baked Chicken");
-        recipes.add("Burger");
-        recipes.add("Crab Cake");
-        recipes.add("Guacamole");
-        recipes.add("Pasta");
-        recipes.add("Ramen");
-        recipes.add("Salmon");
-        recipes.add("Tacos");
-        recipes.add("Brownies");
+
+        //if (fridge == null) {
+        ingredients = new ArrayList();
+        //}
+
+        ingredients.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
+        ingredients.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));
+        ingredients.add(new FoodItem("Spinach", "F/V", "Spinach.jpg"));
+        ingredients.add(new FoodItem("Corn Chips", "Carbs", "CornChips.jpg"));
+        ingredients.add(new FoodItem("Milk", "Dairy", "Milk.jpg"));
+        ingredients.add(new FoodItem("Ground Beef", "M/P", "GroundBeef.jpg"));
+        ingredients.add(new FoodItem("Parmesan", "Dairy", "Parmesan.jpg"));
+        ingredients.add(new FoodItem("Goat Cheese", "Dairy", "GoatCheese.jpg"));
+        ingredients.add(new FoodItem("Chicken Breast", "M/P", "ChickenBreast.jpg"));
+        ingredients.add(new FoodItem("Onion", "F/V", "Onion.jpg"));
+        ingredients.add(new FoodItem("Sourdough", "Carbs", "Sourdough.jpg"));
+        ingredients.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
+        ingredients.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
+
     }
 
 }

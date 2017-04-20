@@ -23,13 +23,15 @@ public class MainActivity extends AppCompatActivity implements
         MyFridgeFragment.OnFragmentInteractionListener,
         MyRecipesFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
-        RecipeFragment.OnFragmentInteractionListener {
+        RecipeFragment.OnFragmentInteractionListener,
+        IngredientSearchFragment.OnFragmentInteractionListener {
 
 
     private static HomeScreenFragment homeScreenFragment = new HomeScreenFragment();
     private static MyFridgeFragment myFridgeFragment = new MyFridgeFragment();
     private static MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
     private static SettingsFragment settingsFragment = new SettingsFragment();
+    private static IngredientSearchFragment ingredSearchFragment = new IngredientSearchFragment();
 
     private Menu navMenu;
 
@@ -160,6 +162,15 @@ public class MainActivity extends AppCompatActivity implements
         setTitle(currentTitle);
     }
 
+    public void findNewIngredient(View view) {
+        currentFragment = ingredSearchFragment;
+        currentTitle = "Add Ingredient";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
+    }
+
     public void toFridgeButtonClick(View view) {
         currentFragment = myFridgeFragment;
         currentTitle = "My Fridge";
@@ -187,5 +198,27 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
+    }
+
+    public void newIngredientClick(View view) {
+        currentFragment = myFridgeFragment;
+        currentTitle = "My Fridge";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
+        getMenuInflater().inflate(R.menu.activity_main_drawer, navMenu);
+        super.onOptionsItemSelected(navMenu.findItem(R.id.action_my_fridge));
+    }
+
+    public void noIngredientClick(View view) {
+        currentFragment = myFridgeFragment;
+        currentTitle = "My Fridge";
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .commit();
+        setTitle(currentTitle);
+        getMenuInflater().inflate(R.menu.activity_main_drawer, navMenu);
+        super.onOptionsItemSelected(navMenu.findItem(R.id.action_my_fridge));
     }
 }
