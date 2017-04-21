@@ -97,6 +97,9 @@ public class RecipeFragment extends Fragment {
         final Button directionsButton = (Button) view.findViewById(R.id.directions_button);
         final Button nutritionButton = (Button) view.findViewById(R.id.nutrition_button);
 
+        final ImageButton starOff = (ImageButton) view.findViewById(R.id.star_button_off);
+        final ImageButton starOn = (ImageButton) view.findViewById(R.id.star_button_on);
+
         ingredientsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.primary));
         directionsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -152,6 +155,22 @@ public class RecipeFragment extends Fragment {
                 nView.setVisibility(View.VISIBLE);
 
                 component = "Nutrition";
+            }
+        });
+
+        starOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                starOff.setVisibility(View.GONE);
+                starOn.setVisibility(View.VISIBLE);
+            }
+        });
+
+        starOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                starOn.setVisibility(View.GONE);
+                starOff.setVisibility(View.VISIBLE);
             }
         });
 
@@ -261,4 +280,5 @@ public class RecipeFragment extends Fragment {
                 "Repeat on the other side.");
         directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
     }
+
 }
