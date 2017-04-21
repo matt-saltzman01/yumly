@@ -1,14 +1,18 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 /**
@@ -24,6 +28,16 @@ public class SettingsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private SharedPreferences myPrefs;
+    private EditText height;
+    private EditText weight;
+    private EditText calories;
+    private EditText cholesteral;
+    private EditText fat;
+    private EditText protein;
+    private EditText sodium;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -84,6 +98,25 @@ public class SettingsFragment extends Fragment {
         hspinner.setAdapter(hadapter);
         wspinner.setAdapter(wadapter);
 
+        Context context = getActivity().getApplicationContext(); // app level storage
+        myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        height = (EditText) rootView.findViewById(R.id.height);
+        weight = (EditText) rootView.findViewById(R.id.weight);
+        calories = (EditText) rootView.findViewById(R.id.calories);
+        cholesteral = (EditText) rootView.findViewById(R.id.cholesteral);
+        fat = (EditText) rootView.findViewById(R.id.fat);
+        protein = (EditText) rootView.findViewById(R.id.protein);
+        sodium = (EditText) rootView.findViewById(R.id.sodium);
+
+        height.setText(String.format("%.0f", myPrefs.getFloat("height", (float) 10.0)));
+        weight.setText(String.format("%.0f", myPrefs.getFloat("weight", (float) 10.0)));
+        calories.setText(String.format("%.0f", myPrefs.getFloat("calories", (float) 10.0)));
+        cholesteral.setText(String.format("%.0f", myPrefs.getFloat("cholesteral", (float) 10.0)));
+        fat.setText(String.format("%.0f", myPrefs.getFloat("fat", (float) 10.0)));
+        protein.setText(String.format("%.0f", myPrefs.getFloat("protein", (float) 10.0)));
+        sodium.setText(String.format("%.0f", myPrefs.getFloat("sodium", (float) 10.0)));
+
         return rootView;
     }
 
@@ -125,4 +158,27 @@ public class SettingsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void onSave(View v) {
+
+        SharedPreferences.Editor peditor = myPrefs.edit();
+
+        peditor.putFloat("height", Float.parseFloat(height.getText().toString()));
+        peditor.putFloat("weight", Float.parseFloat(weight.getText().toString()));
+        peditor.putFloat("calories", Float.parseFloat(calories.getText().toString()));
+        peditor.putFloat("cholesteral", Float.parseFloat(cholesteral.getText().toString()));
+        peditor.putFloat("fat", Float.parseFloat(fat.getText().toString()));
+        peditor.putFloat("protein", Float.parseFloat(protein.getText().toString()));
+        peditor.putFloat("sodium", Float.parseFloat(sodium.getText().toString()));
+
+        peditor.commit();
+
+        Context context = getActivity().getApplicationContext();
+        CharSequence text = "Settings Successfully Updated!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
 }
