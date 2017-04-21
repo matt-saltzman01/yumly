@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 /**
@@ -64,7 +66,25 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        Spinner hspinner = (Spinner) rootView.findViewById(R.id.height_spinner);
+        Spinner wspinner = (Spinner) rootView.findViewById(R.id.weight_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> hadapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.height_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> wadapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.weight_array, android.R.layout.simple_spinner_item);
+
+        //Specify the layout to use when the list of choices appears
+        hadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        wadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Apply the adapter to the spinner
+        hspinner.setAdapter(hadapter);
+        wspinner.setAdapter(wadapter);
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

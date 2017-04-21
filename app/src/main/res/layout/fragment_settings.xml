@@ -331,17 +331,19 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/height"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:textAlignment="center"/>
-            <TextView
-                android:text="in"
-                android:layout_width="0dp"
+
+            <Spinner
+                android:id="@+id/height_spinner"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".07"
-                android:textAlignment="center"
-                android:textColor="#000000" />
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0.08"
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -360,17 +362,19 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/weight"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:textAlignment="center"/>
-            <TextView
-                android:text="lbs"
-                android:layout_width="0dp"
+
+            <Spinner
+                android:id="@+id/weight_spinner"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".07"
-                android:textAlignment="center"
-                android:textColor="#000000" />
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0.08"
+                android:gravity="bottom|right" />
 
         </LinearLayout>
 
@@ -400,6 +404,7 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/calories"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
@@ -429,6 +434,7 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/cholesteral"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
@@ -458,6 +464,7 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/fat"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
@@ -487,6 +494,7 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/protein"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
@@ -516,6 +524,7 @@
                 android:textColor="#000000" />
             <EditText
                 android:id="@+id/sodium"
+                android:inputType="numberDecimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
