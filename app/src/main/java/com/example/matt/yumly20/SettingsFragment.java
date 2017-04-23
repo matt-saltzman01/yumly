@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -109,13 +110,21 @@ public class SettingsFragment extends Fragment {
         protein = (EditText) rootView.findViewById(R.id.protein);
         sodium = (EditText) rootView.findViewById(R.id.sodium);
 
-        height.setText(String.format("%.0f", myPrefs.getFloat("height", (float) 10.0)));
-        weight.setText(String.format("%.0f", myPrefs.getFloat("weight", (float) 10.0)));
-        calories.setText(String.format("%.0f", myPrefs.getFloat("calories", (float) 10.0)));
-        cholesteral.setText(String.format("%.0f", myPrefs.getFloat("cholesteral", (float) 10.0)));
-        fat.setText(String.format("%.0f", myPrefs.getFloat("fat", (float) 10.0)));
-        protein.setText(String.format("%.0f", myPrefs.getFloat("protein", (float) 10.0)));
-        sodium.setText(String.format("%.0f", myPrefs.getFloat("sodium", (float) 10.0)));
+        height.setText(String.format("%0.0f", myPrefs.getFloat("height", (float) 10.0)));
+        weight.setText(String.format("%0.0f", myPrefs.getFloat("weight", (float) 10.0)));
+        calories.setText(String.format("%0.0f", myPrefs.getFloat("calories", (float) 10.0)));
+        cholesteral.setText(String.format("%0.0f", myPrefs.getFloat("cholesteral", (float) 10.0)));
+        fat.setText(String.format("%0.0f", myPrefs.getFloat("fat", (float) 10.0)));
+        protein.setText(String.format("%0.0f", myPrefs.getFloat("protein", (float) 10.0)));
+        sodium.setText(String.format("%0.0f", myPrefs.getFloat("sodium", (float) 10.0)));
+
+        Button saveButton = (Button) rootView.findViewById(R.id.save_preferences_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSave(v);
+            }
+        });
 
         return rootView;
     }

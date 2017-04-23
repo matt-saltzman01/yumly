@@ -540,7 +540,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/find_recipes_button"
+            android:id="@+id/save_preferences_button"
             android:text="Save Settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
