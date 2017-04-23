@@ -1,6 +1,7 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,7 +46,7 @@ public class RecipeFragment extends Fragment {
     private IngredientAdapter iAdapter;
     private DirectionAdapter dAdapter;
 
-
+    private Recipe recipe;
     private List ingredients = new ArrayList();
     private List directions = new ArrayList();
 
@@ -106,6 +107,20 @@ public class RecipeFragment extends Fragment {
                 R.color.lightGrey));
         nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
+
+        SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
+        try {
+            recipe = new Recipe(recipesDB, "Everyday Baked Chicken");
+
+            ingredients = recipe.ingredients;
+            directions = recipe.directions;
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~" + recipe.photoURL);
+            image.setImageBitmap(BitmapFactory.decodeByteArray(recipe.photoData, 0,
+                    recipe.photoData.length));
+            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } catch (StringFormatException sfe) {
+            sfe.printStackTrace();
+        }
 
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -262,23 +277,15 @@ public class RecipeFragment extends Fragment {
 
     private void populateIngredients() {
         ingredients = new ArrayList();
-        ingredients.add(new Ingredient("4", "chicken breasts"));
-        ingredients.add(new Ingredient("1 teaspoon", "kosher salt"));
-        ingredients.add(new Ingredient("1/2 teaspoon", "black pepper"));
-        ingredients.add(new Ingredient("1/2 teaspoon", "onion powder"));
-        ingredients.add(new Ingredient("1/2 teaspoon", "garlic powder"));
-        ingredients.add(new Ingredient("1/2 teaspoon", "oregano"));
-        ingredients.add(new Ingredient("1/2 teaspoon", "paprika"));
+        ingredients.add(new Ingredient("None of", "that shit"));
+
     }
 
     private void populateDirections() {
         directions = new ArrayList();
-        directions.add("Preheat oven to 425 degrees.");
-        directions.add("Mix all of the dry spices together.");
-        directions.add("Spray a baking pan with oil and place the chicken breasts on the pan. ");
-        directions.add("Sprinkle the spice mixture over the chicken and rub with your hands." +
-                "Repeat on the other side.");
-        directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
+        directions.add("Fix your app.");
+
     }
+
 
 }

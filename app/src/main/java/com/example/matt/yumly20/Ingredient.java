@@ -6,7 +6,7 @@ package com.example.matt.yumly20;
 
 public class Ingredient {
 
-    public final String DIVIDER = "<|>";
+    public static final String DIVIDER = "~~~div~~~";
 
     public String amount;
     public String name;

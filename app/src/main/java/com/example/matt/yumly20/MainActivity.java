@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements
     private static SettingsFragment settingsFragment = new SettingsFragment();
     private static IngredientSearchFragment ingredSearchFragment = new IngredientSearchFragment();
 
-    public static SQLiteDatabase recipesDB;
-
     private Menu navMenu;
 
     private static Fragment currentFragment = homeScreenFragment;
@@ -51,17 +49,8 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         Recipe recipe = buildSampleRecipe();
-        recipesDB = (new RecipeOpenHelper(this)).getWritableDatabase();
-        String sqlString = "INSERT INTO Recipes (name, ingredients, directions, photo) " +
-                "VALUES(?, ?, ?, ?)";
-        SQLiteStatement insertStatement = recipesDB.compileStatement(sqlString);
-        insertStatement.clearBindings();
-        insertStatement.bindString(1, recipe.name);
-        insertStatement.bindString(2, recipe.getIngredientsString());
-        insertStatement.bindString(3, recipe.getDirectionsString());
-        insertStatement.bindBlob(4, recipe.getLogoImage());
-        insertStatement.executeInsert();
-        recipesDB.close();
+        SQLiteDatabase recipesDB = (new RecipeOpenHelper(this)).getWritableDatabase();
+        recipe.saveToDB(recipesDB);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.primary));

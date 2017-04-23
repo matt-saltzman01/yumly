@@ -17,6 +17,7 @@ public class RecipeOpenHelper extends SQLiteOpenHelper {
                     "name TEXT PRIMARY KEY, " +
                     "ingredients TEXT, " +
                     "directions TEXT, " +
+                    "photourl TEXT, " +
                     "photo BLOB);";
 
     RecipeOpenHelper(Context context) {

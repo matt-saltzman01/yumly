@@ -1,5 +1,10 @@
 package com.example.matt.yumly20;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -13,18 +18,54 @@ import java.util.ArrayList;
 
 public class Recipe {
 
-    public final String DIVIDER = "|+|";
+    public static final String DIVIDER = "~~~split~~~";
 
     public String name;
     public ArrayList<Ingredient> ingredients;
     public ArrayList<String> directions;
     public String photoURL;
+    public byte[] photoData;
 
     public Recipe(String nm, ArrayList igs, ArrayList drs, String purl) {
         name = nm;
         ingredients = igs;
         directions = drs;
         photoURL = purl;
+    }
+
+    public Recipe(SQLiteDatabase recipesDB, String keyName) throws StringFormatException {
+        String sql = String.format("SELECT * FROM Recipes");
+        Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
+        if (cursor.getCount() == 0) {
+            System.err.println("~~~~~~~~~~~~~~~~~~~RECIPE IS NULL~~~~~~~~~~~~~~~~~~");
+        }
+        if(cursor.moveToFirst()){
+            name = cursor.getString(0);
+            parseIngredients(cursor.getString(1));
+            parseDirections(cursor.getString(2));
+            photoURL = cursor.getString(3);
+            photoData = cursor.getBlob(4);
+        }
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+        recipesDB.close();
+
+    }
+
+    public void saveToDB(SQLiteDatabase recipesDB) {
+
+        String sql = "INSERT OR REPLACE INTO Recipes (name, ingredients, directions, photourl, " +
+                "photo) VALUES(?, ?, ?, ?, ?)";
+        SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
+        insertStatement.clearBindings();
+        insertStatement.bindString(1, name);
+        insertStatement.bindString(2, getIngredientsString());
+        insertStatement.bindString(3, getDirectionsString());
+        insertStatement.bindString(4, photoURL);
+        insertStatement.bindBlob(5, getLogoImage());
+        insertStatement.executeInsert();
+        recipesDB.close();
     }
 
     public String getIngredientsString() {
@@ -73,6 +114,42 @@ public class Recipe {
             System.err.println("Recipe image retrieval error: " + e.toString());
         }
         return new byte[0];
+    }
+
+    public void parseIngredients(String text) throws StringFormatException{
+
+        if (ingredients == null) {
+            ingredients = new ArrayList();
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~text: " + text);
+        String[] items = text.split(DIVIDER);
+        for (int a = 0; a < items.length; a++) {
+            ingredients.add(new Ingredient(items[a]));
+        }
+    }
+
+    public void parseDirections(String text) throws StringFormatException{
+
+        if (directions == null) {
+            directions = new ArrayList();
+        }
+
+        String[] items = text.split(DIVIDER);
+        for (int a = 0; a < items.length; a++) {
+            directions.add(items[a]);
+        }
+    }
+
+    public void loadImage(Cursor cursor) {
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+        if(cursor.getCount() == 0){
+            //return null;
+        } else {
+           // return this;
+        }
     }
 
 }
