@@ -2,6 +2,8 @@ package com.example.matt.yumly20;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements
     private static SettingsFragment settingsFragment = new SettingsFragment();
     private static IngredientSearchFragment ingredSearchFragment = new IngredientSearchFragment();
 
+    public static SQLiteDatabase recipesDB;
+
     private Menu navMenu;
 
     private static Fragment currentFragment = homeScreenFragment;
@@ -44,8 +50,19 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Recipe recipe = buildSampleRecipe();
+        recipesDB = (new RecipeOpenHelper(this)).getWritableDatabase();
+        String sqlString = "INSERT INTO Recipes (name, ingredients, directions, photo) " +
+                "VALUES(?, ?, ?, ?)";
+        SQLiteStatement insertStatement = recipesDB.compileStatement(sqlString);
+        insertStatement.clearBindings();
+        insertStatement.bindString(1, recipe.name);
+        insertStatement.bindString(2, recipe.getIngredientsString());
+        insertStatement.bindString(3, recipe.getDirectionsString());
+        insertStatement.bindBlob(4, recipe.getLogoImage());
+        insertStatement.executeInsert();
+        recipesDB.close();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.primary));
         setSupportActionBar(toolbar);
@@ -214,5 +231,28 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
+    }
+
+    private Recipe buildSampleRecipe() {
+        ArrayList<Ingredient> ingredients = new ArrayList();
+        ingredients.add(new Ingredient("4", "chicken breasts"));
+        ingredients.add(new Ingredient("1 teaspoon", "kosher salt"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "black pepper"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "onion powder"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "garlic powder"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "oregano"));
+        ingredients.add(new Ingredient("1/2 teaspoon", "paprika"));
+
+        ArrayList<String> directions = new ArrayList();
+        directions.add("Preheat oven to 425 degrees.");
+        directions.add("Mix all of the dry spices together.");
+        directions.add("Spray a baking pan with oil and place the chicken breasts on the pan. ");
+        directions.add("Sprinkle the spice mixture over the chicken and rub with your hands." +
+                "Repeat on the other side.");
+        directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
+
+        return new Recipe("Everyday Baked Chicken", ingredients, directions,
+                "https://tse1.mm.bing.net/th?id=OIP.MrNLKPGArf1OiwbNAtwGVQEsDd&w=254&h=186" +
+                        "&c=7&qlt=90&o=4&dpr=1.25&pid=1.7");
     }
 }
