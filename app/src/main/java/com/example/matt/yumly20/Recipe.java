@@ -34,7 +34,7 @@ public class Recipe {
     }
 
     public Recipe(SQLiteDatabase recipesDB, String keyName) throws StringFormatException {
-        String sql = String.format("SELECT * FROM Recipes");
+        String sql = String.format("SELECT * FROM Recipes WHERE name='%s'", keyName);
         Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
             System.err.println("~~~~~~~~~~~~~~~~~~~RECIPE IS NULL~~~~~~~~~~~~~~~~~~");
@@ -44,7 +44,6 @@ public class Recipe {
             parseIngredients(cursor.getString(1));
             parseDirections(cursor.getString(2));
             photoURL = cursor.getString(3);
-            photoData = cursor.getBlob(4);
         }
         if (cursor != null && !cursor.isClosed()) {
             cursor.close();
@@ -55,15 +54,14 @@ public class Recipe {
 
     public void saveToDB(SQLiteDatabase recipesDB) {
 
-        String sql = "INSERT OR REPLACE INTO Recipes (name, ingredients, directions, photourl, " +
-                "photo) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO Recipes (name, ingredients, directions, photourl) " +
+                "VALUES(?, ?, ?, ?)";
         SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
         insertStatement.clearBindings();
         insertStatement.bindString(1, name);
         insertStatement.bindString(2, getIngredientsString());
         insertStatement.bindString(3, getDirectionsString());
         insertStatement.bindString(4, photoURL);
-        insertStatement.bindBlob(5, getLogoImage());
         insertStatement.executeInsert();
         recipesDB.close();
     }

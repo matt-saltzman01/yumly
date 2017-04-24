@@ -18,6 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.util.ArrayList;
 
 
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
 
         Recipe recipe = buildSampleRecipe();
         SQLiteDatabase recipesDB = (new RecipeOpenHelper(this)).getWritableDatabase();
@@ -246,6 +252,6 @@ public class MainActivity extends AppCompatActivity implements
         directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
 
         return new Recipe("Everyday Baked Chicken", ingredients, directions,
-                "http://chowdivine.com/wp-content/uploads/2013/03/Easy-Baked-Chicken.jpg");
+                "http://78recipes.com/wp-content/uploads/2017/03/Everyday-Baked-Chicken.jpg");
     }
 }

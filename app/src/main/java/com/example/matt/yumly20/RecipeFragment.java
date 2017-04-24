@@ -2,6 +2,7 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +94,6 @@ public class RecipeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_recipe, container, false);
 
         final ImageView image = (ImageView) view.findViewById(R.id.recipe_image);
-        image.setImageBitmap(BitmapFactory.decodeResource(
-                getResources(), R.drawable.everydaybakedchicken));
-        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         final Button ingredientsButton = (Button) view.findViewById(R.id.ingredients_button);
         final Button directionsButton = (Button) view.findViewById(R.id.directions_button);
@@ -114,10 +115,16 @@ public class RecipeFragment extends Fragment {
 
             ingredients = recipe.ingredients;
             directions = recipe.directions;
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~" + recipe.photoURL);
-            image.setImageBitmap(BitmapFactory.decodeByteArray(recipe.photoData, 0,
-                    recipe.photoData.length));
-            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+
+            imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    image.setImageBitmap(loadedImage);
+                    image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+            });
+
         } catch (StringFormatException sfe) {
             sfe.printStackTrace();
         }

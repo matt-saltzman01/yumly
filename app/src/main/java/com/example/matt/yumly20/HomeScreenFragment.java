@@ -1,6 +1,7 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.RectF;
@@ -13,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
 
@@ -132,14 +136,24 @@ public class HomeScreenFragment extends Fragment {
         pics.add(R.drawable.crabcake);
         pics.add(R.drawable.brownies);
 
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.week_recipes_linear);
         for (int i = 0; i < pics.size(); i++) {
-            ImageView imageView = new ImageView(getActivity());
+            final ImageView imageView = new ImageView(getActivity());
             imageView.setId(i);
             imageView.setPadding(0, 0, 0, 0);
-            imageView.setImageBitmap(BitmapFactory.decodeResource(
+
+            imageLoader.loadImage("drawable://" + pics.get(i), new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    imageView.setImageBitmap(loadedImage);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);                }
+            });
+
+/*            imageView.setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), pics.get(i)));
-            imageView.setScaleType(ImageView.ScaleType.CENTER);
+            imageView.setScaleType(ImageView.ScaleType.CENTER);*/
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,6 +161,10 @@ public class HomeScreenFragment extends Fragment {
                     ((MainActivity) getActivity()).myWeekClick(view);
                 }
             });
+
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
 
             layout.addView(imageView);
         }
@@ -160,12 +178,20 @@ public class HomeScreenFragment extends Fragment {
 
         layout = (LinearLayout) view.findViewById(R.id.my_recipes_linear);
         for (int i = 0; i < pics.size(); i++) {
-            ImageView imageView = new ImageView(getActivity());
+            final ImageView imageView = new ImageView(getActivity());
             imageView.setId(i);
             imageView.setPadding(0, 0, 0, 0);
-            imageView.setImageBitmap(BitmapFactory.decodeResource(
+
+            imageLoader.loadImage("drawable://" + pics.get(i), new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    imageView.setImageBitmap(loadedImage);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);                }
+            });
+
+/*            imageView.setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), pics.get(i)));
-            imageView.setScaleType(ImageView.ScaleType.CENTER);
+            imageView.setScaleType(ImageView.ScaleType.CENTER);*/
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -174,7 +200,12 @@ public class HomeScreenFragment extends Fragment {
                 }
             });
 
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
             layout.addView(imageView);
         }
+
     }
 }

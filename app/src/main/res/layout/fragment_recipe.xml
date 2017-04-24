@@ -9,8 +9,7 @@
         android:id="@+id/recipe_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/ic_launcher" />
+        android:layout_alignParentTop="true" />
 
     <ImageButton
         android:id="@+id/star_button_off"

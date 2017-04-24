@@ -31,6 +31,16 @@ public class IngredientSearchFragment extends Fragment {
 
     private static final String API_PREFIX = "http://api.yummly.com/v1";
 
+    /*
+
+    The allowedIngredient[] parameter must be set equal to a searchValue found in the Yummly
+    Search Metadata Dictionaries. An example of an allowedIngredient[] searchValue is "garlic"
+    to indicate you want to recipes which include garlic. To access the metadata dictionary for
+    allowedIngredient[] searchValues, use the following end point:
+    http://api.yummly.com/v1/api/metadata/ingredient?_app_id=YOUR_ID&_app_key=YOUR_APP_KEY
+
+     */
+
     ListView lv;
     SearchView sv;
     IngredientSearchAdapter iSAdapter;

@@ -33,6 +33,11 @@ public class MyRecipesFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String APP_ID = "c99817f9";
+    private static final String APP_KEY = "e7f3fbaa149d8beef86f2affedf35244";
+    private static final String API_PREFIX = String.format("http://api.yummly.com/v1" +
+            "?_app_id=%s&_app_key=%s", APP_ID, APP_KEY);
+
     ListView lv;
     SearchView sv;
     RecipesAdapter rAdapter;
