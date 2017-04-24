@@ -173,6 +173,8 @@ public class MyFridgeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) getActivity()).setTitle("My Fridge");
+
         //if (fridge == null || fridge.size() == 0) {
         populateFridge();
         //}

@@ -195,6 +195,7 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) getActivity()).setTitle("Recipe Details");
 
         iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
         dView = (ListView) getActivity().findViewById(R.id.directions_component);

@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements
 
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
+                .addToBackStack("")
                 .commit();
         setTitle(currentTitle);
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements
 
             if (!currentFragment.equals(myRecipesFragment)) {
                 currentFragment = myRecipesFragment;
-                currentTitle = "Search Recipes";
+                currentTitle = "Favorite Recipes";
                 replace = true;
             }
 
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements
         if (replace) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, currentFragment)
+                    .addToBackStack("")
                     .commit();
             setTitle(currentTitle);
         }
@@ -182,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements
         currentTitle = "My Fridge";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
+                .addToBackStack("")
                 .commit();
         setTitle(currentTitle);
     }
@@ -191,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements
         currentTitle = "Recipe Details";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
+                .addToBackStack("")
                 .commit();
         setTitle(currentTitle);
     }
@@ -200,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements
         currentTitle = "Recipe Details";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
+                .addToBackStack("")
                 .commit();
         setTitle(currentTitle);
     }

@@ -29,6 +29,8 @@ public class IngredientSearchFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String API_PREFIX = "http://api.yummly.com/v1";
+
     ListView lv;
     SearchView sv;
     IngredientSearchAdapter iSAdapter;

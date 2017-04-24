@@ -1,6 +1,8 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -8,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -89,6 +93,7 @@ public class MyRecipesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) getActivity()).setTitle("Favorite Recipes");
 
         if (recipes == null || recipes.size() == 0) {
             populateRecipes();
@@ -125,6 +130,21 @@ public class MyRecipesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ((MainActivity) getActivity()).myRecipeClick(view);
+            }
+        });
+
+        ImageView yummlyLogo = (ImageView) getActivity().findViewById(R.id.yummly_image);
+        yummlyLogo.setImageBitmap(BitmapFactory.decodeResource(
+                getResources(), R.drawable.yummly_logo));
+        yummlyLogo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+        LinearLayout yummlyLinear = (LinearLayout) getActivity().findViewById(R.id.yummly_linear);
+        yummlyLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserYummly = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.yummly.com/"));
+                startActivity(browserYummly);
             }
         });
 
