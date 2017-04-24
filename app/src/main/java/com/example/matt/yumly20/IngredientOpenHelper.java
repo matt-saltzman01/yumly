@@ -15,6 +15,7 @@ public class IngredientOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_CREATE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                     "name TEXT PRIMARY KEY, " +
+                    "group TEXT, " +
                     "photourl TEXT, " +
                     "photo BLOB);";
 

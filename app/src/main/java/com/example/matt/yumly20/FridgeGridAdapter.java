@@ -4,47 +4,43 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 /**
- * Created by Isaac on 4/16/2017.
+ * Created by Isaac on 4/24/2017.
  */
-public class FridgeAdapter extends BaseAdapter {
 
-    private final Context context;
-    private List foodItems;
+public class FridgeGridAdapter extends BaseAdapter {
 
-    public FridgeAdapter(Context c, int layoutId, List fItems) {
-        //super(c, layoutId, fItems);
+    private Context context;
+
+    public FridgeGridAdapter(Context c) {
         context = c;
-        foodItems = fItems;
     }
+
 
     @Override
     public int getCount() {
-        return foodItems.size();
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return foodItems.get(position);
+        return null;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if (foodItems.get(position) == null) {
+/*        if (foodItems.get(position) == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             return inflater.inflate(R.layout.empty_item, parent, false);
@@ -111,8 +107,11 @@ public class FridgeAdapter extends BaseAdapter {
             box.setChecked(true);
         } else {
             box.setChecked(false);
-        }
+        }*/
 
-        return fridgeView;
+        //return fridgeView;
+
+
+        return convertView;
     }
 }

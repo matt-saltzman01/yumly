@@ -110,13 +110,13 @@ public class SettingsFragment extends Fragment {
         protein = (EditText) rootView.findViewById(R.id.protein);
         sodium = (EditText) rootView.findViewById(R.id.sodium);
 
-        height.setText(String.format("%0.0f", myPrefs.getFloat("height", (float) 10.0)));
-        weight.setText(String.format("%0.0f", myPrefs.getFloat("weight", (float) 10.0)));
-        calories.setText(String.format("%0.0f", myPrefs.getFloat("calories", (float) 10.0)));
-        cholesteral.setText(String.format("%0.0f", myPrefs.getFloat("cholesteral", (float) 10.0)));
-        fat.setText(String.format("%0.0f", myPrefs.getFloat("fat", (float) 10.0)));
-        protein.setText(String.format("%0.0f", myPrefs.getFloat("protein", (float) 10.0)));
-        sodium.setText(String.format("%0.0f", myPrefs.getFloat("sodium", (float) 10.0)));
+        height.setText(String.format("%.0f", myPrefs.getFloat("height", (float) 150)));
+        weight.setText(String.format("%.0f", myPrefs.getFloat("weight", (float) 68)));
+        calories.setText(String.format("%.0f", myPrefs.getFloat("calories", (float) 2000)));
+        cholesteral.setText(String.format("%.0f", myPrefs.getFloat("cholesterol", (float) 3000)));
+        fat.setText(String.format("%.0f", myPrefs.getFloat("fat", (float) 65)));
+        protein.setText(String.format("%.0f", myPrefs.getFloat("protein", (float) 50)));
+        sodium.setText(String.format("%.0f", myPrefs.getFloat("sodium", (float) 2400)));
 
         Button saveButton = (Button) rootView.findViewById(R.id.save_preferences_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +175,7 @@ public class SettingsFragment extends Fragment {
         peditor.putFloat("height", Float.parseFloat(height.getText().toString()));
         peditor.putFloat("weight", Float.parseFloat(weight.getText().toString()));
         peditor.putFloat("calories", Float.parseFloat(calories.getText().toString()));
-        peditor.putFloat("cholesteral", Float.parseFloat(cholesteral.getText().toString()));
+        peditor.putFloat("cholesterol", Float.parseFloat(cholesteral.getText().toString()));
         peditor.putFloat("fat", Float.parseFloat(fat.getText().toString()));
         peditor.putFloat("protein", Float.parseFloat(protein.getText().toString()));
         peditor.putFloat("sodium", Float.parseFloat(sodium.getText().toString()));

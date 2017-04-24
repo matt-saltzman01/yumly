@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class MyFridgeFragment extends Fragment {
     private FridgeAdapter fAdaptorL;
     private FridgeAdapter fAdaptorC;
     private FridgeAdapter fAdaptorR;
+
+    private FridgeAdapter fAdapterGrid;
 
     private List fridge = new ArrayList();
     private String group;
@@ -216,7 +219,7 @@ public class MyFridgeFragment extends Fragment {
         that existed when I wrote this code. This will work fine for the
         UI demo. -Isaac*/
 
-        if (items.size() == 0) {
+ /*       if (items.size() == 0) {
             fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
             fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
             fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
@@ -244,7 +247,12 @@ public class MyFridgeFragment extends Fragment {
 
         leftL.setAdapter(fAdaptorL);
         centerL.setAdapter(fAdaptorC);
-        rightL.setAdapter(fAdaptorR);
+        rightL.setAdapter(fAdaptorR);*/
+
+        fAdapterGrid = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
+        GridView gridView = (GridView) getActivity().findViewById(R.id.item_grid);
+        gridView.setAdapter(fAdapterGrid);
+
     }
 
     private List getItems() {

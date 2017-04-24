@@ -241,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements
         directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
 
         return new Recipe("Everyday Baked Chicken", ingredients, directions,
-                "https://tse1.mm.bing.net/th?id=OIP.MrNLKPGArf1OiwbNAtwGVQEsDd&w=254&h=186" +
-                        "&c=7&qlt=90&o=4&dpr=1.25&pid=1.7");
+                "http://chowdivine.com/wp-content/uploads/2013/03/Easy-Baked-Chicken.jpg");
     }
 }
