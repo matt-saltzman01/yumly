@@ -109,7 +109,7 @@ public class RecipeFragment extends Fragment {
         nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
 
-        SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
+        final SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
         try {
             recipe = new Recipe(recipesDB, "Everyday Baked Chicken");
 
@@ -180,11 +180,19 @@ public class RecipeFragment extends Fragment {
             }
         });
 
+        if (recipe != null) {
+            if (recipe.saved) {
+                starOff.setVisibility(View.GONE);
+                starOn.setVisibility(View.VISIBLE);
+            }
+        }
+
         starOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 starOff.setVisibility(View.GONE);
                 starOn.setVisibility(View.VISIBLE);
+                recipe.saveToDB(recipesDB);
             }
         });
 
@@ -193,6 +201,7 @@ public class RecipeFragment extends Fragment {
             public void onClick(View v) {
                 starOn.setVisibility(View.GONE);
                 starOff.setVisibility(View.VISIBLE);
+                recipe.deleteFromDB(recipesDB);
             }
         });
 
@@ -285,13 +294,13 @@ public class RecipeFragment extends Fragment {
 
     private void populateIngredients() {
         ingredients = new ArrayList();
-        ingredients.add(new Ingredient("None of", "that shit"));
+        ingredients.add(new Ingredient("No ingredients", "for non existing recipes"));
 
     }
 
     private void populateDirections() {
         directions = new ArrayList();
-        directions.add("Fix your app.");
+        directions.add("This recipe no longer exists.");
 
     }
 

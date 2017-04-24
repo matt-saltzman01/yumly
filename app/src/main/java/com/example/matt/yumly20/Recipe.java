@@ -24,6 +24,7 @@ public class Recipe {
     public ArrayList<Ingredient> ingredients;
     public ArrayList<String> directions;
     public String photoURL;
+    public boolean saved = false;
     public byte[] photoData;
 
     public Recipe(String nm, ArrayList igs, ArrayList drs, String purl) {
@@ -44,11 +45,11 @@ public class Recipe {
             parseIngredients(cursor.getString(1));
             parseDirections(cursor.getString(2));
             photoURL = cursor.getString(3);
+            saved = true;
         }
         if (cursor != null && !cursor.isClosed()) {
             cursor.close();
         }
-        recipesDB.close();
 
     }
 
@@ -64,6 +65,18 @@ public class Recipe {
         insertStatement.bindString(4, photoURL);
         insertStatement.executeInsert();
         recipesDB.close();
+        saved = true;
+    }
+
+    public void deleteFromDB(SQLiteDatabase recipesDB) {
+
+        if (saved) {
+            String sql = String.format("DELETE FROM Recipes WHERE name='%s'", name);
+            SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
+            insertStatement.executeUpdateDelete();
+            recipesDB.close();
+            saved = false;
+        }
     }
 
     public String getIngredientsString() {
