@@ -1,6 +1,7 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -41,13 +47,24 @@ public class RecipesAdapter extends ArrayAdapter<String[]> {
             recipesView = inflater.inflate(R.layout.my_recipes_item, parent, false);
         }
 
-        ImageView pic = (ImageView) recipesView.findViewById(R.id.recipe_item_image);
-        TextView name = (TextView) recipesView.findViewById(R.id.recipe_item_title);
+        final ImageView pic = (ImageView) recipesView.findViewById(R.id.recipe_item_image);
+        final TextView name = (TextView) recipesView.findViewById(R.id.recipe_item_title);
 
-        String item = (String) recipes.get(position);
-        name.setText(item);
+        RecipePreview rPreview = (RecipePreview) recipes.get(position);
 
-        int image;
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
+        imageLoader.loadImage(rPreview.miniPhotoURL, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                pic.setImageBitmap(loadedImage);
+                pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+        });
+
+        name.setText(rPreview.name);
+
+        /*int image;
         switch (item) {
             case "Tacos":
                 image = R.drawable.tacos;
@@ -88,7 +105,7 @@ public class RecipesAdapter extends ArrayAdapter<String[]> {
             pic.setImageBitmap(BitmapFactory.decodeResource(
                     recipesView.getContext().getResources(), image));
             pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        }
+        }*/
 
         return recipesView;
     }

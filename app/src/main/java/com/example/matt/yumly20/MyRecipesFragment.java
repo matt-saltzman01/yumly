@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,8 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +47,14 @@ public class MyRecipesFragment extends Fragment {
     private static final String APP_ID = "c99817f9";
     private static final String APP_KEY = "e7f3fbaa149d8beef86f2affedf35244";
     private static final String API_PREFIX = String.format("http://api.yummly.com/v1" +
-            "?_app_id=%s&_app_key=%s", APP_ID, APP_KEY);
+            "/api/recipes?_app_id=%s&_app_key=%s", APP_ID, APP_KEY);
 
-    ListView lv;
-    SearchView sv;
-    RecipesAdapter rAdapter;
-    List recipes = new ArrayList();
+    protected ListView lv;
+    protected SearchView sv;
+    protected RecipesAdapter rAdapter;
+    protected ArrayList<RecipePreview> recipes = new ArrayList<>();
+    protected int current = 0;
+    protected int possible = -1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -100,14 +113,10 @@ public class MyRecipesFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Favorite Recipes");
 
+        searchForRecipes();
+
         if (recipes == null || recipes.size() == 0) {
             populateRecipes();
-        }
-
-        String[][] rArray = new String[recipes.size()][];
-        for (int a = 0; a < recipes.size(); a++) {
-            String[] rI = {(String) recipes.get(a)};
-            rArray[a] = rI;
         }
 
         rAdapter = new RecipesAdapter(getActivity(), R.layout.my_recipes_item, recipes);
@@ -187,8 +196,101 @@ public class MyRecipesFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void searchForRecipes() {
+
+        try {
+            if (possible == -1 || current < possible) {
+                URL url = new URL(String.format("%s%s%s", API_PREFIX, "&maxResult=10&start=0",
+                        "&requirePictures=true"));
+                new QueryYummlyTask().execute(url);
+            }
+        } catch (MalformedURLException mue) {
+            mue.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Created by Isaac on 4/25/2017.
+     */
+    public class QueryYummlyTask extends AsyncTask<URL, Void, String> {
+
+        ProgressBar pBar;
+        ListView rList;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = (ProgressBar) getActivity().findViewById(R.id.progress_load);
+            rList = (ListView) getActivity().findViewById(R.id.recipes_list);
+            pBar.setVisibility(View.VISIBLE);
+            rList.setVisibility(View.GONE);
+            recipes = new ArrayList<>();
+        }
+
+        @Override
+        protected String doInBackground(URL... params) {
+            try {
+                URL url = params[0];
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new
+                            InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    System.out.println(stringBuilder.toString());
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (!result.equals("")) {
+                try {
+
+                    JSONObject json = new JSONObject(result);
+                    JSONArray recipesJson = json.getJSONArray("matches");
+
+                    for (int a = 0; a < recipesJson.length(); a++) {
+
+                        JSONObject rpJson = recipesJson.getJSONObject(a);
+
+                        recipes.add(new RecipePreview(
+                                rpJson.getString("recipeName"),
+                                rpJson.getString("id"),
+                                rpJson.getJSONArray("smallImageUrls").getString(0)
+                            )
+                        );
+                    }
+
+
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                }
+            }
+
+            pBar = (ProgressBar) getActivity().findViewById(R.id.progress_load);
+            rList = (ListView) getActivity().findViewById(R.id.recipes_list);
+            pBar.setVisibility(View.GONE);
+            rList.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     private void populateRecipes() {
-        recipes = new ArrayList();
+        /*recipes = new ArrayList();
         recipes.add("Fried Rice");
         recipes.add("Everyday Baked Chicken");
         recipes.add("Burger");
@@ -198,7 +300,7 @@ public class MyRecipesFragment extends Fragment {
         recipes.add("Ramen");
         recipes.add("Salmon");
         recipes.add("Tacos");
-        recipes.add("Brownies");
+        recipes.add("Brownies");*/
     }
 
 }
