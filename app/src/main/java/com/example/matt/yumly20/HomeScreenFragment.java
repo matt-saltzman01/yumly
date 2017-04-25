@@ -1,6 +1,7 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -19,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -77,8 +79,6 @@ public class HomeScreenFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home_screen, container, false);
-        buildImageScrolls(view);
-
         return view;
     }
 
@@ -86,6 +86,7 @@ public class HomeScreenFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Home");
+        buildImageScrolls();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -127,7 +128,7 @@ public class HomeScreenFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void buildImageScrolls(View view) {
+    public void buildImageScrolls() {
 
         ArrayList<Integer> pics = new ArrayList<Integer>();
         pics.add(R.drawable.tacos);
@@ -138,7 +139,7 @@ public class HomeScreenFragment extends Fragment {
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
-        LinearLayout layout = (LinearLayout) view.findViewById(R.id.week_recipes_linear);
+        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.week_recipes_linear);
         for (int i = 0; i < pics.size(); i++) {
             final ImageView imageView = new ImageView(getActivity());
             imageView.setId(i);
@@ -148,7 +149,8 @@ public class HomeScreenFragment extends Fragment {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     imageView.setImageBitmap(loadedImage);
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);                }
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
             });
 
 /*            imageView.setImageBitmap(BitmapFactory.decodeResource(
@@ -169,24 +171,50 @@ public class HomeScreenFragment extends Fragment {
             layout.addView(imageView);
         }
 
-        pics = new ArrayList();
-        pics.add(R.drawable.friedrice);
-        pics.add(R.drawable.guacamole);
-        pics.add(R.drawable.everydaybakedchicken);
-        pics.add(R.drawable.burger);
-        pics.add(R.drawable.pasta);
+        ArrayList<String> picUrls = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        String sql = String.format("SELECT * FROM Recipes");
+        Cursor cursor = (new RecipeOpenHelper(getActivity())).getWritableDatabase()
+                .rawQuery(sql, new String[] {});
+        if (cursor.getCount() == 0) {
 
-        layout = (LinearLayout) view.findViewById(R.id.my_recipes_linear);
-        for (int i = 0; i < pics.size(); i++) {
+        } else {
+            cursor.moveToFirst();
+            picUrls.add(cursor.getString(3));
+        }
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+
+        ArrayList<String> finalUrls = new ArrayList<>();
+        final ArrayList<String> finalNames = new ArrayList<>();
+        while (finalUrls.size() < 5 && picUrls.size() > 0) {
+            Random rand = new Random();
+            int dex = rand.nextInt(picUrls.size());
+            if (picUrls.size() > 0) {
+                finalUrls.add(picUrls.get(dex));
+                picUrls.remove(dex);
+            }
+            if (names.size() > 0) {
+                finalNames.add(names.get(dex));
+                names.remove(dex);
+            }
+        }
+
+
+        layout = (LinearLayout) getActivity().findViewById(R.id.my_recipes_linear);
+        for (int i = 0; i < finalUrls.size(); i++) {
             final ImageView imageView = new ImageView(getActivity());
             imageView.setId(i);
             imageView.setPadding(0, 0, 0, 0);
+            final int index = i;
 
-            imageLoader.loadImage("drawable://" + pics.get(i), new SimpleImageLoadingListener() {
+            imageLoader.loadImage(finalUrls.get(i), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     imageView.setImageBitmap(loadedImage);
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);                }
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
             });
 
 /*            imageView.setImageBitmap(BitmapFactory.decodeResource(
@@ -196,7 +224,7 @@ public class HomeScreenFragment extends Fragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((MainActivity) getActivity()).myWeekClick(view); //TEMPORARY CHANGE
+                    ((MainActivity) getActivity()).myRecipeClick(finalNames.get(index));
                 }
             });
 
