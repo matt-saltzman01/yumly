@@ -143,7 +143,7 @@ public class MyRecipesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ((MainActivity) getActivity()).myRecipeClick(view);
+                ((MainActivity) getActivity()).myRecipeClick(recipes.get(position));
             }
         });
 

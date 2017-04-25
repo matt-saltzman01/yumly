@@ -196,7 +196,7 @@ public class HomeScreenFragment extends Fragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((MainActivity) getActivity()).myRecipeClick(view);
+                    ((MainActivity) getActivity()).myWeekClick(view); //TEMPORARY CHANGE
                 }
             });
 

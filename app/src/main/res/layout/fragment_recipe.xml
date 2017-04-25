@@ -37,7 +37,7 @@
         android:layout_alignBottom="@id/recipe_image"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Everyday Baked Chicken"
+        android:text="A Recipe"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:gravity="start"
         style="@style/RecipeTitleText" />

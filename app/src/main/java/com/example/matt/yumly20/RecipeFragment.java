@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -16,10 +17,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +44,22 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class RecipeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String APP_ID = "c99817f9";
+    private static final String APP_KEY = "e7f3fbaa149d8beef86f2affedf35244";
+    private static final String API_PREFIX = "http://api.yummly.com/v1/api/recipe/";
+    private static final String API_SUFFIX = String.format("?_app_id=%s&_app_key=%s",
+            APP_ID, APP_KEY);
+
+    private static final String ARG_PARAM1 = "source";
+    private static final String ARG_PARAM2 = "id";
+    private static final String ARG_PARAM3 = "name";
+
+    private String source;
+    private String id;
+    private String name;
+
+    protected SQLiteDatabase recipesDB;
 
     private ListView iView;
     private ListView dView;
@@ -49,6 +68,8 @@ public class RecipeFragment extends Fragment {
     private String component = "Ingredients";
     private IngredientAdapter iAdapter;
     private DirectionAdapter dAdapter;
+    protected ImageLoader imageLoader;
+    protected Bitmap picMap;
 
     private Recipe recipe;
     private List ingredients = new ArrayList();
@@ -61,19 +82,103 @@ public class RecipeFragment extends Fragment {
     }
 
     /**
+     * Created by Isaac on 4/25/2017.
+     */
+    public class QueryYummlyTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... params) {
+            try {
+                URL url = params[0];
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new
+                            InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    System.out.println(stringBuilder.toString());
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (!result.equals("")) {
+                try {
+
+                    JSONObject json = new JSONObject(result);
+
+                    ArrayList<Ingredient> igs = new ArrayList<>();
+                    JSONArray igJson = json.getJSONArray("ingredientLines");
+                    for (int a = 0; a < igJson.length(); a++) {
+                        igs.add(new Ingredient(igJson.getString(a), " "));
+                    }
+
+                    ArrayList<String> dirs = new ArrayList<>();
+                    dirs.add("There are no listed directions.");
+
+                    try {
+                        recipe = new Recipe(
+                                recipesDB,
+                                json.getString("name"),
+                                igs,
+                                dirs,
+                                json.getJSONArray("images").getJSONObject(0)
+                                        .getString("hostedLargeUrl")
+                        );
+                    } catch (StringFormatException sfe) {
+                        sfe.printStackTrace();
+                    }
+
+                    ingredients = recipe.ingredients;
+                    directions = recipe.directions;
+
+                    imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            picMap = loadedImage;
+                            onResume();
+                        }
+                    });
+
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param source Parameter 1.
+     * @param idname Parameter 2.
      * @return A new instance of fragment RecipeFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static RecipeFragment newInstance(String param1, String param2) {
+    public static RecipeFragment newInstance(String source, String idname) {
         RecipeFragment fragment = new RecipeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, source);
+        if (source.equals("search")) {
+            args.putString(ARG_PARAM2, idname);
+        } else if (source.equals("saved")) {
+            args.putString(ARG_PARAM3, idname);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,8 +187,12 @@ public class RecipeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            source = getArguments().getString(ARG_PARAM1);
+            if (source.equals("search")) {
+                id = getArguments().getString(ARG_PARAM2);
+            } else if (source.equals("saved")) {
+                name = getArguments().getString(ARG_PARAM3);
+            }
         }
     }
 
@@ -93,7 +202,9 @@ public class RecipeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_recipe, container, false);
 
-        final ImageView image = (ImageView) view.findViewById(R.id.recipe_image);
+        recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
+
+        imageLoader = ImageLoader.getInstance();
 
         final Button ingredientsButton = (Button) view.findViewById(R.id.ingredients_button);
         final Button directionsButton = (Button) view.findViewById(R.id.directions_button);
@@ -109,25 +220,31 @@ public class RecipeFragment extends Fragment {
         nutritionButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
 
-        final SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
-        try {
-            recipe = new Recipe(recipesDB, "Everyday Baked Chicken");
+        if (source.equals("saved")) {
+            try {
+                recipe = new Recipe(recipesDB, name);
 
-            ingredients = recipe.ingredients;
-            directions = recipe.directions;
-            ImageLoader imageLoader = ImageLoader.getInstance();
+                ingredients = recipe.ingredients;
+                directions = recipe.directions;
 
-            imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    image.setImageBitmap(loadedImage);
-                    image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-            });
+                imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        picMap = loadedImage;
+                    }
+                });
 
-        } catch (StringFormatException sfe) {
-            sfe.printStackTrace();
+            } catch (StringFormatException sfe) {
+                sfe.printStackTrace();
+            }
+        } else if (source.equals("search")) {
+            try {
+                new QueryYummlyTask().execute(new URL(API_PREFIX + id + API_SUFFIX));
+            } catch (MalformedURLException mue) {
+                mue.printStackTrace();
+            }
         }
+
 
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -180,13 +297,6 @@ public class RecipeFragment extends Fragment {
             }
         });
 
-        if (recipe != null) {
-            if (recipe.saved) {
-                starOff.setVisibility(View.GONE);
-                starOn.setVisibility(View.VISIBLE);
-            }
-        }
-
         starOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,6 +322,25 @@ public class RecipeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Recipe Details");
+
+        final ImageView image = (ImageView) getActivity().findViewById(R.id.recipe_image);
+        final TextView rTitle = (TextView) getActivity().findViewById(R.id.recipe_title);
+
+        if (picMap != null){
+            image.setImageBitmap(picMap);
+            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+
+        if (recipe != null) {
+            rTitle.setText(recipe.name);
+            if (recipe.saved) {
+                getActivity().findViewById(R.id.star_button_off).setVisibility(View.GONE);
+                getActivity().findViewById(R.id.star_button_on).setVisibility(View.VISIBLE);
+            } else {
+                getActivity().findViewById(R.id.star_button_off).setVisibility(View.VISIBLE);
+                getActivity().findViewById(R.id.star_button_on).setVisibility(View.GONE);
+            }
+        }
 
         iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
         dView = (ListView) getActivity().findViewById(R.id.directions_component);

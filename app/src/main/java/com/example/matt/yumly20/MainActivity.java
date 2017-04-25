@@ -195,8 +195,8 @@ public class MainActivity extends AppCompatActivity implements
         setTitle(currentTitle);
     }
 
-    public void myRecipeClick(View view) {
-        currentFragment = new RecipeFragment();
+    public void myRecipeClick(RecipePreview rPreview) {
+        currentFragment = (new RecipeFragment()).newInstance("search", rPreview.id);
         currentTitle = "Recipe Details";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)

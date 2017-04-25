@@ -34,11 +34,32 @@ public class Recipe {
         photoURL = purl;
     }
 
+    public Recipe(SQLiteDatabase recipesDB, String nm, ArrayList igs, ArrayList drs, String purl)
+            throws StringFormatException{
+        String sql = String.format("SELECT * FROM Recipes WHERE name='%s'", nm);
+        Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
+        if (cursor.getCount() == 0) {
+            name = nm;
+            ingredients = igs;
+            directions = drs;
+            photoURL = purl;
+        } else {
+            cursor.moveToFirst();
+            parseIngredients(cursor.getString(1));
+            parseDirections(cursor.getString(2));
+            photoURL = cursor.getString(3);
+            saved = true;
+        }
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+    }
+
     public Recipe(SQLiteDatabase recipesDB, String keyName) throws StringFormatException {
         String sql = String.format("SELECT * FROM Recipes WHERE name='%s'", keyName);
         Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
-            System.err.println("~~~~~~~~~~~~~~~~~~~RECIPE IS NULL~~~~~~~~~~~~~~~~~~");
+
         }
         if(cursor.moveToFirst()){
             name = cursor.getString(0);
