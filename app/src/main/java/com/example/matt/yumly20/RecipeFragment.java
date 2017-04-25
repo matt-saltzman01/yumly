@@ -3,7 +3,6 @@ package com.example.matt.yumly20;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,11 +52,9 @@ public class RecipeFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "source";
     private static final String ARG_PARAM2 = "id";
-    private static final String ARG_PARAM3 = "name";
 
     private String source;
     private String id;
-    private String name;
 
     protected SQLiteDatabase recipesDB;
 
@@ -134,6 +131,7 @@ public class RecipeFragment extends Fragment {
                         recipe = new Recipe(
                                 recipesDB,
                                 json.getString("name"),
+                                json.getString("id"),
                                 igs,
                                 dirs,
                                 json.getJSONArray("images").getJSONObject(0)
@@ -174,10 +172,8 @@ public class RecipeFragment extends Fragment {
         RecipeFragment fragment = new RecipeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, source);
-        if (source.equals("search")) {
+        if (source.equals("search") || source.equals("saved")) {
             args.putString(ARG_PARAM2, idname);
-        } else if (source.equals("saved")) {
-            args.putString(ARG_PARAM3, idname);
         }
         fragment.setArguments(args);
         return fragment;
@@ -188,10 +184,8 @@ public class RecipeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             source = getArguments().getString(ARG_PARAM1);
-            if (source.equals("search")) {
+            if (source.equals("search") || source.equals("saved")) {
                 id = getArguments().getString(ARG_PARAM2);
-            } else if (source.equals("saved")) {
-                name = getArguments().getString(ARG_PARAM3);
             }
         }
     }
@@ -222,7 +216,7 @@ public class RecipeFragment extends Fragment {
 
         if (source.equals("saved")) {
             try {
-                recipe = new Recipe(recipesDB, name);
+                recipe = new Recipe(recipesDB, id);
 
                 ingredients = recipe.ingredients;
                 directions = recipe.directions;
@@ -324,6 +318,8 @@ public class RecipeFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Recipe Details");
 
+        recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
+
         final ImageView image = (ImageView) getActivity().findViewById(R.id.recipe_image);
         final TextView rTitle = (TextView) getActivity().findViewById(R.id.recipe_title);
 
@@ -364,6 +360,12 @@ public class RecipeFragment extends Fragment {
         }
 
         setAdapters();
+    }
+
+    @Override
+    public void onPause() {
+        recipesDB.close();
+        super.onPause();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

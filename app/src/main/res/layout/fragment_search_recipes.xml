@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.matt.yumly20.MyRecipesFragment" >
+    tools:context="com.example.matt.yumly20.SearchRecipesFragment" >
 
     <SearchView
         android:id="@+id/mr_search_view"
@@ -11,28 +11,28 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"/>
 
+    <ProgressBar
+        android:id="@+id/progress_load"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mr_search_view"
+        android:progressTint="@color/accent"
+        android:visibility="visible" />
+
     <include layout="@layout/yummly_attribute"
         android:id="@+id/yummly_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/mr_search_view" />
+        android:layout_below="@id/mr_search_view"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/recipes_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/yummly_layout"
-        android:layout_alignParentBottom="true" />
-
-    <TextView
-        android:id="@+id/no_recpies_text"
-        android:text="You have not saved any recipes yet."
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_alignParentBottom="true"
         android:visibility="gone"/>
-
 
 </RelativeLayout>

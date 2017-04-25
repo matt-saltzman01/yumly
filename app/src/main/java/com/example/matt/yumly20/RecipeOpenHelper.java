@@ -14,7 +14,8 @@ public class RecipeOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "Recipes";
     private static final String TABLE_CREATE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-                    "name TEXT PRIMARY KEY, " +
+                    "name TEXT, " +
+                    "id TEXT PRIMARY KEY, " +
                     "ingredients TEXT, " +
                     "directions TEXT, " +
                     "photourl TEXT);";

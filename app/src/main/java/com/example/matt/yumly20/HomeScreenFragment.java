@@ -175,6 +175,15 @@ public class HomeScreenFragment extends Fragment {
 
         ArrayList<Recipe> randSaved = getRandomSavedRecipes(5);
 
+        if (randSaved.size() == 0) {
+            getActivity().findViewById(R.id.no_recpies_text).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.my_recipes_scroll).setVisibility(View.GONE);
+            return;
+        } else {
+            getActivity().findViewById(R.id.no_recpies_text).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.my_recipes_scroll).setVisibility(View.VISIBLE);
+        }
+
         layout = (LinearLayout) getActivity().findViewById(R.id.my_recipes_linear);
         for (int i = 0; i < randSaved.size(); i++) {
             final ImageView imageView = new ImageView(getActivity());
@@ -198,7 +207,7 @@ public class HomeScreenFragment extends Fragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((MainActivity) getActivity()).myRecipeClick(curr.name);
+                    ((MainActivity) getActivity()).myRecipeClick(curr.id);
                 }
             });
 
@@ -227,7 +236,7 @@ public class HomeScreenFragment extends Fragment {
             while (!cursor.isAfterLast() && !cursor.isClosed()) {
 
                 try {
-                    temp.add(new Recipe(recipesDB, cursor.getString(0)));
+                    temp.add(new Recipe(recipesDB, cursor.getString(1)));
                 } catch (StringFormatException sfe) {
                     sfe.printStackTrace();
                 }
@@ -238,6 +247,8 @@ public class HomeScreenFragment extends Fragment {
         if (!cursor.isClosed()) {
             cursor.close();
         }
+
+        recipesDB.close();
 
         return temp;
     }

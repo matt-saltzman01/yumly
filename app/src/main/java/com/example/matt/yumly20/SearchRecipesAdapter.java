@@ -2,7 +2,6 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +12,17 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
  * Created by Isaac on 4/16/2017.
  */
-public class RecipesAdapter extends ArrayAdapter<String[]> {
+public class SearchRecipesAdapter extends ArrayAdapter<String[]> {
 
     private final Context context;
     private List recipes;
 
-    public RecipesAdapter(Context c, int layoutId, List rItems) {
+    public SearchRecipesAdapter(Context c, int layoutId, List rItems) {
         super(c, layoutId, rItems);
         context = c;
         recipes = rItems;
@@ -63,49 +60,6 @@ public class RecipesAdapter extends ArrayAdapter<String[]> {
         });
 
         name.setText(rPreview.name);
-
-        /*int image;
-        switch (item) {
-            case "Tacos":
-                image = R.drawable.tacos;
-                break;
-            case "Pasta":
-                image = R.drawable.pasta;
-                break;
-            case "Everyday Baked Chicken":
-                image = R.drawable.everydaybakedchicken;
-                break;
-            case "Crab Cake":
-                image = R.drawable.crabcake;
-                break;
-            case "Fried Rice":
-                image = R.drawable.friedrice;
-                break;
-            case "Guacamole":
-                image = R.drawable.guacamole;
-                break;
-            case "Ramen":
-                image = R.drawable.ramen;
-                break;
-            case "Salmon":
-                image = R.drawable.salmon;
-                break;
-            case "Brownies":
-                image = R.drawable.brownies;
-                break;
-            case "Burger":
-                image = R.drawable.burger;
-                break;
-            default:
-                image = -1;
-                break;
-        }
-
-        if (image != -1) {
-            pic.setImageBitmap(BitmapFactory.decodeResource(
-                    recipesView.getContext().getResources(), image));
-            pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        }*/
 
         return recipesView;
     }

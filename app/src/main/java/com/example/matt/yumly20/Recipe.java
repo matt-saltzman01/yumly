@@ -21,6 +21,7 @@ public class Recipe {
     public static final String DIVIDER = "~~~split~~~";
 
     public String name;
+    public String id;
     public ArrayList<Ingredient> ingredients;
     public ArrayList<String> directions;
     public String photoURL;
@@ -29,28 +30,32 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(String nm, ArrayList igs, ArrayList drs, String purl) {
+    public Recipe(String nm, String i, ArrayList igs, ArrayList drs, String purl) {
         name = nm;
+        id = i;
         ingredients = igs;
         directions = drs;
         photoURL = purl;
     }
 
-    public Recipe(SQLiteDatabase recipesDB, String nm, ArrayList igs, ArrayList drs, String purl)
+    public Recipe(SQLiteDatabase recipesDB, String nm, String i, ArrayList igs, ArrayList drs,
+                  String purl)
             throws StringFormatException{
-        String sql = String.format("SELECT * FROM Recipes WHERE name='%s'", nm);
+        String sql = String.format("SELECT * FROM Recipes WHERE id='%s'", i);
         Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
             name = nm;
+            id = i;
             ingredients = igs;
             directions = drs;
             photoURL = purl;
         } else {
             cursor.moveToFirst();
             name = cursor.getString(0);
-            parseIngredients(cursor.getString(1));
-            parseDirections(cursor.getString(2));
-            photoURL = cursor.getString(3);
+            id = cursor.getString(1);
+            parseIngredients(cursor.getString(2));
+            parseDirections(cursor.getString(3));
+            photoURL = cursor.getString(4);
             saved = true;
         }
         if (cursor != null && !cursor.isClosed()) {
@@ -58,17 +63,18 @@ public class Recipe {
         }
     }
 
-    public Recipe(SQLiteDatabase recipesDB, String keyName) throws StringFormatException {
-        String sql = String.format("SELECT * FROM Recipes WHERE name='%s'", keyName);
+    public Recipe(SQLiteDatabase recipesDB, String keyId) throws StringFormatException {
+        String sql = String.format("SELECT * FROM Recipes WHERE id='%s'", keyId);
         Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
 
         }
         if(cursor.moveToFirst()){
             name = cursor.getString(0);
-            parseIngredients(cursor.getString(1));
-            parseDirections(cursor.getString(2));
-            photoURL = cursor.getString(3);
+            id = cursor.getString(1);
+            parseIngredients(cursor.getString(2));
+            parseDirections(cursor.getString(3));
+            photoURL = cursor.getString(4);
             saved = true;
         }
         if (cursor != null && !cursor.isClosed()) {
@@ -79,14 +85,15 @@ public class Recipe {
 
     public void saveToDB(SQLiteDatabase recipesDB) {
 
-        String sql = "INSERT OR REPLACE INTO Recipes (name, ingredients, directions, photourl) " +
-                "VALUES(?, ?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO Recipes (name, id, ingredients, directions, photourl)"
+                + " VALUES(?, ?, ?, ?, ?)";
         SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
         insertStatement.clearBindings();
         insertStatement.bindString(1, name);
-        insertStatement.bindString(2, getIngredientsString());
-        insertStatement.bindString(3, getDirectionsString());
-        insertStatement.bindString(4, photoURL);
+        insertStatement.bindString(2, id);
+        insertStatement.bindString(3, getIngredientsString());
+        insertStatement.bindString(4, getDirectionsString());
+        insertStatement.bindString(5, photoURL);
         insertStatement.executeInsert();
         recipesDB.close();
         saved = true;
@@ -95,7 +102,7 @@ public class Recipe {
     public void deleteFromDB(SQLiteDatabase recipesDB) {
 
         if (saved) {
-            String sql = String.format("DELETE FROM Recipes WHERE name='%s'", name);
+            String sql = String.format("DELETE FROM Recipes WHERE id='%s'", id);
             SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
             insertStatement.executeUpdateDelete();
             recipesDB.close();
@@ -157,7 +164,6 @@ public class Recipe {
             ingredients = new ArrayList();
         }
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~text: " + text);
         String[] items = text.split(DIVIDER);
         for (int a = 0; a < items.length; a++) {
             ingredients.add(new Ingredient(items[a]));

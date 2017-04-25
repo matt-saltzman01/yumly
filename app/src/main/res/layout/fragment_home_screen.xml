@@ -50,7 +50,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/my_recipes_text"
         android:scrollbars="none"
-        android:fillViewport="false">
+        android:fillViewport="false" >
 
         <LinearLayout
             android:id="@+id/my_recipes_linear"
@@ -60,6 +60,17 @@
         </LinearLayout>
 
     </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/no_recpies_text"
+        android:text="You have not saved any recipes yet."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_recipes_text"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/button_linear"

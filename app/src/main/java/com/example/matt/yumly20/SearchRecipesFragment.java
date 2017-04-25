@@ -2,8 +2,6 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,21 +33,28 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MyRecipesFragment.OnFragmentInteractionListener} interface
+ * {@link SearchRecipesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MyRecipesFragment#newInstance} factory method to
+ * Use the {@link SearchRecipesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyRecipesFragment extends Fragment {
+public class SearchRecipesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String APP_ID = "c99817f9";
+    private static final String APP_KEY = "e7f3fbaa149d8beef86f2affedf35244";
+    private static final String API_PREFIX = String.format("http://api.yummly.com/v1" +
+            "/api/recipes?_app_id=%s&_app_key=%s", APP_ID, APP_KEY);
+
     protected ListView lv;
     protected SearchView sv;
-    protected MyRecipesAdapter mrAdapter;
-    protected ArrayList<Recipe> recipes = new ArrayList<>();
+    protected SearchRecipesAdapter srAdapter;
+    protected ArrayList<RecipePreview> recipes = new ArrayList<>();
+    protected int current = 0;
+    protected int possible = -1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,7 +62,7 @@ public class MyRecipesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MyRecipesFragment() {
+    public SearchRecipesFragment() {
         // Required empty public constructor
     }
 
@@ -67,11 +72,11 @@ public class MyRecipesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MyRecipesFragment.
+     * @return A new instance of fragment SearchRecipesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyRecipesFragment newInstance(String param1, String param2) {
-        MyRecipesFragment fragment = new MyRecipesFragment();
+    public static SearchRecipesFragment newInstance(String param1, String param2) {
+        SearchRecipesFragment fragment = new SearchRecipesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -92,7 +97,7 @@ public class MyRecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_recipes, container, false);
+        View view = inflater.inflate(R.layout.fragment_search_recipes, container, false);
         return view;
     }
 
@@ -106,24 +111,13 @@ public class MyRecipesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).setTitle("Favorite Recipes");
+        ((MainActivity) getActivity()).setTitle("Search Recipes");
 
-        getMyRecipes();
+        searchForRecipes();
 
-        if (recipes == null || recipes.size() == 0) {
-            getActivity().findViewById(R.id.yummly_layout).setVisibility(View.GONE);
-            getActivity().findViewById(R.id.recipes_list).setVisibility(View.GONE);
-            getActivity().findViewById(R.id.no_recpies_text).setVisibility(View.VISIBLE);
-            return;
-        } else {
-            getActivity().findViewById(R.id.yummly_layout).setVisibility(View.VISIBLE);
-            getActivity().findViewById(R.id.recipes_list).setVisibility(View.VISIBLE);
-            getActivity().findViewById(R.id.no_recpies_text).setVisibility(View.GONE);
-        }
-
-        mrAdapter = new MyRecipesAdapter(getActivity(), R.layout.my_recipes_item, recipes);
+        srAdapter = new SearchRecipesAdapter(getActivity(), R.layout.my_recipes_item, recipes);
         lv = (ListView) getActivity().findViewById(R.id.recipes_list);
-        lv.setAdapter(mrAdapter);
+        lv.setAdapter(srAdapter);
 
         sv = (SearchView) getActivity().findViewById(R.id.mr_search_view);
         sv.setOnQueryTextListener(
@@ -135,7 +129,7 @@ public class MyRecipesFragment extends Fragment {
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        mrAdapter.getFilter().filter(newText);
+                        srAdapter.getFilter().filter(newText);
                         return false;
                     }
                 }
@@ -145,7 +139,7 @@ public class MyRecipesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ((MainActivity) getActivity()).myRecipeClick(recipes.get(position).id);
+                ((MainActivity) getActivity()).searchRecipeClick(recipes.get(position).id);
             }
         });
 
@@ -198,50 +192,97 @@ public class MyRecipesFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void getMyRecipes() {
+    private void searchForRecipes() {
 
-        recipes = new ArrayList<>();
-
-        SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
-
-        String sql = String.format("SELECT * FROM Recipes");
-        Cursor cursor = (new RecipeOpenHelper(getActivity())).getWritableDatabase()
-                .rawQuery(sql, new String[] {});
-        if (cursor.getCount() == 0) {
-
-        } else {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast() && !cursor.isClosed()) {
-
-                try {
-                    recipes.add(new Recipe(recipesDB, cursor.getString(1)));
-                } catch (StringFormatException sfe) {
-                    sfe.printStackTrace();
-                }
-                cursor.moveToNext();
+        try {
+            if (possible == -1 || current < possible) {
+                URL url = new URL(String.format("%s%s%s", API_PREFIX, "&maxResult=10&start=0",
+                        "&requirePictures=true"));
+                new QueryYummlyTask().execute(url);
             }
+        } catch (MalformedURLException mue) {
+            mue.printStackTrace();
         }
-
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-
 
     }
 
+    /**
+     * Created by Isaac on 4/25/2017.
+     */
+    public class QueryYummlyTask extends AsyncTask<URL, Void, String> {
 
-    private void populateRecipes() {
-        /*recipes = new ArrayList();
-        recipes.add("Fried Rice");
-        recipes.add("Everyday Baked Chicken");
-        recipes.add("Burger");
-        recipes.add("Crab Cake");
-        recipes.add("Guacamole");
-        recipes.add("Pasta");
-        recipes.add("Ramen");
-        recipes.add("Salmon");
-        recipes.add("Tacos");
-        recipes.add("Brownies");*/
+        ProgressBar pBar;
+        ListView rList;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = (ProgressBar) getActivity().findViewById(R.id.progress_load);
+            rList = (ListView) getActivity().findViewById(R.id.recipes_list);
+            pBar.setVisibility(View.VISIBLE);
+            rList.setVisibility(View.GONE);
+            recipes = new ArrayList<>();
+        }
+
+        @Override
+        protected String doInBackground(URL... params) {
+            try {
+                URL url = params[0];
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new
+                            InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    System.out.println(stringBuilder.toString());
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (!result.equals("")) {
+                try {
+
+                    JSONObject json = new JSONObject(result);
+                    JSONArray recipesJson = json.getJSONArray("matches");
+
+                    for (int a = 0; a < recipesJson.length(); a++) {
+
+                        JSONObject rpJson = recipesJson.getJSONObject(a);
+
+                        recipes.add(new RecipePreview(
+                                        rpJson.getString("recipeName"),
+                                        rpJson.getString("id"),
+                                        rpJson.getJSONArray("smallImageUrls").getString(0)
+                                )
+                        );
+                    }
+
+
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                }
+            }
+
+            pBar = (ProgressBar) getActivity().findViewById(R.id.progress_load);
+            rList = (ListView) getActivity().findViewById(R.id.recipes_list);
+            pBar.setVisibility(View.GONE);
+            rList.setVisibility(View.VISIBLE);
+        }
+
     }
 
 }

@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
 
-        Recipe recipe = buildSampleRecipe();
+        /*Recipe recipe = buildSampleRecipe();
         SQLiteDatabase recipesDB = (new RecipeOpenHelper(this)).getWritableDatabase();
-        recipe.saveToDB(recipesDB);
+        recipe.saveToDB(recipesDB);*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.primary));
@@ -125,33 +125,22 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
 
-        boolean replace = false;
-
         if (id == R.id.action_search) {
 
-            if (!currentFragment.equals(myRecipesFragment)) {
-                currentFragment = myRecipesFragment;
-                currentTitle = "Favorite Recipes";
-                replace = true;
-            }
+            currentFragment = new SearchRecipesFragment();
+            currentTitle = "Search Recipes";
 
         } else if (id == R.id.action_my_fridge) {
 
-            if (!currentFragment.equals(myFridgeFragment)) {
-                currentFragment = myFridgeFragment;
-                currentTitle = "My Fridge";
-                replace = true;
-            }
-
+            currentFragment = myFridgeFragment;
+            currentTitle = "My Fridge";
         }
 
-        if (replace) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, currentFragment)
-                    .addToBackStack("")
-                    .commit();
-            setTitle(currentTitle);
-        }
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, currentFragment)
+                .addToBackStack("")
+                .commit();
+        setTitle(currentTitle);
 
         return super.onOptionsItemSelected(item);
     }
@@ -168,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void findRecipesButtonClick(View view) {
-        currentFragment = myRecipesFragment;
+        currentFragment = new SearchRecipesFragment();
         currentTitle = "Recipe Search";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
@@ -195,8 +184,8 @@ public class MainActivity extends AppCompatActivity implements
         setTitle(currentTitle);
     }
 
-    public void searchRecipeClick(RecipePreview rPreview) {
-        currentFragment = (new RecipeFragment()).newInstance("search", rPreview.id);
+    public void searchRecipeClick(String id) {
+        currentFragment = (new RecipeFragment()).newInstance("search", id);
         currentTitle = "Recipe Details";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
@@ -205,8 +194,8 @@ public class MainActivity extends AppCompatActivity implements
         setTitle(currentTitle);
     }
 
-    public void myRecipeClick(String name) {
-        currentFragment = (new RecipeFragment()).newInstance("saved", name);
+    public void myRecipeClick(String id) {
+        currentFragment = (new RecipeFragment()).newInstance("saved", id);
         currentTitle = "Recipe Details";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
@@ -261,7 +250,8 @@ public class MainActivity extends AppCompatActivity implements
                 "Repeat on the other side.");
         directions.add("Bake in the oven for ten minutes and flip and bake for ten more.");
 
-        return new Recipe("Everyday Baked Chicken", ingredients, directions,
-                "http://78recipes.com/wp-content/uploads/2017/03/Everyday-Baked-Chicken.jpg");
+        return null;
+        /*return new Recipe("Everyday Baked Chicken", ingredients, directions,
+                "http://78recipes.com/wp-content/uploads/2017/03/Everyday-Baked-Chicken.jpg");*/
     }
 }
