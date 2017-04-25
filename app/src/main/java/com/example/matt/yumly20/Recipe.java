@@ -27,6 +27,8 @@ public class Recipe {
     public boolean saved = false;
     public byte[] photoData;
 
+    public Recipe() {}
+
     public Recipe(String nm, ArrayList igs, ArrayList drs, String purl) {
         name = nm;
         ingredients = igs;
@@ -45,6 +47,7 @@ public class Recipe {
             photoURL = purl;
         } else {
             cursor.moveToFirst();
+            name = cursor.getString(0);
             parseIngredients(cursor.getString(1));
             parseDirections(cursor.getString(2));
             photoURL = cursor.getString(3);

@@ -2,6 +2,7 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -171,45 +172,18 @@ public class HomeScreenFragment extends Fragment {
             layout.addView(imageView);
         }
 
-        ArrayList<String> picUrls = new ArrayList<>();
-        ArrayList<String> names = new ArrayList<>();
-        String sql = String.format("SELECT * FROM Recipes");
-        Cursor cursor = (new RecipeOpenHelper(getActivity())).getWritableDatabase()
-                .rawQuery(sql, new String[] {});
-        if (cursor.getCount() == 0) {
 
-        } else {
-            cursor.moveToFirst();
-            picUrls.add(cursor.getString(3));
-        }
-        if (cursor != null && !cursor.isClosed()) {
-            cursor.close();
-        }
-
-        ArrayList<String> finalUrls = new ArrayList<>();
-        final ArrayList<String> finalNames = new ArrayList<>();
-        while (finalUrls.size() < 5 && picUrls.size() > 0) {
-            Random rand = new Random();
-            int dex = rand.nextInt(picUrls.size());
-            if (picUrls.size() > 0) {
-                finalUrls.add(picUrls.get(dex));
-                picUrls.remove(dex);
-            }
-            if (names.size() > 0) {
-                finalNames.add(names.get(dex));
-                names.remove(dex);
-            }
-        }
-
+        ArrayList<Recipe> randSaved = getRandomSavedRecipes(5);
 
         layout = (LinearLayout) getActivity().findViewById(R.id.my_recipes_linear);
-        for (int i = 0; i < finalUrls.size(); i++) {
+        for (int i = 0; i < randSaved.size(); i++) {
             final ImageView imageView = new ImageView(getActivity());
             imageView.setId(i);
             imageView.setPadding(0, 0, 0, 0);
-            final int index = i;
 
-            imageLoader.loadImage(finalUrls.get(i), new SimpleImageLoadingListener() {
+            final Recipe curr = randSaved.get(i);
+
+            imageLoader.loadImage(curr.photoURL, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     imageView.setImageBitmap(loadedImage);
@@ -224,7 +198,7 @@ public class HomeScreenFragment extends Fragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((MainActivity) getActivity()).myRecipeClick(finalNames.get(index));
+                    ((MainActivity) getActivity()).myRecipeClick(curr.name);
                 }
             });
 
@@ -235,5 +209,52 @@ public class HomeScreenFragment extends Fragment {
             layout.addView(imageView);
         }
 
+    }
+
+    private ArrayList<Recipe> getAllSavedRecipes() {
+
+        ArrayList<Recipe> temp = new ArrayList<>();
+
+        SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
+
+        String sql = String.format("SELECT * FROM Recipes");
+        Cursor cursor = (new RecipeOpenHelper(getActivity())).getWritableDatabase()
+                .rawQuery(sql, new String[] {});
+        if (cursor.getCount() == 0) {
+
+        } else {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast() && !cursor.isClosed()) {
+
+                try {
+                    temp.add(new Recipe(recipesDB, cursor.getString(0)));
+                } catch (StringFormatException sfe) {
+                    sfe.printStackTrace();
+                }
+                cursor.moveToNext();
+            }
+        }
+
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return temp;
+    }
+
+    private ArrayList<Recipe> getRandomSavedRecipes(int number) {
+
+        ArrayList<Recipe> allRecipes = getAllSavedRecipes();
+        ArrayList<Recipe> randRecipes = new ArrayList<>();
+
+        while (randRecipes.size() < number && allRecipes.size() > 0) {
+            Random rand = new Random();
+            int dex = rand.nextInt(allRecipes.size());
+            if (allRecipes.size() > 0) {
+                randRecipes.add(allRecipes.get(dex));
+                allRecipes.remove(dex);
+            }
+        }
+        return randRecipes;
     }
 }

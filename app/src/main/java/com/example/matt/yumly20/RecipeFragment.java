@@ -231,6 +231,7 @@ public class RecipeFragment extends Fragment {
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         picMap = loadedImage;
+                        onResume();
                     }
                 });
 
