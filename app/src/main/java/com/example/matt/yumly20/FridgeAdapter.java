@@ -1,6 +1,7 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -21,7 +25,6 @@ public class FridgeAdapter extends BaseAdapter {
     private List foodItems;
 
     public FridgeAdapter(Context c, int layoutId, List fItems) {
-        //super(c, layoutId, fItems);
         context = c;
         foodItems = fItems;
     }
@@ -63,49 +66,19 @@ public class FridgeAdapter extends BaseAdapter {
 
         name.setText(item.food);
 
-        switch (item.food) {
-            case "Eggs":
-                pic.setImageResource(R.mipmap.egg);
-                break;
-            case "Ground Beef":
-                pic.setImageResource(R.mipmap.groundbeef);
-                break;
-            case "Chicken Breast":
-                pic.setImageResource(R.mipmap.chickenbreast);
-                break;
-            case "Salami":
-                pic.setImageResource(R.mipmap.salami);
-                break;
-            case "Tomato":
-                pic.setImageResource(R.mipmap.tomato);
-                break;
-            case "Spinach":
-                pic.setImageResource(R.mipmap.spinach);
-                break;
-            case "Onion":
-                pic.setImageResource(R.mipmap.onion);
-                break;
-            case "Lettuce":
-                pic.setImageResource(R.mipmap.lettuce);
-                break;
-            case "Milk":
-                pic.setImageResource(R.mipmap.milk);
-                break;
-            case "Parmesan":
-                pic.setImageResource(R.mipmap.parmesan);
-                break;
-            case "Goat Cheese":
-                pic.setImageResource(R.mipmap.goatcheese);
-                break;
-            case "Sourdough":
-                pic.setImageResource(R.mipmap.sourdough);
-                break;
-            case "Corn Chips":
-                pic.setImageResource(R.mipmap.cornchips);
-                break;
-            default:
-                break;
-        }
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
+        System.out.println("Loading image for " + item.food);
+
+        imageLoader.loadImage(item.photoURL, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                pic.setImageBitmap(loadedImage);
+                pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                fridgeView.findViewById(R.id.progress_load).setVisibility(View.GONE);
+                pic.setVisibility(View.VISIBLE);
+            }
+        });
 
         box.setChecked(item.checked);
 

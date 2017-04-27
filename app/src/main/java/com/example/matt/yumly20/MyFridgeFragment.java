@@ -15,6 +15,9 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 
@@ -41,6 +44,11 @@ public class MyFridgeFragment extends Fragment {
     private FridgeAdapter fAdaptorR;
 
     private FridgeAdapter fAdapterGrid;
+    private FridgeAdapter meatAdapter;
+    private FridgeAdapter vegAdapter;
+    private FridgeAdapter dryAdapter;
+    private FridgeAdapter carbAdapter;
+
 
     public ArrayList<FoodItem> fridge = new ArrayList<>();
     private String group;
@@ -232,46 +240,73 @@ public class MyFridgeFragment extends Fragment {
 
     public void setAdapters() {
 
-        ArrayList<FoodItem> items = getItems();
+        /*if (meatAdapter == null || vegAdapter == null || dryAdapter == null || carbAdapter == null
+                || (meatAdapter.getCount() + vegAdapter.getCount() + dryAdapter.getCount()
+                + carbAdapter.getCount()) != fridge.size()) {
+            meatAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("M/P"));
+            vegAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("F/V"));
+            dryAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("Dairy"));
+            carbAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("Carbs"));
+        }*/
 
-        /*Eventually this should be a GridView but I didn't know
-        that existed when I wrote this code. This will work fine for the
-        UI demo. -Isaac*/
+        GridView gridView = (GridView) getActivity().findViewById(R.id.item_grid);
 
- /*       if (items.size() == 0) {
-            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
-            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
-            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
-        } else if (items.size() == 1) {
-            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
-            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
-            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
-        } else if (items.size() == 2) {
-            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item, items.subList(0, 1));
-            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item, items.subList(1, 2));
-            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item, new ArrayList());
-        } else {
-            fAdaptorL = new FridgeAdapter(getActivity(), R.layout.fridge_item,
-                    splitList(items, 0));
-            fAdaptorC = new FridgeAdapter(getActivity(), R.layout.fridge_item,
-                    splitList(items, 1));
-            fAdaptorR = new FridgeAdapter(getActivity(), R.layout.fridge_item,
-                    splitList(items, 2));
+        switch (group) {
+            case "M/P":
+                if (meatAdapter == null || meatAdapter.getCount() != getItems("M/P").size()) {
+                    meatAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                            getItems("M/P"));
+                }
+                gridView.setAdapter(meatAdapter);
+                break;
+            case "F/V":
+                if (vegAdapter == null || vegAdapter.getCount() != getItems("F/V").size()) {
+                    vegAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                            getItems("F/V"));
+                }
+                gridView.setAdapter(vegAdapter);
+                break;
+            case "Dairy":
+                if (dryAdapter == null || dryAdapter.getCount() != getItems("Dairy").size()) {
+                    dryAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                            getItems("Dairy"));
+                }
+                gridView.setAdapter(dryAdapter);
+                break;
+            case "Carbs":
+                if (carbAdapter == null || carbAdapter.getCount() != getItems("CArbs").size()) {
+                    carbAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item,
+                            getItems("Carbs"));
+                }
+                gridView.setAdapter(carbAdapter);
+                break;
+            default:
+                break;
         }
 
-
-        ListView leftL = (ListView) getActivity().findViewById(R.id.left_list);
-        ListView centerL = (ListView) getActivity().findViewById(R.id.center_list);
-        ListView rightL = (ListView) getActivity().findViewById(R.id.right_list);
-
-        leftL.setAdapter(fAdaptorL);
-        centerL.setAdapter(fAdaptorC);
-        rightL.setAdapter(fAdaptorR);*/
+        /*ArrayList<FoodItem> items = getItems();
 
         fAdapterGrid = new FridgeAdapter(getActivity(), R.layout.fridge_item, items);
         GridView gridView = (GridView) getActivity().findViewById(R.id.item_grid);
-        gridView.setAdapter(fAdapterGrid);
+        gridView.setAdapter(fAdapterGrid);*/
 
+    }
+
+    private ArrayList<FoodItem> getItems(String grp) {
+        ArrayList<FoodItem> items = new ArrayList<>();
+        for (int a = 0; a < fridge.size(); a++) {
+            if (fridge.get(a) != null && fridge.get(a).group.equals(grp)) {
+                items.add(fridge.get(a));
+            }
+        }
+
+        Collections.sort(items, new Comparator<FoodItem>() {
+            @Override
+            public int compare(FoodItem i1, FoodItem i2) {
+                return i1.food.compareTo(i2.food);
+            }
+        });
+        return items;
     }
 
     private ArrayList<FoodItem> getItems() {
@@ -281,7 +316,13 @@ public class MyFridgeFragment extends Fragment {
                 items.add(fridge.get(a));
             }
         }
-        items.add(null);
+
+        Collections.sort(items, new Comparator<FoodItem>() {
+            @Override
+            public int compare(FoodItem i1, FoodItem i2) {
+                return i1.food.compareTo(i2.food);
+            }
+        });
         return items;
     }
 
@@ -297,19 +338,35 @@ public class MyFridgeFragment extends Fragment {
 
         fridge = new ArrayList<>();
 
-        fridge.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
-        fridge.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));
-        fridge.add(new FoodItem("Spinach", "F/V", "Spinach.jpg"));
-        fridge.add(new FoodItem("Corn Chips", "Carbs", "CornChips.jpg"));
-        fridge.add(new FoodItem("Milk", "Dairy", "Milk.jpg"));
-        fridge.add(new FoodItem("Ground Beef", "M/P", "GroundBeef.jpg"));
-        fridge.add(new FoodItem("Parmesan", "Dairy", "Parmesan.jpg"));
-        fridge.add(new FoodItem("Goat Cheese", "Dairy", "GoatCheese.jpg"));
-        fridge.add(new FoodItem("Chicken Breast", "M/P", "ChickenBreast.jpg"));
-        fridge.add(new FoodItem("Onion", "F/V", "Onion.jpg"));
-        fridge.add(new FoodItem("Sourdough", "Carbs", "Sourdough.jpg"));
-        fridge.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
-        fridge.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
+        fridge.add(new FoodItem("Eggs", "M/P",
+                "https://tvaraj.files.wordpress.com/2012/10/eggs.jpg"));
+        fridge.add(new FoodItem("Tomato", "F/V",
+                "http://www.fitnessvsweightloss.com/wp-content/uploads/2014/07/tomato.jpg"));
+        fridge.add(new FoodItem("Spinach", "F/V",
+                "http://iwantmysexyback.files.wordpress.com/2011/01/iron-source-spinach-lg.jpg"));
+        fridge.add(new FoodItem("Bread Crumbs", "Carbs",
+                "http://www.classicexhibits.com/tradeshow-blog/wp-content/uploads/2012/10/" +
+                        "Bread-Crumbs.jpg"));
+        fridge.add(new FoodItem("Milk", "Dairy",
+                "http://2.bp.blogspot.com/-M-HC4ThL9Hk/TgSuXPlvU4I/AAAAAAAAChE/YhLucY1d_no/s1600/" +
+                        "milk-agriculture-commodities.jpg"));
+        fridge.add(new FoodItem("Ground Beef", "M/P",
+                "http://3.bp.blogspot.com/-M-vLu0438Ic/UPHGE418XYI/AAAAAAAAAGM/l2T5oDNTDaU/s1600/" +
+                        "Ground+Beef+Recipe.jpg"));
+        fridge.add(new FoodItem("Parmesan", "Dairy",
+                "https://getbwoo.com/wp-content/uploads/2013/10/shutterstock_574773461.jpg"));
+        fridge.add(new FoodItem("Goat Cheese", "Dairy",
+                "http://www.cheesemaking.com/images/recipes/33Chevre/Pics/pic02.jpg"));
+        fridge.add(new FoodItem("Chicken Breast", "M/P",
+                "http://img2.timeinc.net/health/img/web/2014/04/slides/chicken-breast-raw-400x400.jpg"));
+        fridge.add(new FoodItem("Onion", "F/V",
+                "http://ghk.h-cdn.co/assets/cm/15/11/54fe44fd11c59-ghk-stainbuster-onion-mdn.jpg"));
+        fridge.add(new FoodItem("Sourdough", "Carbs","http://www.wildyeastblog.com/wp-content/" +
+                "uploads/2008/11/more-sourdough.jpg?441324"));
+        fridge.add(new FoodItem("Lettuce", "F/V", "http://2.bp.blogspot.com/-AOP_sPL_UoY/" +
+                "Td_WX4XVSkI/AAAAAAAABcU/w373jilbAy0/s1600/iStock_000007888237XSmall.jpg"));
+        fridge.add(new FoodItem("Salami", "M/P", "http://cdn1.theodysseyonline.com/files/" +
+                "2014/10/14/63548854034210072183215798_collagen-salami3.png"));
 
     }
 }

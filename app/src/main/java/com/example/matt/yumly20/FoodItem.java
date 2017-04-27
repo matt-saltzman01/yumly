@@ -8,13 +8,13 @@ public class FoodItem {
 
     public String food;
     public String group;
-    public String filename;
+    public String photoURL;
     public boolean checked;
 
-    public FoodItem(String f, String g, String file) {
+    public FoodItem(String f, String g, String url) {
         food = f;
         group = g;
-        filename = file;
+        photoURL = url;
         checked = false;
     }
 }
