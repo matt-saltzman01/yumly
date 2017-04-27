@@ -39,15 +39,17 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class SearchRecipesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private static final String APP_ID = "c99817f9";
     private static final String APP_KEY = "e7f3fbaa149d8beef86f2affedf35244";
     private static final String API_PREFIX = String.format("http://api.yummly.com/v1" +
             "/api/recipes?_app_id=%s&_app_key=%s", APP_ID, APP_KEY);
+
+    private static final String ARG_PARAM1 = "ingredients";
+    private static final String ARG_PARAM2 = "query";
+
+    private String ingredients;
+    private String query;
 
     protected ListView lv;
     protected SearchView sv;
@@ -55,10 +57,6 @@ public class SearchRecipesFragment extends Fragment {
     protected ArrayList<RecipePreview> recipes = new ArrayList<>();
     protected int current = 0;
     protected int possible = -1;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,16 +68,14 @@ public class SearchRecipesFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param ingredients Parameter 1.
      * @return A new instance of fragment SearchRecipesFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SearchRecipesFragment newInstance(String param1, String param2) {
+    public static SearchRecipesFragment newInstance(String ingredients, String query) {
         SearchRecipesFragment fragment = new SearchRecipesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, ingredients);
+        args.putString(ARG_PARAM2, query);
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,10 +83,16 @@ public class SearchRecipesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            ingredients = getArguments().getString(ARG_PARAM1);
+            query = getArguments().getString(ARG_PARAM2);
+        } else {
+            ingredients = "";
+            query = "";
         }
+
+        System.out.println("~~~\n\n\n~~~\n" + ingredients + "\n~~~\n\n\n~~~");
     }
 
     @Override
@@ -196,8 +198,8 @@ public class SearchRecipesFragment extends Fragment {
 
         try {
             if (possible == -1 || current < possible) {
-                URL url = new URL(String.format("%s%s%s", API_PREFIX, "&maxResult=10&start=0",
-                        "&requirePictures=true"));
+                URL url = new URL(String.format("%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
+                        "&requirePictures=true", query, ingredients));
                 new QueryYummlyTask().execute(url);
             }
         } catch (MalformedURLException mue) {

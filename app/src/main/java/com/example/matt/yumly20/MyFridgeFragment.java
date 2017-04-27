@@ -9,12 +9,12 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -41,7 +41,7 @@ public class MyFridgeFragment extends Fragment {
 
     private FridgeAdapter fAdapterGrid;
 
-    private List fridge = new ArrayList();
+    public ArrayList<FoodItem> fridge = new ArrayList<>();
     private String group;
 
     private OnFragmentInteractionListener mListener;
@@ -156,10 +156,6 @@ public class MyFridgeFragment extends Fragment {
             }
         });
 
-        //if (fridge == null || fridge.size() == 0) {
-        populateFridge();
-        //}
-
         return view;
     }
 
@@ -175,10 +171,35 @@ public class MyFridgeFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("My Fridge");
 
-        //if (fridge == null || fridge.size() == 0) {
-        populateFridge();
-        //}
+        final Button findRecipesButton =
+                (Button) getActivity().findViewById(R.id.find_recipes_button);
+
+        findRecipesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String checked = "";
+                for (int a = 0; a < fridge.size(); a++) {
+                    if (fridge.get(a).checked) {
+                        StringBuilder name = new StringBuilder(fridge.get(a).food);
+                        for (int b = 0; b < name.length(); b++) {
+                            if (name.charAt(b) == ' ') {
+                                name.setCharAt(b, '+');
+                            }
+                        }
+                        checked += "&allowedIngredient%5B%5D=" + name.toString();
+                    }
+                }
+                ((MainActivity) getActivity()).findRecipesButtonClick(checked);
+            }
+        });
+
+        if (fridge == null || fridge.size() == 0) {
+            populateFridge();
+        }
+
         setAdapters();
+
     }
 
     @Override
@@ -215,7 +236,7 @@ public class MyFridgeFragment extends Fragment {
 
     public void setAdapters() {
 
-        List items = getItems();
+        ArrayList<FoodItem> items = getItems();
 
         /*Eventually this should be a GridView but I didn't know
         that existed when I wrote this code. This will work fine for the
@@ -257,10 +278,10 @@ public class MyFridgeFragment extends Fragment {
 
     }
 
-    private List getItems() {
-        List items = new ArrayList();
+    private ArrayList<FoodItem> getItems() {
+        ArrayList<FoodItem> items = new ArrayList<>();
         for (int a = 0; a < fridge.size(); a++) {
-            if (fridge.get(a) != null && ((FoodItem) fridge.get(a)).group.equals(group)) {
+            if (fridge.get(a) != null && fridge.get(a).group.equals(group)) {
                 items.add(fridge.get(a));
             }
         }
@@ -268,8 +289,8 @@ public class MyFridgeFragment extends Fragment {
         return items;
     }
 
-    private List splitList(List items, int mod) {
-        List split = new ArrayList();
+    private ArrayList<FoodItem> splitList(ArrayList<FoodItem> items, int mod) {
+        ArrayList<FoodItem> split = new ArrayList<>();
         for (int a = mod; a < items.size(); a += 3) {
             split.add(items.get(a));
         }
@@ -278,9 +299,7 @@ public class MyFridgeFragment extends Fragment {
 
     private void populateFridge() {
 
-        //if (fridge == null) {
-        fridge = new ArrayList();
-        //}
+        fridge = new ArrayList<>();
 
         fridge.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
         fridge.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));

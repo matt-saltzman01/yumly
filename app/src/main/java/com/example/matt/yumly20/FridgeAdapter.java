@@ -50,17 +50,17 @@ public class FridgeAdapter extends BaseAdapter {
             return inflater.inflate(R.layout.empty_item, parent, false);
         }
 
-        View fridgeView = convertView;
-
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        fridgeView = inflater.inflate(R.layout.fridge_item, parent, false);
+        final View fridgeView = inflater.inflate(R.layout.fridge_item, parent, false);
 
-        ImageView pic = (ImageView) fridgeView.findViewById(R.id.food_picture);
-        TextView name = (TextView) fridgeView.findViewById(R.id.food_name);
-        CheckBox box = (CheckBox) fridgeView.findViewById(R.id.food_check);
+        final ImageView pic = (ImageView) fridgeView.findViewById(R.id.food_picture);
+        final TextView name = (TextView) fridgeView.findViewById(R.id.food_name);
+        final CheckBox box = (CheckBox) fridgeView.findViewById(R.id.food_check);
 
-        FoodItem item = (FoodItem) foodItems.get(position);
+        final FoodItem item = (FoodItem) foodItems.get(position);
+        final int index = position;
+
         name.setText(item.food);
 
         switch (item.food) {
@@ -107,11 +107,22 @@ public class FridgeAdapter extends BaseAdapter {
                 break;
         }
 
-        if (item.checked) {
-            box.setChecked(true);
-        } else {
-            box.setChecked(false);
-        }
+        box.setChecked(item.checked);
+
+        fridgeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                box.setChecked(!item.checked);
+                ((MainActivity) fridgeView.getContext()).selectFromFridge(item);
+            }
+        });
+
+        box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) fridgeView.getContext()).selectFromFridge(item);
+            }
+        });
 
         return fridgeView;
     }

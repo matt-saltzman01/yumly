@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    public void findRecipesButtonClick(View view) {
-        currentFragment = new SearchRecipesFragment();
+    public void findRecipesButtonClick(String checked) {
+        currentFragment = (new SearchRecipesFragment()).newInstance(checked, "");
         currentTitle = "Recipe Search";
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, currentFragment)
@@ -230,6 +230,14 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.content_frame, currentFragment)
                 .commit();
         setTitle(currentTitle);
+    }
+
+    public void selectFromFridge(FoodItem item) {
+        for (int a = 0; a < myFridgeFragment.fridge.size(); a++) {
+            if (myFridgeFragment.fridge.get(a).equals(item)) {
+                myFridgeFragment.fridge.get(a).checked = !myFridgeFragment.fridge.get(a).checked;
+            }
+        }
     }
 
     private Recipe buildSampleRecipe() {
