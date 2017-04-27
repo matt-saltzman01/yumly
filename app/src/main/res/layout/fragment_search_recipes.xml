@@ -35,4 +35,14 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/no_search_text"
+        android:text="Your search returned zero results. Try selecting fewer items in your fridge."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="gone"/>
+
 </RelativeLayout>

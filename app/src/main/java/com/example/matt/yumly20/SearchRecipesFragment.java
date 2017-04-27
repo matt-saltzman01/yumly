@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -215,15 +216,12 @@ public class SearchRecipesFragment extends Fragment {
      */
     public class QueryYummlyTask extends AsyncTask<URL, Void, String> {
 
-        ProgressBar pBar;
-        ListView rList;
-
         @Override
         protected void onPreExecute() {
-            pBar = (ProgressBar) getActivity().findViewById(R.id.progress_load);
-            rList = (ListView) getActivity().findViewById(R.id.recipes_list);
-            pBar.setVisibility(View.VISIBLE);
-            rList.setVisibility(View.GONE);
+            getActivity().findViewById(R.id.progress_load).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.recipes_list).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.yummly_layout).setVisibility(View.GONE);
+
             recipes = new ArrayList<>();
         }
 
@@ -281,10 +279,19 @@ public class SearchRecipesFragment extends Fragment {
                 }
             }
 
-            pBar = (ProgressBar) getActivity().findViewById(R.id.progress_load);
-            rList = (ListView) getActivity().findViewById(R.id.recipes_list);
-            pBar.setVisibility(View.GONE);
-            rList.setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.progress_load).setVisibility(View.GONE);
+
+            if (recipes == null || recipes.size() == 0) {
+                getActivity().findViewById(R.id.yummly_layout).setVisibility(View.GONE);
+                getActivity().findViewById(R.id.recipes_list).setVisibility(View.GONE);
+                getActivity().findViewById(R.id.no_search_text).setVisibility(View.VISIBLE);
+                return;
+            } else {
+                getActivity().findViewById(R.id.yummly_layout).setVisibility(View.VISIBLE);
+                getActivity().findViewById(R.id.recipes_list).setVisibility(View.VISIBLE);
+                getActivity().findViewById(R.id.no_search_text).setVisibility(View.GONE);
+            }
+
         }
 
     }
