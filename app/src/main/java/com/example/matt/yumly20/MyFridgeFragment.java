@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -181,13 +182,8 @@ public class MyFridgeFragment extends Fragment {
                 String checked = "";
                 for (int a = 0; a < fridge.size(); a++) {
                     if (fridge.get(a).checked) {
-                        StringBuilder name = new StringBuilder(fridge.get(a).food);
-                        for (int b = 0; b < name.length(); b++) {
-                            if (name.charAt(b) == ' ') {
-                                name.setCharAt(b, '+');
-                            }
-                        }
-                        checked += "&allowedIngredient%5B%5D=" + name.toString();
+                        String name = fridge.get(a).food.replace(' ', '+');
+                        checked += "&allowedIngredient%5B%5D=" + name.toLowerCase();
                     }
                 }
                 ((MainActivity) getActivity()).findRecipesButtonClick(checked);

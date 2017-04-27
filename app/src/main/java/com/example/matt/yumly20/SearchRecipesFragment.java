@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.health.SystemHealthManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +93,6 @@ public class SearchRecipesFragment extends Fragment {
             query = "";
         }
 
-        System.out.println("~~~\n\n\n~~~\n" + ingredients + "\n~~~\n\n\n~~~");
     }
 
     @Override
@@ -198,8 +198,10 @@ public class SearchRecipesFragment extends Fragment {
 
         try {
             if (possible == -1 || current < possible) {
-                URL url = new URL(String.format("%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
-                        "&requirePictures=true", query, ingredients));
+                String urlString = String.format("%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
+                        "&requirePictures=true", query, ingredients);
+                System.out.println(urlString);
+                URL url = new URL(urlString);
                 new QueryYummlyTask().execute(url);
             }
         } catch (MalformedURLException mue) {

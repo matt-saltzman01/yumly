@@ -186,7 +186,12 @@ public class RecipeFragment extends Fragment {
             source = getArguments().getString(ARG_PARAM1);
             if (source.equals("search") || source.equals("saved")) {
                 id = getArguments().getString(ARG_PARAM2);
+            } else {
+                id = "";
             }
+        } else {
+            source = "";
+            id = "";
         }
     }
 
