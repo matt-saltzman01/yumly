@@ -131,19 +131,33 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
-            <ProgressBar
-                android:id="@+id/nutrition_bar_1"
-                android:progress="6"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="@color/primary" />
-            <TextView
-                android:text="5.8% DV"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textAlignment="center" />
+                android:id="@+id/container1"
+                tools:layout_editor_absoluteY="8dp"
+                tools:layout_editor_absoluteX="8dp">
+                <ProgressBar
+                    android:id="@+id/calProgressWheel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_centerInParent="true"
+                    android:rotation="-90"
+                    android:progress="40"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular" />
+                <TextView
+                    android:id="@+id/calProgressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12dp"
+                    android:text="25%"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -161,30 +175,45 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Carbs"
+                android:text="Cholesterol"
+                android:textSize="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
-                android:text="1 g"
+                android:text="400 g"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
-            <ProgressBar
-                android:id="@+id/nutrition_bar_2"
-                android:progress="1"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="@color/primary" />
-            <TextView
-                android:text="0.8% DV"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textAlignment="center" />
+                android:id="@+id/container2"
+                tools:layout_editor_absoluteY="8dp"
+                tools:layout_editor_absoluteX="8dp">
+                <ProgressBar
+                    android:id="@+id/cholProgressWheel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_centerInParent="true"
+                    android:rotation="-90"
+                    android:progress="40"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular" />
+                <TextView
+                    android:id="@+id/cholProgressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12dp"
+                    android:text="25%"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -208,24 +237,38 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
-                android:text="3 g"
+                android:text="20 g"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
-            <ProgressBar
-                android:id="@+id/nutrition_bar_3"
-                android:progress="5"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="@color/primary" />
-            <TextView
-                android:text="5% DV"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textAlignment="center" />
+                android:id="@+id/container3"
+                tools:layout_editor_absoluteY="8dp"
+                tools:layout_editor_absoluteX="8dp">
+                <ProgressBar
+                    android:id="@+id/fatProgressWheel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_centerInParent="true"
+                    android:rotation="-90"
+                    android:progress="40"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular" />
+                <TextView
+                    android:id="@+id/fatProgressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12dp"
+                    android:text="25%"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -254,19 +297,33 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
-            <ProgressBar
-                android:id="@+id/nutrition_bar_4"
-                android:progress="27"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="@color/primary" />
-            <TextView
-                android:text="27% DV"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textAlignment="center" />
+                android:id="@+id/container4"
+                tools:layout_editor_absoluteY="8dp"
+                tools:layout_editor_absoluteX="8dp">
+                <ProgressBar
+                    android:id="@+id/sodiumProgressWheel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_centerInParent="true"
+                    android:rotation="-90"
+                    android:progress="40"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular" />
+                <TextView
+                    android:id="@+id/sodiumProgressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12dp"
+                    android:text="25%"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -295,19 +352,33 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
-            <ProgressBar
-                android:id="@+id/nutrition_bar_5"
-                android:progress="45"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="@color/primary" />
-            <TextView
-                android:text="45% DV"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textAlignment="center" />
+                android:id="@+id/container5"
+                tools:layout_editor_absoluteY="8dp"
+                tools:layout_editor_absoluteX="8dp">
+                <ProgressBar
+                    android:id="@+id/proteinProgressWheel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_centerInParent="true"
+                    android:rotation="-90"
+                    android:progress="40"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular" />
+                <TextView
+                    android:id="@+id/proteinProgressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="12dp"
+                    android:text="25%"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

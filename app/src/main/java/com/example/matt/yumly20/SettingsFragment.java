@@ -39,7 +39,6 @@ public class SettingsFragment extends Fragment {
     private EditText protein;
     private EditText sodium;
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;

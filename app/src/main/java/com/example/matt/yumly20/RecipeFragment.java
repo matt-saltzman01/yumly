@@ -1,12 +1,14 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -71,6 +74,24 @@ public class RecipeFragment extends Fragment {
     private Recipe recipe;
     private List ingredients = new ArrayList();
     private List directions = new ArrayList();
+
+    private SharedPreferences myPrefs;
+    private float caloriesDaily;
+    private float cholesterolDaily;
+    private float fatDaily;
+    private float proteinDaily;
+    private float sodiumDaily;
+    private TextView calProgressText;
+    private TextView cholProgressText;
+    private TextView fatProgressText;
+    private TextView proteinProgressText;
+    private TextView sodiumProgressText;
+    private ProgressBar calProgressWheel;
+    private ProgressBar cholProgressWheel;
+    private ProgressBar fatProgressWheel;
+    private ProgressBar proteinProgressWheel;
+    private ProgressBar sodiumProgressWheel;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -244,6 +265,54 @@ public class RecipeFragment extends Fragment {
                 mue.printStackTrace();
             }
         }
+
+        Context context = getActivity().getApplicationContext(); // app level storage
+        myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        caloriesDaily = myPrefs.getFloat("calories", (float) 2000);
+        cholesterolDaily = myPrefs.getFloat("cholesterol", (float) 3000);
+        fatDaily = myPrefs.getFloat("fat", (float) 65);
+        proteinDaily = myPrefs.getFloat("protein", (float) 50);
+        sodiumDaily = myPrefs.getFloat("sodium", (float) 2400);
+
+
+        calProgressText = (TextView) view.findViewById(R.id.calProgressText);
+        cholProgressText = (TextView) view.findViewById(R.id.cholProgressText);
+        fatProgressText = (TextView) view.findViewById(R.id.fatProgressText);
+        proteinProgressText = (TextView) view.findViewById(R.id.proteinProgressText);
+        sodiumProgressText = (TextView) view.findViewById(R.id.sodiumProgressText);
+        calProgressWheel = (ProgressBar) view.findViewById(R.id.calProgressWheel);
+        cholProgressWheel = (ProgressBar) view.findViewById(R.id.cholProgressWheel);
+        fatProgressWheel = (ProgressBar) view.findViewById(R.id.fatProgressWheel);
+        proteinProgressWheel = (ProgressBar) view.findViewById(R.id.proteinProgressWheel);
+        sodiumProgressWheel = (ProgressBar) view.findViewById(R.id.sodiumProgressWheel);
+
+
+        float calPercent = (140/caloriesDaily)*100;
+        float cholPercent = (400/cholesterolDaily)*100;
+        float fatPercent = (20/fatDaily)*100;
+        float sodiumPercent = (654/sodiumDaily)*100;
+        float proteinPercent = (27/proteinDaily)*100;
+
+        calPercent = round(calPercent, 1);
+        cholPercent = round(cholPercent, 1);
+        fatPercent = round(fatPercent, 1);
+        sodiumPercent = round(sodiumPercent, 1);
+        proteinPercent = round(proteinPercent, 1);
+
+        calProgressText.setText(Float.toString(calPercent) + "%");
+        cholProgressText.setText(Float.toString(cholPercent) + "%");
+        fatProgressText.setText(Float.toString(fatPercent) + "%");
+        sodiumProgressText.setText(Float.toString(sodiumPercent) + "%");
+        proteinProgressText.setText(Float.toString(proteinPercent) + "%");
+
+        calProgressWheel.setProgress((int) (calPercent));
+        cholProgressWheel.setProgress((int) (cholPercent));
+        fatProgressWheel.setProgress((int) (fatPercent));
+        sodiumProgressWheel.setProgress((int) (sodiumPercent));
+        proteinProgressWheel.setProgress((int) (proteinPercent));
+
+
 
 
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
@@ -439,6 +508,11 @@ public class RecipeFragment extends Fragment {
         directions = new ArrayList();
         directions.add("This recipe no longer exists.");
 
+    }
+
+    private static float round (float value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (float) Math.round(value * scale) / scale;
     }
 
 
