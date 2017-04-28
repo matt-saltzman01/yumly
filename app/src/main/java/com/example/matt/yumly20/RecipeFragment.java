@@ -288,11 +288,11 @@ public class RecipeFragment extends Fragment {
         sodiumProgressWheel = (ProgressBar) view.findViewById(R.id.sodiumProgressWheel);
 
 
-        float calPercent = (140/caloriesDaily)*100;
-        float cholPercent = (400/cholesterolDaily)*100;
-        float fatPercent = (20/fatDaily)*100;
-        float sodiumPercent = (654/sodiumDaily)*100;
-        float proteinPercent = (27/proteinDaily)*100;
+        float calPercent = (((float) 140) / caloriesDaily) * (float) 100;
+        float cholPercent = (((float) 400) / cholesterolDaily) * (float) 100;
+        float fatPercent = (((float) 20) / fatDaily) * (float) 100;
+        float sodiumPercent = (((float) 654) / sodiumDaily) * (float) 100;
+        float proteinPercent = (((float) 27) / proteinDaily) * (float) 100;
 
         calPercent = round(calPercent, 1);
         cholPercent = round(cholPercent, 1);
@@ -311,8 +311,6 @@ public class RecipeFragment extends Fragment {
         fatProgressWheel.setProgress((int) (fatPercent));
         sodiumProgressWheel.setProgress((int) (sodiumPercent));
         proteinProgressWheel.setProgress((int) (proteinPercent));
-
-
 
 
         ingredientsButton.setOnClickListener(new View.OnClickListener() {

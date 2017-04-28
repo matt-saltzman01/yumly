@@ -29,6 +29,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -226,6 +228,12 @@ public class MyRecipesFragment extends Fragment {
             cursor.close();
         }
 
+        Collections.sort(recipes, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe r1, Recipe r2) {
+                return r1.name.compareTo(r2.name);
+            }
+        });
 
     }
 

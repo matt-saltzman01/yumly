@@ -2,11 +2,13 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -41,9 +43,10 @@ public class SearchRecipesAdapter extends ArrayAdapter<String[]> {
         if (recipesView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            recipesView = inflater.inflate(R.layout.my_recipes_item, parent, false);
+            recipesView = inflater.inflate(R.layout.search_recipes_item, parent, false);
         }
 
+        final LinearLayout ll = (LinearLayout) recipesView.findViewById(R.id.sri_linear);
         final ImageView pic = (ImageView) recipesView.findViewById(R.id.recipe_item_image);
         final TextView name = (TextView) recipesView.findViewById(R.id.recipe_item_title);
 
@@ -60,6 +63,14 @@ public class SearchRecipesAdapter extends ArrayAdapter<String[]> {
         });
 
         name.setText(rPreview.name);
+
+        if (position % 2 == 1) {
+            ll.setBackgroundColor(ContextCompat.getColor(recipesView.getContext(),
+                    R.color.primaryBackground));
+        } else {
+            ll.setBackgroundColor(ContextCompat.getColor(recipesView.getContext(),
+                    R.color.primaryBackgroundDark));
+        }
 
         return recipesView;
     }

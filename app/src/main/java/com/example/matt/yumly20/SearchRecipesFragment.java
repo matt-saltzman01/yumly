@@ -118,7 +118,7 @@ public class SearchRecipesFragment extends Fragment {
 
         searchForRecipes();
 
-        srAdapter = new SearchRecipesAdapter(getActivity(), R.layout.my_recipes_item, recipes);
+        srAdapter = new SearchRecipesAdapter(getActivity(), R.layout.search_recipes_item, recipes);
         lv = (ListView) getActivity().findViewById(R.id.recipes_list);
         lv.setAdapter(srAdapter);
 
