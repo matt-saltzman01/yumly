@@ -11,18 +11,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:visibility="gone" />
-
-    <ProgressBar
-        android:id="@+id/progress_load"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:padding="30dp"
-        android:layout_gravity="center"
-        style="?android:attr/progressBarStyle"
-        android:progressTint="@color/primary"
-        android:visibility="visible" />
+        android:src="@drawable/covered_plate" />
 
     <TextView
         android:id="@+id/food_name"

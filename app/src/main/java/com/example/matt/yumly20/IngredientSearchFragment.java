@@ -175,19 +175,19 @@ public class IngredientSearchFragment extends Fragment {
         ingredients = new ArrayList();
         //}
 
-        ingredients.add(new FoodItem("Eggs", "M/P", "Egg.jpg"));
-        ingredients.add(new FoodItem("Tomato", "F/V", "Tomato.jpg"));
-        ingredients.add(new FoodItem("Spinach", "F/V", "Spinach.jpg"));
-        ingredients.add(new FoodItem("Corn Chips", "Carbs", "CornChips.jpg"));
-        ingredients.add(new FoodItem("Milk", "Dairy", "Milk.jpg"));
-        ingredients.add(new FoodItem("Ground Beef", "M/P", "GroundBeef.jpg"));
-        ingredients.add(new FoodItem("Parmesan", "Dairy", "Parmesan.jpg"));
-        ingredients.add(new FoodItem("Goat Cheese", "Dairy", "GoatCheese.jpg"));
-        ingredients.add(new FoodItem("Chicken Breast", "M/P", "ChickenBreast.jpg"));
-        ingredients.add(new FoodItem("Onion", "F/V", "Onion.jpg"));
-        ingredients.add(new FoodItem("Sourdough", "Carbs", "Sourdough.jpg"));
-        ingredients.add(new FoodItem("Lettuce", "F/V", "Lettuce.jpg"));
-        ingredients.add(new FoodItem("Salami", "M/P", "Salami.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Eggs", "M/P", "Egg.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Tomato", "F/V", "Tomato.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Spinach", "F/V", "Spinach.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Corn Chips", "Carbs", "CornChips.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Milk", "Dairy", "Milk.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Ground Beef", "M/P", "GroundBeef.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Parmesan", "Dairy", "Parmesan.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Goat Cheese", "Dairy", "GoatCheese.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Chicken Breast", "M/P", "ChickenBreast.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Onion", "F/V", "Onion.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Sourdough", "Carbs", "Sourdough.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Lettuce", "F/V", "Lettuce.jpg"));
+        ingredients.add(new FoodItem(getActivity(), "Salami", "M/P", "Salami.jpg"));
 
     }
 

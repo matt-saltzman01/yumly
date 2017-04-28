@@ -75,8 +75,6 @@ public class FridgeAdapter extends BaseAdapter {
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 pic.setImageBitmap(loadedImage);
                 pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                fridgeView.findViewById(R.id.progress_load).setVisibility(View.GONE);
-                pic.setVisibility(View.VISIBLE);
             }
         });
 
