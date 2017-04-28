@@ -95,13 +95,42 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
-    <ListView
+    <LinearLayout
         android:id="@+id/directions_component"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/orange_line2"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"/>
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Click to view directions."
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/directions_link_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="Steps to prepare the dish are supplied by blank at the link below."
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/link" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/nutrition_component"
@@ -110,7 +139,8 @@
         android:orientation="horizontal"
         android:layout_below="@id/orange_line2"
         android:layout_alignParentBottom="true"
-        android:background="@color/primaryBackground" >
+        android:background="@color/primaryBackground"
+        android:visibility="gone" >
 
         <LinearLayout
             android:layout_width="0dp"

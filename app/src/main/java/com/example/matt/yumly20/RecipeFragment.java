@@ -1,6 +1,7 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -62,7 +64,7 @@ public class RecipeFragment extends Fragment {
     protected SQLiteDatabase recipesDB;
 
     private ListView iView;
-    private ListView dView;
+    private LinearLayout dView;
     private LinearLayout nView;
 
     private String component = "Ingredients";
@@ -73,7 +75,8 @@ public class RecipeFragment extends Fragment {
 
     private Recipe recipe;
     private List ingredients = new ArrayList();
-    private List directions = new ArrayList();
+    private String directionstext;
+    private String directionsurl;
 
     private SharedPreferences myPrefs;
     private float caloriesDaily;
@@ -145,11 +148,13 @@ public class RecipeFragment extends Fragment {
                         igs.add(new Ingredient(igJson.getString(a), " "));
                     }
 
-                    ArrayList<String> dirs = new ArrayList<>();
-                    dirs.add("There are no listed directions.");
+                    JSONObject source = json.getJSONObject("source");
+                    String dirs =  source.getString("sourceDisplayName") + Recipe.DIVIDER +
+                            source.getString("sourceRecipeUrl");
 
                     try {
                         recipe = new Recipe(
+                                getActivity(),
                                 recipesDB,
                                 json.getString("name"),
                                 json.getString("id"),
@@ -163,7 +168,12 @@ public class RecipeFragment extends Fragment {
                     }
 
                     ingredients = recipe.ingredients;
-                    directions = recipe.directions;
+                    try {
+                        directionstext = recipe.parseDirections()[0];
+                        directionsurl = recipe.parseDirections()[1];
+                    } catch (StringFormatException sfe) {
+                        sfe.printStackTrace();
+                    }
 
                     imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
                         @Override
@@ -242,10 +252,11 @@ public class RecipeFragment extends Fragment {
 
         if (source.equals("saved")) {
             try {
-                recipe = new Recipe(recipesDB, id);
+                recipe = new Recipe(getActivity(), recipesDB, id);
 
                 ingredients = recipe.ingredients;
-                directions = recipe.directions;
+                directionstext = recipe.parseDirections()[0];
+                directionsurl = recipe.parseDirections()[1];
 
                 imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
                     @Override
@@ -412,7 +423,7 @@ public class RecipeFragment extends Fragment {
         }
 
         iView = (ListView) getActivity().findViewById(R.id.ingredients_component);
-        dView = (ListView) getActivity().findViewById(R.id.directions_component);
+        dView = (LinearLayout) getActivity().findViewById(R.id.directions_component);
         nView = (LinearLayout) getActivity().findViewById(R.id.nutrition_component);
 
         if (component == null) {
@@ -432,6 +443,19 @@ public class RecipeFragment extends Fragment {
         }
 
         setAdapters();
+
+        TextView dlText = (TextView) getActivity().findViewById(R.id.directions_link_text);
+        dlText.setText(String.format("Steps to prepare the dish are supplied by %s at the " +
+                "link below.", directionstext));
+
+        dView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserDir = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(directionsurl));
+                startActivity(browserDir);
+            }
+        });
     }
 
     @Override
@@ -487,24 +511,11 @@ public class RecipeFragment extends Fragment {
         iAdapter = new IngredientAdapter(getActivity(), R.layout.ingredients_item, ingredients);
         iView.setAdapter(iAdapter);
 
-
-        if (directions == null || directions.size() == 0) {
-            populateDirections();
-        }
-        dAdapter = new DirectionAdapter(getActivity(), R.layout.directions_item, directions);
-        dView.setAdapter(dAdapter);
-
     }
 
     private void populateIngredients() {
         ingredients = new ArrayList();
         ingredients.add(new Ingredient("No ingredients", "for non existing recipes"));
-
-    }
-
-    private void populateDirections() {
-        directions = new ArrayList();
-        directions.add("This recipe no longer exists.");
 
     }
 
