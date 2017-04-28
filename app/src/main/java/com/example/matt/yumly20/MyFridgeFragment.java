@@ -274,7 +274,7 @@ public class MyFridgeFragment extends Fragment {
                 gridView.setAdapter(dryAdapter);
                 break;
             case "Carbs":
-                if (carbAdapter == null || carbAdapter.getCount() != getItems("CArbs").size()) {
+                if (carbAdapter == null || carbAdapter.getCount() != getItems("Carbs").size()) {
                     carbAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item,
                             getItems("Carbs"));
                 }

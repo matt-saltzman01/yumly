@@ -216,7 +216,7 @@ public class MyRecipesFragment extends Fragment {
             while (!cursor.isAfterLast() && !cursor.isClosed()) {
 
                 try {
-                    recipes.add(new Recipe(recipesDB, cursor.getString(1)));
+                    recipes.add(new Recipe(getActivity(), recipesDB, cursor.getString(1)));
                 } catch (StringFormatException sfe) {
                     sfe.printStackTrace();
                 }

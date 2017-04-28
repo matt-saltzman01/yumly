@@ -236,7 +236,7 @@ public class HomeScreenFragment extends Fragment {
             while (!cursor.isAfterLast() && !cursor.isClosed()) {
 
                 try {
-                    temp.add(new Recipe(recipesDB, cursor.getString(1)));
+                    temp.add(new Recipe(getActivity(), recipesDB, cursor.getString(1)));
                 } catch (StringFormatException sfe) {
                     sfe.printStackTrace();
                 }
