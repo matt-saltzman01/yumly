@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -55,12 +56,13 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.covered_plate)
+                .build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(options)
+                .build();
         ImageLoader.getInstance().init(config);
-
-        /*Recipe recipe = buildSampleRecipe();
-        SQLiteDatabase recipesDB = (new RecipeOpenHelper(this)).getWritableDatabase();
-        recipe.saveToDB(recipesDB);*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.primary));

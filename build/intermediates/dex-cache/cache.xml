@@ -12,69 +12,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Isaac\.android\build-cache\7d474f63b5a4838183ef31b92d676a0346c03946\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ccac5c9c533dea6d83b6845a777b768d2b2a4224\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Isaac\.android\build-cache\734a790e125f4b5835c1145ccc7b8b9e47bc110b\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_94381d7c72a594c009cdf8f8db0715fbe9990e1e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Isaac\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\universal-image-loader-1.9.5_ba3f3555bd7a6d6faffadc3b40b5834e7b3eff0e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Isaac\.android\build-cache\abce97e54bafe81f9f467b8e5f013c4a08446a49\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9fdee2978a2e99a60472cabf3ff657f589c193f1\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Isaac\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_9fdb29c8ac407ce59c1bd0bf484f8b2b084488eb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Isaac\.android\build-cache\897f7ddf47a005d0742199fdb0bc8868eeeacd2b\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fb97fc65dd7bb6225315c84ea40017e32216d0ef\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f84c0fbb8aa8fae3b337cf3e2fb0e136b719bb76">
-        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_e807ef71b2f5516c489dfce438d6aa02b945f9d3\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -129,6 +66,24 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Isaac\.android\build-cache\7d474f63b5a4838183ef31b92d676a0346c03946\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ccac5c9c533dea6d83b6845a777b768d2b2a4224\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Isaac\.android\build-cache\734a790e125f4b5835c1145ccc7b8b9e47bc110b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_94381d7c72a594c009cdf8f8db0715fbe9990e1e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Isaac\.android\build-cache\c5607d8c97f7ba18ad9f5b671038e249a48a978d\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -138,12 +93,57 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Isaac\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\universal-image-loader-1.9.5_ba3f3555bd7a6d6faffadc3b40b5834e7b3eff0e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Isaac\.android\build-cache\cd5492a7652834ca431ea03db635b0f7d05f465d\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
         <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9924c59c9570dbb8124f92697bb0088b7465f8ae\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Isaac\.android\build-cache\abce97e54bafe81f9f467b8e5f013c4a08446a49\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9fdee2978a2e99a60472cabf3ff657f589c193f1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Isaac\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_9fdb29c8ac407ce59c1bd0bf484f8b2b084488eb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Isaac\.android\build-cache\897f7ddf47a005d0742199fdb0bc8868eeeacd2b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fb97fc65dd7bb6225315c84ea40017e32216d0ef\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="698526b24abd7d91f1b867531d44bc44c0c68ec3">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_e807ef71b2f5516c489dfce438d6aa02b945f9d3\classes.dex" />
     </item>
 
 </items>

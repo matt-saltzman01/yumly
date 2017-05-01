@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -149,13 +150,6 @@ public class HomeScreenFragment extends Fragment {
 
     public void buildImageScrolls() {
 
-        ArrayList<Integer> pics = new ArrayList<Integer>();
-        pics.add(R.drawable.tacos);
-        pics.add(R.drawable.ramen);
-        pics.add(R.drawable.salmon);
-        pics.add(R.drawable.crabcake);
-        pics.add(R.drawable.brownies);
-
         if (rprevs == null || rprevs.size() == 0) {
             getRandomWebRecipes(5);
         } else {
@@ -174,6 +168,7 @@ public class HomeScreenFragment extends Fragment {
             getActivity().findViewById(R.id.no_recpies_text).setVisibility(View.GONE);
             getActivity().findViewById(R.id.my_recipes_scroll).setVisibility(View.VISIBLE);
         }
+
 
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.my_recipes_linear);
         for (int i = 0; i < randSaved.size(); i++) {
