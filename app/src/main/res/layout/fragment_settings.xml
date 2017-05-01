@@ -262,10 +262,10 @@
                     android:text="Peanut" />
 
                 <CheckBox
-                    android:id="@+id/seasame"
-                    android:text="Seasame"
+                    android:id="@+id/sesame"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Sesame" />
 
                 <CheckBox
                     android:id="@+id/sulfite"
