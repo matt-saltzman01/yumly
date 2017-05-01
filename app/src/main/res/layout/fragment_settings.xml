@@ -47,31 +47,36 @@
                     android:text="American"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <CheckBox
-                    android:id="@+id/chinese"
-                    android:text="Chinese"
+                    android:id="@+id/english"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/ethopian"
-                    android:text="Ethopian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/french"
-                    android:text="French"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="English" />
+
                 <CheckBox
                     android:id="@+id/greek"
-                    android:text="Greek"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Greek" />
+
                 <CheckBox
                     android:id="@+id/indian"
                     android:text="Indian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <CheckBox
+                    android:id="@+id/japanese"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Japanese" />
+
+                <CheckBox
+                    android:id="@+id/mexican"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mexican" />
 
             </LinearLayout>
 
@@ -82,30 +87,34 @@
                 android:orientation="vertical">
 
                 <CheckBox
+                    android:id="@+id/chinese"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chinese" />
+
+                <CheckBox
+                    android:id="@+id/french"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="French" />
+
+                <CheckBox
+                    android:id="@+id/hawaiin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hawaiin" />
+
+                <CheckBox
                     android:id="@+id/italian"
-                    android:text="Italian"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Italian" />
+
                 <CheckBox
-                    android:id="@+id/japanese"
-                    android:text="Japanese"
+                    android:id="@+id/mediterrenean"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/korean"
-                    android:text="Korean"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/mexican"
-                    android:text="Mexican"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/persian"
-                    android:text="Persian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Mediterrenean" />
                 <CheckBox
                     android:id="@+id/thai"
                     android:text="Thai"
@@ -139,25 +148,22 @@
                 android:orientation="vertical">
 
                 <CheckBox
-                    android:id="@+id/beef_free"
-                    android:text="Beef-free"
+                    android:id="@+id/lacto_veg"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Lacto Vegetarian" />
+
                 <CheckBox
-                    android:id="@+id/halal"
-                    android:text="Halal"
+                    android:id="@+id/pescetarian"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Pescetarian" />
+
                 <CheckBox
-                    android:id="@+id/kosher"
-                    android:text="Kosher"
+                    android:id="@+id/vegetarian"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <CheckBox
-                    android:id="@+id/ovo"
-                    android:text="Ovo Vegetarian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Vegetarian" />
 
             </LinearLayout>
 
@@ -168,23 +174,14 @@
                 android:orientation="vertical">
 
                 <CheckBox
-                    android:id="@+id/paleo"
-                    android:text="Paleo"
+                    android:id="@+id/ovo_veg"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/pescatarian"
-                    android:text="Pescetarian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Ovo Vegetarian" />
+
                 <CheckBox
                     android:id="@+id/vegan"
                     android:text="Vegan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <CheckBox
-                    android:id="@+id/vegetarian"
-                    android:text="Vegetarian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -219,26 +216,30 @@
                     android:text="Dairy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/egg"
-                    android:text="Egg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <CheckBox
-                    android:id="@+id/gelatin"
-                    android:text="Gelatin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+
                 <CheckBox
                     android:id="@+id/gluten"
                     android:text="Gluten"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <CheckBox
-                    android:id="@+id/lactose"
-                    android:text="Lactose"
+                    android:id="@+id/seafood"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Seafood" />
+
+                <CheckBox
+                    android:id="@+id/soy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Soy" />
+
+                <CheckBox
+                    android:id="@+id/treenut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tree Nut" />
 
             </LinearLayout>
 
@@ -249,30 +250,34 @@
                 android:orientation="vertical">
 
                 <CheckBox
-                    android:id="@+id/peanut"
-                    android:text="Peanut"
+                    android:id="@+id/egg"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Egg" />
+
+                <CheckBox
+                    android:id="@+id/peanut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Peanut" />
+
                 <CheckBox
                     android:id="@+id/seasame"
                     android:text="Seasame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <CheckBox
-                    android:id="@+id/shellfish"
-                    android:text="Shellfish"
+                    android:id="@+id/sulfite"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Sulfite" />
+
                 <CheckBox
-                    android:id="@+id/soy"
-                    android:text="Soy"
+                    android:id="@+id/wheat"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <CheckBox
-                    android:id="@+id/tree_nut"
-                    android:text="Tree Nut"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Wheat" />
 
             </LinearLayout>
 
