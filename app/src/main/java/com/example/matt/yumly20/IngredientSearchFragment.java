@@ -102,7 +102,6 @@ public class IngredientSearchFragment extends Fragment {
 
             if (!result.equals("")) {
                 try {
-                    System.out.println("in here at least");
                     ingredients.clear();
                     JSONObject json = new JSONObject(result);
                     JSONArray images = json.getJSONArray("value");
@@ -114,7 +113,7 @@ public class IngredientSearchFragment extends Fragment {
 
                     ((TextView) getActivity().findViewById(R.id.search_instructions))
                             .setText("Select the image which best fits the item.");
-                    onResume();
+                    gv.setAdapter(iSAdapter);
 
                 } catch (JSONException je) {
                     je.printStackTrace();
@@ -157,11 +156,6 @@ public class IngredientSearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingredient_search, container, false);
 
-        try {
-            new QueryBingImagesTask().execute(new URL("http://something.com"));
-        } catch (MalformedURLException mue) {
-            mue.printStackTrace();
-        }
         return view;
     }
 
@@ -188,12 +182,16 @@ public class IngredientSearchFragment extends Fragment {
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+                        try {
+                            new QueryBingImagesTask().execute(new URL("http://something.com"));
+                        } catch (MalformedURLException mue) {
+                            mue.printStackTrace();
+                        }
                         return false;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        //iSAdapter.getFilter().filter(newText);
                         return false;
                     }
                 }

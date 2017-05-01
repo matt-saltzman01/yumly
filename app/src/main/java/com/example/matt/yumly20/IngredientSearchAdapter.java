@@ -47,7 +47,7 @@ public class IngredientSearchAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (urls.get(position) == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -80,7 +80,8 @@ public class IngredientSearchAdapter extends BaseAdapter {
             public void onClick(View v) {
                 ll.setBackgroundColor(ContextCompat.getColor(ingredSearchView.getContext(),
                         R.color.primaryBackgroundDark));
-                ((MainActivity) ingredSearchView.getContext()).newIngredientClick(v);
+                ((MainActivity) ingredSearchView.getContext()).newIngredientClick("Pepper",
+                        urls.get(position));
             }
         });
 

@@ -51,7 +51,7 @@ public class MyFridgeFragment extends Fragment {
 
 
     public ArrayList<FoodItem> fridge = new ArrayList<>();
-    private String group;
+    public String group;
 
     private OnFragmentInteractionListener mListener;
 
@@ -95,7 +95,7 @@ public class MyFridgeFragment extends Fragment {
         final Button carbsButton = (Button) view.findViewById(R.id.carbs_button);
 
         meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
-                R.color.primary));
+                R.color.lightGrey));
         vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
         dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
@@ -103,7 +103,30 @@ public class MyFridgeFragment extends Fragment {
         carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
                 R.color.lightGrey));
 
-        group = "M/P";
+        if (group == null) {
+            group = "M/P";
+        }
+
+        switch (group) {
+            case "M/P":
+                meatButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.primary));
+                break;
+            case "F/V":
+                vegButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.primary));
+                break;
+            case "Dairy":
+                dairyButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.primary));
+                break;
+            case "Carbs":
+                carbsButton.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                        R.color.primary));
+                break;
+            default:
+                break;
+        }
 
         meatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

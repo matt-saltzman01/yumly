@@ -24,6 +24,8 @@ public class FoodItem {
     public String photoURL;
     public boolean checked;
 
+    public FoodItem() { }
+
     public FoodItem(Context c, String f, String g, String url) {
         context = c;
         food = f;
