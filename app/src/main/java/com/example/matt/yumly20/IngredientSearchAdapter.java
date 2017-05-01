@@ -1,59 +1,96 @@
 package com.example.matt.yumly20;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
 /**
  * Created by Isaac on 4/20/2017.
  */
-public class IngredientSearchAdapter extends ArrayAdapter<String[]> {
+public class IngredientSearchAdapter extends BaseAdapter {
 
     private final Context context;
-    private List foodItems;
+    private List<String> urls;
 
     public IngredientSearchAdapter(Context c, int layoutId, List fItems) {
-        super(c, layoutId, fItems);
         context = c;
-        foodItems = fItems;
+        urls = fItems;
     }
 
     @Override
     public int getCount() {
-        return super.getCount();
+        return urls.size();
     }
+
+    @Override
+    public Object getItem(int position) {
+        return urls.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if (foodItems.get(position) == null) {
+        if (urls.get(position) == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             return inflater.inflate(R.layout.empty_item, parent, false);
         }
 
-        View ingredSearchView = convertView;
-
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ingredSearchView = inflater.inflate(R.layout.ingredient_search_item, parent, false);
 
-        LinearLayout ll = (LinearLayout) ingredSearchView.findViewById(R.id.isi_linear);
-        ImageView pic = (ImageView) ingredSearchView.findViewById(R.id.ingredient_search_image);
-        TextView name = (TextView) ingredSearchView.findViewById(R.id.ingredient_search_text);
+        final View ingredSearchView =
+                inflater.inflate(R.layout.ingredient_search_item, parent, false);
 
-        FoodItem item = (FoodItem) foodItems.get(position);
-        name.setText(item.food);
+        final LinearLayout ll = (LinearLayout) ingredSearchView.findViewById(R.id.isi_linear);
+        final ImageView pic =
+                (ImageView) ingredSearchView.findViewById(R.id.ingredient_search_image);
 
-        switch (item.food) {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
+        imageLoader.loadImage(urls.get(position), new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                pic.setImageBitmap(loadedImage);
+                pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+        });
+
+        ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ll.setBackgroundColor(ContextCompat.getColor(ingredSearchView.getContext(),
+                        R.color.primaryBackgroundDark));
+                ((MainActivity) ingredSearchView.getContext()).newIngredientClick(v);
+            }
+        });
+
+
+        //TextView name = (TextView) ingredSearchView.findViewById(R.id.ingredient_search_text);
+
+        //FoodItem item = (FoodItem) foodItems.get(position);
+        //name.setText(item.food);
+
+        /*switch (item.food) {
             case "Eggs":
                 pic.setImageResource(R.mipmap.egg);
                 break;
@@ -95,15 +132,15 @@ public class IngredientSearchAdapter extends ArrayAdapter<String[]> {
                 break;
             default:
                 break;
-        }
+        }*/
 
-        if (position % 2 == 1) {
+        /*if (position % 2 == 1) {
             ll.setBackgroundColor(ContextCompat.getColor(ingredSearchView.getContext(),
                     R.color.primaryBackgroundDark));
         } else {
             ll.setBackgroundColor(ContextCompat.getColor(ingredSearchView.getContext(),
                     R.color.primaryBackground));
-        }
+        }*/
 
         return ingredSearchView;
     }

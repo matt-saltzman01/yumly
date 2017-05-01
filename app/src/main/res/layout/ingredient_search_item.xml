@@ -4,11 +4,12 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:weightSum="1"
+    android:background="@color/primaryBackground"
     android:id="@+id/isi_linear">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/ingredient_search_text"
         android:text="Ingredient Name"
         android:layout_width="0dp"
@@ -22,6 +23,16 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight=".25"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher" />-->
+
+
+    <ImageView
+        android:id="@+id/ingredient_search_image"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight=".8"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:src="@drawable/covered_plate" />
 
 </LinearLayout>

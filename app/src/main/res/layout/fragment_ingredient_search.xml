@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,4 +52,70 @@
     </RelativeLayout>
 
 
-</FrameLayout>
+</FrameLayout>-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.matt.yumly20.IngredientSearchFragment">
+
+    <LinearLayout
+        android:id="@+id/is_button_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/is_back_button"
+            android:text="Go Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/primary"
+            android:onClick="noIngredientClick" />
+    </LinearLayout>
+
+    <SearchView
+        android:id="@+id/is_search_view"
+        android:queryHint="Search Recipes..."
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/orange_line_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/is_search_view"
+        android:background="@color/primary" />
+
+    <TextView
+        android:id="@+id/search_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/is_search_view"
+        android:gravity="center"
+        android:text="Enter the name of the item you would like to add."
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/orange_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/search_instructions"
+        android:background="@color/primary" />
+
+    <GridView
+        android:id="@+id/ingredient_image_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orange_line"
+        android:layout_above="@id/is_button_linear"
+        android:numColumns="3" />
+
+
+</RelativeLayout>
