@@ -132,12 +132,21 @@ public class MyRecipesFragment extends Fragment {
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+
+                        ArrayList<Recipe> tRec = new ArrayList<>();
+                        for (int a = 0; a < recipes.size(); a++) {
+                            if (recipes.get(a).name.toLowerCase().contains(query.toLowerCase())) {
+                                tRec.add(recipes.get(a));
+                            }
+                        }
+                        mrAdapter = new MyRecipesAdapter(getActivity(),
+                                R.layout.my_recipes_item, tRec);
+                        lv.setAdapter(mrAdapter);
                         return false;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        mrAdapter.getFilter().filter(newText);
                         return false;
                     }
                 }

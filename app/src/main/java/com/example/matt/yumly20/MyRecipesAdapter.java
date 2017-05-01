@@ -20,7 +20,7 @@ import java.util.List;
 public class MyRecipesAdapter extends ArrayAdapter<String[]> {
 
     private final Context context;
-    private List recipes;
+    public List recipes;
 
     public MyRecipesAdapter(Context c, int layoutId, List rItems) {
         super(c, layoutId, rItems);
