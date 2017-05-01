@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +21,15 @@ import android.widget.LinearLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,6 +43,12 @@ import java.util.Random;
  * create an instance of this fragment.
  */
 public class HomeScreenFragment extends Fragment {
+
+    private static final String APP_ID = "c99817f9";
+    private static final String APP_KEY = "e7f3fbaa149d8beef86f2affedf35244";
+    private static final String API_PREFIX = String.format("http://api.yummly.com/v1" +
+            "/api/recipes?_app_id=%s&_app_key=%s", APP_ID, APP_KEY);
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,6 +57,8 @@ public class HomeScreenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    protected ArrayList<RecipePreview> rprevs = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -138,40 +156,13 @@ public class HomeScreenFragment extends Fragment {
         pics.add(R.drawable.crabcake);
         pics.add(R.drawable.brownies);
 
-        ImageLoader imageLoader = ImageLoader.getInstance();
-
-        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.week_recipes_linear);
-        for (int i = 0; i < pics.size(); i++) {
-            final ImageView imageView = new ImageView(getActivity());
-            imageView.setId(i);
-            imageView.setPadding(0, 0, 0, 0);
-
-            imageLoader.loadImage("drawable://" + pics.get(i), new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    imageView.setImageBitmap(loadedImage);
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-            });
-
-/*            imageView.setImageBitmap(BitmapFactory.decodeResource(
-                    getResources(), pics.get(i)));
-            imageView.setScaleType(ImageView.ScaleType.CENTER);*/
-
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((MainActivity) getActivity()).myWeekClick(view);
-                }
-            });
-
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT));
-
-            layout.addView(imageView);
+        if (rprevs == null || rprevs.size() == 0) {
+            getRandomWebRecipes(5);
+        } else {
+            loadRandomRecipes();
         }
 
+        ImageLoader imageLoader = ImageLoader.getInstance();
 
         ArrayList<Recipe> randSaved = getRandomSavedRecipes(5);
 
@@ -184,7 +175,7 @@ public class HomeScreenFragment extends Fragment {
             getActivity().findViewById(R.id.my_recipes_scroll).setVisibility(View.VISIBLE);
         }
 
-        layout = (LinearLayout) getActivity().findViewById(R.id.my_recipes_linear);
+        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.my_recipes_linear);
         for (int i = 0; i < randSaved.size(); i++) {
             final ImageView imageView = new ImageView(getActivity());
             imageView.setId(i);
@@ -212,12 +203,61 @@ public class HomeScreenFragment extends Fragment {
             });
 
             imageView.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    400,
                     ViewGroup.LayoutParams.MATCH_PARENT));
 
             layout.addView(imageView);
         }
 
+    }
+
+
+    private void getRandomWebRecipes(int num) {
+        try {
+
+            String urlString = String.format("%s%s%s", API_PREFIX,
+                    "&maxResult=" + Integer.toString(num) + "&start=0", "&requirePictures=true");
+            System.out.println(urlString);
+            URL url = new URL(urlString);
+            new QueryYummlyTask().execute(url);
+
+        } catch (MalformedURLException mue) {
+            mue.printStackTrace();
+        }
+    }
+
+    protected void loadRandomRecipes() {
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        LinearLayout layout  = (LinearLayout) getActivity().findViewById(R.id.week_recipes_linear);
+
+        for (int i = 0; i < rprevs.size(); i++) {
+            final ImageView imageView = new ImageView(getActivity());
+            imageView.setId(i);
+            imageView.setPadding(0, 0, 0, 0);
+            final int curr = i;
+
+            imageLoader.loadImage(rprevs.get(i).miniPhotoURL, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    imageView.setImageBitmap(loadedImage);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+            });
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getActivity()).searchRecipeClick(rprevs.get(curr).id);
+                }
+            });
+
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(
+                    400,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+            layout.addView(imageView);
+        }
     }
 
     private ArrayList<Recipe> getAllSavedRecipes() {
@@ -268,4 +308,74 @@ public class HomeScreenFragment extends Fragment {
         }
         return randRecipes;
     }
+
+
+    /**
+     * Created by Isaac on 4/25/2017.
+     */
+    public class QueryYummlyTask extends AsyncTask<URL, Void, String> {
+
+        LinearLayout layout;
+
+        @Override
+        protected String doInBackground(URL... params) {
+
+            layout  = (LinearLayout) getActivity().findViewById(R.id.week_recipes_linear);
+
+            try {
+                URL url = params[0];
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new
+                            InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    System.out.println(stringBuilder.toString());
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (!result.equals("")) {
+                try {
+
+                    JSONObject json = new JSONObject(result);
+                    JSONArray recipesJson = json.getJSONArray("matches");
+
+                    for (int a = 0; a < recipesJson.length(); a++) {
+
+                        JSONObject rpJson = recipesJson.getJSONObject(a);
+
+                        rprevs.add(new RecipePreview(
+                                        rpJson.getString("recipeName"),
+                                        rpJson.getString("id"),
+                                        rpJson.getJSONArray("smallImageUrls").getString(0)
+                                )
+                        );
+                    }
+
+
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                }
+            }
+
+            loadRandomRecipes();
+        }
+    }
+
 }

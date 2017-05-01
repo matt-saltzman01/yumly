@@ -208,16 +208,6 @@ public class MainActivity extends AppCompatActivity implements
         setTitle(currentTitle);
     }
 
-    public void myWeekClick(View view) {
-        currentFragment = new RecipeFragment();
-        currentTitle = "Recipe Details";
-        getFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, currentFragment)
-                .addToBackStack("")
-                .commit();
-        setTitle(currentTitle);
-    }
-
     public void newIngredientClick(final String name, final String url) {
 
         final CharSequence[] items = {"Meat/Protein", "Fruit/Veggies", "Dairy", "Carbs"};
