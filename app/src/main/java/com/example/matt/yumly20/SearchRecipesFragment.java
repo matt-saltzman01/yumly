@@ -126,13 +126,17 @@ public class SearchRecipesFragment extends Fragment {
         sv.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
-                    public boolean onQueryTextSubmit(String query) {
+                    public boolean onQueryTextSubmit(String q) {
+                        query = String.format("&q=%s", q.toLowerCase().replace(' ', '+'));
+                        searchForRecipes();
+                        srAdapter = new SearchRecipesAdapter(getActivity(),
+                                R.layout.search_recipes_item, recipes);
+                        lv.setAdapter(srAdapter);
                         return false;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        srAdapter.getFilter().filter(newText);
                         return false;
                     }
                 }
