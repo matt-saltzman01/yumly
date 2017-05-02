@@ -201,15 +201,17 @@ public class Recipe {
         String ret = "";
         Set<String> keys = nutrition.keySet();
         int curr = 0;
+
         for (String key : keys) {
+
             if (curr == keys.size() - 1) {
                 ret += String.format("%s%s%f", key, NUTDIV, nutrition.get(key));
             } else {
                 ret += String.format("%s%s%f%s", key, NUTDIV, nutrition.get(key), DIVIDER);
             }
             curr++;
-            System.out.println(curr);
         }
+
         return ret;
     }
 
@@ -273,8 +275,6 @@ public class Recipe {
     }
 
     public void parseNutrition(String text) throws StringFormatException {
-
-        System.out.println("~~~~~~*" + text + "*~~~~~~~~");
 
         if (nutrition == null) {
             nutrition = new HashMap<>();

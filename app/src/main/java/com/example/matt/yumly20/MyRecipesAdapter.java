@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +58,15 @@ public class MyRecipesAdapter extends ArrayAdapter<String[]> {
                 pic.setImageBitmap(loadedImage);
                 pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
+        });
+
+        final int spot = position;
+
+        recipesView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               ((MainActivity) context).myRecipeClick(((Recipe) recipes.get(spot)).id);
+           }
         });
 
         name.setText(rec.name);

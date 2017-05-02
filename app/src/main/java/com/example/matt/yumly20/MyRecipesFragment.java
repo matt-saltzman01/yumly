@@ -152,14 +152,6 @@ public class MyRecipesFragment extends Fragment {
                 }
         );
 
-        lv.setOnItemClickListener(new android.widget.ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ((MainActivity) getActivity()).myRecipeClick(recipes.get(position).id);
-            }
-        });
-
         ImageView yummlyLogo = (ImageView) getActivity().findViewById(R.id.yummly_image);
         yummlyLogo.setImageBitmap(BitmapFactory.decodeResource(
                 getResources(), R.drawable.yummly_logo));
