@@ -156,6 +156,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
+                android:id="@+id/cal_amount"
                 android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,6 +215,7 @@
                 android:layout_marginBottom="2dp"
                 android:textSize="14sp" />
             <TextView
+                android:id="@+id/chol_amount"
                 android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -269,6 +271,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
+                android:id="@+id/fat_amount"
                 android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -324,6 +327,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
+                android:id="@+id/sodium_amount"
                 android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -379,6 +383,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
+                android:id="@+id/protein_amount"
                 android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -81,22 +81,30 @@ public class RecipeFragment extends Fragment {
     private String directionsurl;
 
     private SharedPreferences myPrefs;
+
     private float caloriesDaily;
     private float cholesterolDaily;
     private float fatDaily;
     private float proteinDaily;
     private float sodiumDaily;
+
     private TextView calProgressText;
     private TextView cholProgressText;
     private TextView fatProgressText;
     private TextView proteinProgressText;
     private TextView sodiumProgressText;
+
     private ProgressBar calProgressWheel;
     private ProgressBar cholProgressWheel;
     private ProgressBar fatProgressWheel;
     private ProgressBar proteinProgressWheel;
     private ProgressBar sodiumProgressWheel;
 
+    private TextView calAmount;
+    private TextView cholAmount;
+    private TextView fatAmount;
+    private TextView proteinAmount;
+    private TextView sodiumAmount;
 
     private OnFragmentInteractionListener mListener;
 
@@ -512,57 +520,88 @@ public class RecipeFragment extends Fragment {
         proteinProgressWheel = (ProgressBar) getActivity().findViewById(R.id.proteinProgressWheel);
         sodiumProgressWheel = (ProgressBar) getActivity().findViewById(R.id.sodiumProgressWheel);
 
+        calAmount = (TextView) getActivity().findViewById(R.id.cal_amount);
+        cholAmount = (TextView) getActivity().findViewById(R.id.chol_amount);
+        fatAmount = (TextView) getActivity().findViewById(R.id.fat_amount);
+        proteinAmount = (TextView) getActivity().findViewById(R.id.protein_amount);
+        sodiumAmount = (TextView) getActivity().findViewById(R.id.sodium_amount);
+
 
         if (nutrition.containsKey("ENERC_KCAL")) {
+
             float calPercent = (nutrition.get("ENERC_KCAL") / caloriesDaily) * (float) 100;
             calPercent = round(calPercent, 1);
+            calAmount.setText(String.format("%.0f", nutrition.get("ENERC_KCAL")));
             calProgressText.setText(Float.toString(calPercent) + "%");
             calProgressWheel.setProgress((int) calPercent);
+
         } else {
+
+            calAmount.setText("N/A");
             calProgressText.setText("N/A");
             calProgressWheel.setProgress(0);
         }
 
         if (nutrition.containsKey("CHOLE")) {
+
             float cholPercent = ((nutrition.get("CHOLE") * (float) 1000) / cholesterolDaily)
                     * (float) 100;
             cholPercent = round(cholPercent, 1);
+            cholAmount.setText(String.format("%1.2f g", nutrition.get("CHOLE")));
             cholProgressText.setText(Float.toString(cholPercent) + "%");
             cholProgressWheel.setProgress((int) cholPercent);
+
         } else {
+
+            cholAmount.setText("N/A");
             cholProgressText.setText("N/A");
             cholProgressWheel.setProgress(0);
         }
 
         if (nutrition.containsKey("FAT")) {
+
             float fatPercent = (nutrition.get("FAT") / fatDaily) * (float) 100;
             fatPercent = round(fatPercent, 1);
+            fatAmount.setText(String.format("%1.1f g", nutrition.get("FAT")));
             fatProgressText.setText(Float.toString(fatPercent) + "%");
             fatProgressWheel.setProgress((int) fatPercent);
+
         } else {
+
+            fatAmount.setText("N/A");
             fatProgressText.setText("N/A");
             fatProgressWheel.setProgress(0);
         }
 
+        if (nutrition.containsKey("PROCNT")) {
+
+            float proteinPercent = (nutrition.get("PROCNT") / proteinDaily) * (float) 100;
+            proteinPercent = round(proteinPercent, 1);
+            proteinAmount.setText(String.format("%1.1f g", nutrition.get("PROCNT")));
+            proteinProgressText.setText(Float.toString(proteinPercent) + "%");
+            proteinProgressWheel.setProgress((int) proteinPercent);
+
+        } else {
+
+            proteinAmount.setText("N/A");
+            proteinProgressText.setText("N/A");
+            proteinProgressWheel.setProgress(0);
+        }
+
         if (nutrition.containsKey("NA")) {
+
             float sodiumPercent = ((nutrition.get("NA") * (float) 1000) / sodiumDaily)
                     * (float) 100;
             sodiumPercent = round(sodiumPercent, 1);
+            sodiumAmount.setText(String.format("%1.2f g", nutrition.get("NA")));
             sodiumProgressText.setText(Float.toString(sodiumPercent) + "%");
             sodiumProgressWheel.setProgress((int) sodiumPercent);
+
         } else {
+
+            sodiumAmount.setText("N/A");
             sodiumProgressText.setText("N/A");
             sodiumProgressWheel.setProgress(0);
-        }
-
-        if (nutrition.containsKey("PROCNT")) {
-            float proteinPercent = (nutrition.get("PROCNT") / proteinDaily) * (float) 100;
-            proteinPercent = round(proteinPercent, 1);
-            proteinProgressText.setText(Float.toString(proteinPercent) + "%");
-            proteinProgressWheel.setProgress((int) proteinPercent);
-        } else {
-            proteinProgressText.setText("N/A");
-            proteinProgressWheel.setProgress(0);
         }
 
     }
