@@ -36,6 +36,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -75,6 +76,7 @@ public class RecipeFragment extends Fragment {
 
     private Recipe recipe;
     private List ingredients = new ArrayList();
+    private HashMap<String, Float> nutrition = new HashMap();
     private String directionstext;
     private String directionsurl;
 
@@ -148,6 +150,18 @@ public class RecipeFragment extends Fragment {
                         igs.add(new Ingredient(igJson.getString(a), " "));
                     }
 
+                    HashMap<String, Float> nuts = new HashMap<>();
+                    JSONArray nutsJson = json.getJSONArray("nutritionEstimates");
+                    for (int a = 0; a < nutsJson.length(); a++) {
+                        JSONObject nutJ = nutsJson.getJSONObject(a);
+                        String attr = nutJ.getString("attribute");
+
+                        if (attr.equals("ENERC_KCAL") || attr.equals("CHOLE") ||
+                                attr.equals("FAT") || attr.equals("NA") || attr.equals("PROCNT")) {
+                            nuts.put(attr, (float) nutJ.getDouble("value"));
+                        }
+                    }
+
                     JSONObject source = json.getJSONObject("source");
                     String dirs =  source.getString("sourceDisplayName") + Recipe.DIVIDER +
                             source.getString("sourceRecipeUrl");
@@ -160,6 +174,7 @@ public class RecipeFragment extends Fragment {
                                 json.getString("id"),
                                 igs,
                                 dirs,
+                                nuts,
                                 json.getJSONArray("images").getJSONObject(0)
                                         .getString("hostedLargeUrl")
                         );
@@ -168,6 +183,8 @@ public class RecipeFragment extends Fragment {
                     }
 
                     ingredients = recipe.ingredients;
+                    nutrition = recipe.nutrition;
+
                     try {
                         directionstext = recipe.parseDirections()[0];
                         directionsurl = recipe.parseDirections()[1];
@@ -182,6 +199,8 @@ public class RecipeFragment extends Fragment {
                             onResume();
                         }
                     });
+
+                    setNutrition();
 
                 } catch (JSONException je) {
                     je.printStackTrace();
@@ -257,6 +276,7 @@ public class RecipeFragment extends Fragment {
                 ingredients = recipe.ingredients;
                 directionstext = recipe.parseDirections()[0];
                 directionsurl = recipe.parseDirections()[1];
+                nutrition = recipe.nutrition;
 
                 imageLoader.loadImage(recipe.photoURL, new SimpleImageLoadingListener() {
                     @Override
@@ -276,52 +296,6 @@ public class RecipeFragment extends Fragment {
                 mue.printStackTrace();
             }
         }
-
-        Context context = getActivity().getApplicationContext(); // app level storage
-        myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        caloriesDaily = myPrefs.getFloat("calories", (float) 2000);
-        cholesterolDaily = myPrefs.getFloat("cholesterol", (float) 3000);
-        fatDaily = myPrefs.getFloat("fat", (float) 65);
-        proteinDaily = myPrefs.getFloat("protein", (float) 50);
-        sodiumDaily = myPrefs.getFloat("sodium", (float) 2400);
-
-
-        calProgressText = (TextView) view.findViewById(R.id.calProgressText);
-        cholProgressText = (TextView) view.findViewById(R.id.cholProgressText);
-        fatProgressText = (TextView) view.findViewById(R.id.fatProgressText);
-        proteinProgressText = (TextView) view.findViewById(R.id.proteinProgressText);
-        sodiumProgressText = (TextView) view.findViewById(R.id.sodiumProgressText);
-        calProgressWheel = (ProgressBar) view.findViewById(R.id.calProgressWheel);
-        cholProgressWheel = (ProgressBar) view.findViewById(R.id.cholProgressWheel);
-        fatProgressWheel = (ProgressBar) view.findViewById(R.id.fatProgressWheel);
-        proteinProgressWheel = (ProgressBar) view.findViewById(R.id.proteinProgressWheel);
-        sodiumProgressWheel = (ProgressBar) view.findViewById(R.id.sodiumProgressWheel);
-
-
-        float calPercent = (((float) 140) / caloriesDaily) * (float) 100;
-        float cholPercent = (((float) 400) / cholesterolDaily) * (float) 100;
-        float fatPercent = (((float) 20) / fatDaily) * (float) 100;
-        float sodiumPercent = (((float) 654) / sodiumDaily) * (float) 100;
-        float proteinPercent = (((float) 27) / proteinDaily) * (float) 100;
-
-        calPercent = round(calPercent, 1);
-        cholPercent = round(cholPercent, 1);
-        fatPercent = round(fatPercent, 1);
-        sodiumPercent = round(sodiumPercent, 1);
-        proteinPercent = round(proteinPercent, 1);
-
-        calProgressText.setText(Float.toString(calPercent) + "%");
-        cholProgressText.setText(Float.toString(cholPercent) + "%");
-        fatProgressText.setText(Float.toString(fatPercent) + "%");
-        sodiumProgressText.setText(Float.toString(sodiumPercent) + "%");
-        proteinProgressText.setText(Float.toString(proteinPercent) + "%");
-
-        calProgressWheel.setProgress((int) (calPercent));
-        cholProgressWheel.setProgress((int) (cholPercent));
-        fatProgressWheel.setProgress((int) (fatPercent));
-        sodiumProgressWheel.setProgress((int) (sodiumPercent));
-        proteinProgressWheel.setProgress((int) (proteinPercent));
 
 
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
@@ -442,6 +416,7 @@ public class RecipeFragment extends Fragment {
             nView.setVisibility(View.VISIBLE);
         }
 
+        setNutrition();
         setAdapters();
 
         TextView dlText = (TextView) getActivity().findViewById(R.id.directions_link_text);
@@ -510,6 +485,85 @@ public class RecipeFragment extends Fragment {
         }
         iAdapter = new IngredientAdapter(getActivity(), R.layout.ingredients_item, ingredients);
         iView.setAdapter(iAdapter);
+
+    }
+
+    private void setNutrition() {
+
+        Context context = getActivity().getApplicationContext(); // app level storage
+        myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        caloriesDaily = myPrefs.getFloat("calories", (float) 2000);
+        cholesterolDaily = myPrefs.getFloat("cholesterol", (float) 300);
+        fatDaily = myPrefs.getFloat("fat", (float) 65);
+        proteinDaily = myPrefs.getFloat("protein", (float) 50);
+        sodiumDaily = myPrefs.getFloat("sodium", (float) 1500);
+
+
+        calProgressText = (TextView) getActivity().findViewById(R.id.calProgressText);
+        cholProgressText = (TextView) getActivity().findViewById(R.id.cholProgressText);
+        fatProgressText = (TextView) getActivity().findViewById(R.id.fatProgressText);
+        proteinProgressText = (TextView) getActivity().findViewById(R.id.proteinProgressText);
+        sodiumProgressText = (TextView) getActivity().findViewById(R.id.sodiumProgressText);
+
+        calProgressWheel = (ProgressBar) getActivity().findViewById(R.id.calProgressWheel);
+        cholProgressWheel = (ProgressBar) getActivity().findViewById(R.id.cholProgressWheel);
+        fatProgressWheel = (ProgressBar) getActivity().findViewById(R.id.fatProgressWheel);
+        proteinProgressWheel = (ProgressBar) getActivity().findViewById(R.id.proteinProgressWheel);
+        sodiumProgressWheel = (ProgressBar) getActivity().findViewById(R.id.sodiumProgressWheel);
+
+
+        if (nutrition.containsKey("ENERC_KCAL")) {
+            float calPercent = (nutrition.get("ENERC_KCAL") / caloriesDaily) * (float) 100;
+            calPercent = round(calPercent, 1);
+            calProgressText.setText(Float.toString(calPercent) + "%");
+            calProgressWheel.setProgress((int) calPercent);
+        } else {
+            calProgressText.setText("N/A");
+            calProgressWheel.setProgress(0);
+        }
+
+        if (nutrition.containsKey("CHOLE")) {
+            float cholPercent = ((nutrition.get("CHOLE") * (float) 1000) / cholesterolDaily)
+                    * (float) 100;
+            cholPercent = round(cholPercent, 1);
+            cholProgressText.setText(Float.toString(cholPercent) + "%");
+            cholProgressWheel.setProgress((int) cholPercent);
+        } else {
+            cholProgressText.setText("N/A");
+            cholProgressWheel.setProgress(0);
+        }
+
+        if (nutrition.containsKey("FAT")) {
+            float fatPercent = (nutrition.get("FAT") / fatDaily) * (float) 100;
+            fatPercent = round(fatPercent, 1);
+            fatProgressText.setText(Float.toString(fatPercent) + "%");
+            fatProgressWheel.setProgress((int) fatPercent);
+        } else {
+            fatProgressText.setText("N/A");
+            fatProgressWheel.setProgress(0);
+        }
+
+        if (nutrition.containsKey("NA")) {
+            float sodiumPercent = ((nutrition.get("NA") * (float) 1000) / sodiumDaily)
+                    * (float) 100;
+            sodiumPercent = round(sodiumPercent, 1);
+            sodiumProgressText.setText(Float.toString(sodiumPercent) + "%");
+            sodiumProgressWheel.setProgress((int) sodiumPercent);
+        } else {
+            sodiumProgressText.setText("N/A");
+            sodiumProgressWheel.setProgress(0);
+        }
+
+        if (nutrition.containsKey("PROCNT")) {
+            float proteinPercent = (nutrition.get("PROCNT") / proteinDaily) * (float) 100;
+            proteinPercent = round(proteinPercent, 1);
+            proteinProgressText.setText(Float.toString(proteinPercent) + "%");
+            proteinProgressWheel.setProgress((int) proteinPercent);
+        } else {
+            proteinProgressText.setText("N/A");
+            proteinProgressWheel.setProgress(0);
+        }
 
     }
 

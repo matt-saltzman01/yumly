@@ -102,7 +102,7 @@
         android:layout_below="@id/orange_line2"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:weightSum="1">
 
         <TextView
@@ -140,7 +140,7 @@
         android:layout_below="@id/orange_line2"
         android:layout_alignParentBottom="true"
         android:background="@color/primaryBackground"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -156,7 +156,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
-                android:text="140"
+                android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -205,14 +205,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Cholesterol"
-                android:textSize="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Cholesterol"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textAlignment="center" />
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="14sp" />
             <TextView
-                android:text="400 g"
+                android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -267,7 +269,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
-                android:text="20 g"
+                android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -322,7 +324,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
-                android:text="654 mg"
+                android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -377,7 +379,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textAlignment="center" />
             <TextView
-                android:text="27 g"
+                android:text="amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

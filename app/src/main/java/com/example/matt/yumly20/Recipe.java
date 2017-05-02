@@ -21,6 +21,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by Isaac on 4/23/2017.
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 public class Recipe {
 
     public static final String DIVIDER = "~~~split~~~";
+    public static final String NUTDIV = "~~nut~~";
 
     public Context context;
 
@@ -36,23 +40,26 @@ public class Recipe {
     public String id;
     public ArrayList<Ingredient> ingredients;
     public String directions;
+    public HashMap<String, Float> nutrition;
     public String photoURL;
     public boolean saved = false;
     public byte[] photoData;
 
     public Recipe() {}
 
-    public Recipe(Context c, String nm, String i, ArrayList igs, String drs, String purl) {
+    public Recipe(Context c, String nm, String i, ArrayList igs, String drs, HashMap ns,
+                  String purl) {
         context = c;
         name = nm;
         id = i;
         ingredients = igs;
         directions = drs;
+        nutrition = ns;
         photoURL = purl;
     }
 
     public Recipe(Context c, SQLiteDatabase recipesDB, String nm, String i, ArrayList igs,
-                  String drs, String purl)
+                  String drs, HashMap ns, String purl)
             throws StringFormatException {
         context = c;
         String sql = String.format("SELECT * FROM Recipes WHERE id='%s'", i);
@@ -62,6 +69,7 @@ public class Recipe {
             id = i;
             ingredients = igs;
             directions = drs;
+            nutrition = ns;
             photoURL = purl;
         } else {
             cursor.moveToFirst();
@@ -69,7 +77,8 @@ public class Recipe {
             id = cursor.getString(1);
             parseIngredients(cursor.getString(2));
             directions = cursor.getString(3);
-            photoURL = cursor.getString(4);
+            parseNutrition(cursor.getString(4));
+            photoURL = cursor.getString(5);
             saved = true;
         }
         if (cursor != null && !cursor.isClosed()) {
@@ -89,7 +98,8 @@ public class Recipe {
             id = cursor.getString(1);
             parseIngredients(cursor.getString(2));
             directions = cursor.getString(3);
-            photoURL = cursor.getString(4);
+            parseNutrition(cursor.getString(4));
+            photoURL = cursor.getString(5);
             saved = true;
         }
         if (cursor != null && !cursor.isClosed()) {
@@ -100,15 +110,16 @@ public class Recipe {
 
     public void saveToDB(SQLiteDatabase recipesDB) {
 
-        String sql = "INSERT OR REPLACE INTO Recipes (name, id, ingredients, directions, photourl)"
-                + " VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO Recipes (name, id, ingredients, directions," +
+                " nutrition, photourl) VALUES(?, ?, ?, ?, ?, ?)";
         SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
         insertStatement.clearBindings();
         insertStatement.bindString(1, name);
         insertStatement.bindString(2, id);
         insertStatement.bindString(3, getIngredientsString());
         insertStatement.bindString(4, directions);
-        insertStatement.bindString(5, photoURL);
+        insertStatement.bindString(5, getNutritionString());
+        insertStatement.bindString(6, photoURL);
         insertStatement.executeInsert();
         savePhotoToStorage(recipesDB);
         saved = true;
@@ -148,14 +159,15 @@ public class Recipe {
                         photoURL = "file://" + mypath.toString();
                         System.out.println("~~~~~~~~~~~~~" + photoURL);
                         String sql = "INSERT OR REPLACE INTO Recipes (name, id, ingredients, " +
-                                "directions, photourl) VALUES(?, ?, ?, ?, ?)";
+                                "directions, nutrition, photourl) VALUES(?, ?, ?, ?, ?, ?)";
                         SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
                         insertStatement.clearBindings();
                         insertStatement.bindString(1, name);
                         insertStatement.bindString(2, id);
                         insertStatement.bindString(3, getIngredientsString());
                         insertStatement.bindString(4, directions);
-                        insertStatement.bindString(5, photoURL);
+                        insertStatement.bindString(5, getNutritionString());
+                        insertStatement.bindString(6, photoURL);
                         insertStatement.executeInsert();
                         saved = true;
                     } catch (Exception e) {
@@ -180,6 +192,23 @@ public class Recipe {
             } else {
                 ret += ingredients.get(a) + DIVIDER;
             }
+        }
+        return ret;
+    }
+
+    public String getNutritionString() {
+
+        String ret = "";
+        Set<String> keys = nutrition.keySet();
+        int curr = 0;
+        for (String key : keys) {
+            if (curr == keys.size() - 1) {
+                ret += String.format("%s%s%f", key, NUTDIV, nutrition.get(key));
+            } else {
+                ret += String.format("%s%s%f%s", key, NUTDIV, nutrition.get(key), DIVIDER);
+            }
+            curr++;
+            System.out.println(curr);
         }
         return ret;
     }
@@ -240,6 +269,21 @@ public class Recipe {
             throw new StringFormatException("Directions had the incorrect number of parts.");
         } else {
             return directions.split(DIVIDER);
+        }
+    }
+
+    public void parseNutrition(String text) throws StringFormatException {
+
+        System.out.println("~~~~~~*" + text + "*~~~~~~~~");
+
+        if (nutrition == null) {
+            nutrition = new HashMap<>();
+        }
+
+        String[] items = text.split(DIVIDER);
+        for (int a = 0; a < items.length; a++) {
+            String[] parts = items[a].split(NUTDIV);
+            nutrition.put(parts[0], Float.parseFloat(parts[1]));
         }
     }
 

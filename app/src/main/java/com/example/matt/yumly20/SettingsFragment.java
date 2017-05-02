@@ -285,10 +285,10 @@ public class SettingsFragment extends Fragment {
         height.setText(String.format("%.0f", myPrefs.getFloat("height", (float) 150)));
         weight.setText(String.format("%.0f", myPrefs.getFloat("weight", (float) 68)));
         calories.setText(String.format("%.0f", myPrefs.getFloat("calories", (float) 2000)));
-        cholesteral.setText(String.format("%.0f", myPrefs.getFloat("cholesterol", (float) 3000)));
+        cholesteral.setText(String.format("%.0f", myPrefs.getFloat("cholesterol", (float) 300)));
         fat.setText(String.format("%.0f", myPrefs.getFloat("fat", (float) 65)));
         protein.setText(String.format("%.0f", myPrefs.getFloat("protein", (float) 50)));
-        sodium.setText(String.format("%.0f", myPrefs.getFloat("sodium", (float) 2400)));
+        sodium.setText(String.format("%.0f", myPrefs.getFloat("sodium", (float) 1500)));
 
         listener1 = new RadioGroup.OnCheckedChangeListener() {
 

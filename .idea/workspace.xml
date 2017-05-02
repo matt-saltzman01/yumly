@@ -17,10 +17,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/HomeScreenFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/HomeScreenFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SettingsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SettingsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml" />
     </list>
     <ignored path="Chefly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,31 +95,30 @@
     <favorites_list name="Chefly" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5930305">
+    <splitter split-orientation="horizontal" split-proportion="0.505692">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="MyFridgeFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyFridgeFragment.java">
+          <file leaf-file-name="RecipeFragment.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="699">
-                  <caret line="398" column="5" selection-start-line="398" selection-start-column="5" selection-end-line="398" selection-end-column="5" />
+                <state relative-caret-position="528">
+                  <caret line="351" column="11" selection-start-line="351" selection-start-column="11" selection-end-line="351" selection-end-column="11" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#7974#8516#0" expanded="true" />
-                    <element signature="e#8515#8516#0" expanded="true" />
+                    <element signature="e#13260#13522#0" expanded="true" />
+                    <element signature="e#13521#13522#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="SearchRecipesFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SearchRecipesFragment.java">
+          <file leaf-file-name="SettingsFragment.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SettingsFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="210" column="13" selection-start-line="210" selection-start-column="13" selection-end-line="210" selection-end-column="13" />
+                <state relative-caret-position="7854">
+                  <caret line="375" column="0" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
                   <folding>
-                    <element signature="e#4752#4753#0" expanded="true" />
-                    <element signature="e#4812#4813#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -125,68 +127,38 @@
           <file leaf-file-name="HomeScreenFragment.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/HomeScreenFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="414">
+                <state relative-caret-position="2772">
                   <caret line="158" column="60" selection-start-line="158" selection-start-column="60" selection-end-line="158" selection-end-column="60" />
-                  <folding>
-                    <element signature="e#6229#6553#0" expanded="true" />
-                    <element signature="e#6552#6553#0" expanded="true" />
-                    <element signature="e#8534#8760#0" expanded="true" />
-                    <element signature="e#8759#8760#0" expanded="true" />
-                  </folding>
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="IngredientSearchFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/IngredientSearchFragment.java">
+          <file leaf-file-name="Recipe.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="211">
-                  <caret line="95" column="36" selection-start-line="95" selection-start-column="36" selection-end-line="95" selection-end-column="36" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#6646#6647#0" expanded="true" />
-                    <element signature="e#6706#6707#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="2398">
+                  <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MainActivity.java">
+          <file leaf-file-name="MyRecipesFragment.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#8225#8416#0" expanded="true" />
-                    <element signature="e#8415#8416#0" expanded="true" />
-                    <element signature="e#8461#10194#0" expanded="true" />
-                    <element signature="e#10193#10194#0" expanded="true" />
-                    <element signature="e#10242#10695#0" expanded="true" />
-                    <element signature="e#10694#10695#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="4268">
+                  <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="IngredientSearchAdapter.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/IngredientSearchAdapter.java">
+          <file leaf-file-name="RecipeOpenHelper.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="128">
-                  <caret line="81" column="56" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
-                  <folding>
-                    <element signature="e#2389#2791#0" expanded="true" />
-                    <element signature="e#2790#2791#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MyRecipesAdapter.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesAdapter.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="139">
-                  <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+                <state relative-caret-position="528">
+                  <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
@@ -196,11 +168,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="fragment_home_screen.xml" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home_screen.xml">
+          <file leaf-file-name="fragment_recipe.xml" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-110">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state relative-caret-position="288">
+                  <caret line="212" column="43" selection-start-line="212" selection-start-column="43" selection-end-line="212" selection-end-column="43" />
                   <folding />
                 </state>
               </provider>
@@ -212,7 +184,7 @@
           <file leaf-file-name="fragment_my_fridge.xml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_my_fridge.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="264">
+                <state relative-caret-position="550">
                   <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
                   <folding />
                 </state>
@@ -225,7 +197,7 @@
           <file leaf-file-name="fragment_ingredient_search.xml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_ingredient_search.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="397">
+                <state relative-caret-position="2090">
                   <caret line="95" column="44" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="44" />
                   <folding />
                 </state>
@@ -2008,10 +1980,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/FoodItemComparator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SearchRecipesAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/search_recipes_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/my_recipes_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/FridgeAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/ingredient_search_item.xml" />
@@ -2024,11 +1992,17 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fridge_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SearchRecipesFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyFridgeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/HomeScreenFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/YummlyMetadata.txt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SearchRecipesFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SettingsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml" />
       </list>
     </option>
   </component>
@@ -2061,6 +2035,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2114,130 +2089,15 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane />
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="device.picker.selection" value="42dbceb2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Assignment3" />
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/app/app.iml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SettingsFragment.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/app/src/main/res/drawable/circular.xml</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Android App.app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -2712,7 +2572,28 @@
       <option name="project" value="LOCAL" />
       <updated>1493670054121</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Edited UniversalImageLoader configuration settings.">
+      <created>1493670907992</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1493670907992</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Small change to settings.">
+      <created>1493704352982</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1493704352982</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Search now refines by allergies and diets.">
+      <created>1493709329591</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1493709329591</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2726,7 +2607,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295362" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32776618" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2734,16 +2615,15 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36638832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33159542" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3061486" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32846716" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13641246" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.103651986" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2760,6 +2640,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2768,7 +2649,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36638832" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33159542" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -2784,8 +2665,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3061486" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
@@ -2825,27 +2706,16 @@
     <MESSAGE value="Search box in Search Recipes is now functional. Includes the text in the query to Yummly." />
     <MESSAGE value="Added an icon to the app. It is just a simple orange person wearing a chef hat." />
     <MESSAGE value="Homescreen now pulls data from yummly for the recipes of the week." />
-    <option name="LAST_COMMIT_MESSAGE" value="Homescreen now pulls data from yummly for the recipes of the week." />
+    <MESSAGE value="Edited UniversalImageLoader configuration settings." />
+    <MESSAGE value="Small change to settings." />
+    <MESSAGE value="Search now refines by allergies and diets." />
+    <option name="LAST_COMMIT_MESSAGE" value="Search now refines by allergies and diets." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -2953,26 +2823,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-94">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-572">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_my_recipes.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -2983,7 +2840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -2994,7 +2850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3010,15 +2865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3026,30 +2872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="128" column="34" selection-start-line="128" selection-start-column="34" selection-end-line="128" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="118" column="20" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4184#6294#0" expanded="false" />
-            <element signature="e#6293#6294#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3061,19 +2883,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/FridgeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="78" column="11" selection-start-line="78" selection-start-column="11" selection-end-line="78" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/search_recipes_item.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3084,7 +2897,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3095,7 +2907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="619">
           <caret line="39" column="98" selection-start-line="39" selection-start-column="98" selection-end-line="39" selection-end-column="98" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3118,17 +2929,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SampleBingResponse.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SampleBingResponse.txt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_ingredient_search.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
+        <state relative-caret-position="2090">
           <caret line="95" column="44" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="44" />
           <folding />
         </state>
@@ -3158,28 +2962,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="873">
-          <caret line="273" column="38" selection-start-line="273" selection-start-column="38" selection-end-line="273" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6269#6579#0" expanded="true" />
-            <element signature="e#6578#6579#0" expanded="true" />
-            <element signature="e#17651#17928#0" expanded="true" />
-            <element signature="e#17927#17928#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/IngredientSearchAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
+        <state relative-caret-position="1320">
           <caret line="81" column="56" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
-          <folding>
-            <element signature="e#2389#2791#0" expanded="true" />
-            <element signature="e#2790#2791#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3187,7 +2974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3196,7 +2982,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_my_fridge.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
+        <state relative-caret-position="550">
           <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
           <folding />
         </state>
@@ -3207,71 +2993,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
+        <state relative-caret-position="220">
           <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding>
-            <element signature="e#5417#5418#0" expanded="false" />
-            <element signature="e#5477#5478#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SearchRecipesFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/FridgeAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="210" column="13" selection-start-line="210" selection-start-column="13" selection-end-line="210" selection-end-column="13" />
+        <state relative-caret-position="462">
+          <caret line="78" column="11" selection-start-line="78" selection-start-column="11" selection-end-line="78" selection-end-column="11" />
           <folding>
-            <element signature="e#4752#4753#0" expanded="true" />
-            <element signature="e#4812#4813#0" expanded="true" />
+            <element signature="e#2201#2489#0" expanded="false" />
+            <element signature="e#2488#2489#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyFridgeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
-          <caret line="398" column="5" selection-start-line="398" selection-start-column="5" selection-end-line="398" selection-end-column="5" />
+        <state relative-caret-position="4378">
+          <caret line="217" column="45" selection-start-line="217" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7974#8516#0" expanded="true" />
-            <element signature="e#8515#8516#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home_screen.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-110">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/IngredientSearchFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
+        <state relative-caret-position="1232">
           <caret line="95" column="36" selection-start-line="95" selection-start-column="36" selection-end-line="95" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3281,33 +3043,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/HomeScreenFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="158" column="60" selection-start-line="158" selection-start-column="60" selection-end-line="158" selection-end-column="60" />
+        <state relative-caret-position="836">
+          <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
           <folding>
-            <element signature="e#6229#6553#0" expanded="true" />
-            <element signature="e#6552#6553#0" expanded="true" />
-            <element signature="e#8534#8760#0" expanded="true" />
-            <element signature="e#8759#8760#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
+        <state relative-caret-position="-8910">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/YummlyMetadata.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="4066" selection-start-line="0" selection-start-column="4066" selection-end-line="0" selection-end-column="4066" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SearchRecipesFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1669">
+          <caret line="257" column="47" selection-start-line="257" selection-start-column="47" selection-end-line="257" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home_screen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/HomeScreenFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2772">
+          <caret line="158" column="60" selection-start-line="158" selection-start-column="60" selection-end-line="158" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeOpenHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/MyRecipesFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4268">
+          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/Recipe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2398">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/SettingsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7854">
+          <caret line="375" column="0" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8225#8416#0" expanded="true" />
-            <element signature="e#8415#8416#0" expanded="true" />
-            <element signature="e#8461#10194#0" expanded="true" />
-            <element signature="e#10193#10194#0" expanded="true" />
-            <element signature="e#10242#10695#0" expanded="true" />
-            <element signature="e#10694#10695#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/matt/yumly20/RecipeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="351" column="11" selection-start-line="351" selection-start-column="11" selection-end-line="351" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#13260#13522#0" expanded="true" />
+            <element signature="e#13521#13522#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_recipe.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="212" column="43" selection-start-line="212" selection-start-column="43" selection-end-line="212" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
   </component>
