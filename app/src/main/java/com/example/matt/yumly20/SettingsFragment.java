@@ -443,7 +443,7 @@ public class SettingsFragment extends Fragment {
                 break;
         }
 
-        peditor.commit();
+        peditor.apply();
 
         Context context = getActivity().getApplicationContext();
         CharSequence text = "Settings Successfully Updated!";
