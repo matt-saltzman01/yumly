@@ -126,70 +126,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/diet_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Diets"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:gravity="left"
-            android:textColor="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/lacto_veg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lacto Vegetarian" />
-
-                <CheckBox
-                    android:id="@+id/pescetarian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pescetarian" />
-
-                <CheckBox
-                    android:id="@+id/vegetarian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Vegetarian" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/ovo_veg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ovo Vegetarian" />
-
-                <CheckBox
-                    android:id="@+id/vegan"
-                    android:text="Vegan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
             android:id="@+id/allergies_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -282,6 +218,89 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/diet_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Diets"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="left"
+            android:textColor="#000000" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/lacto_veg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lacto Vegetarian" />
+
+                    <RadioButton
+                        android:id="@+id/pescetarian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pescetarian" />
+
+                    <RadioButton
+                        android:id="@+id/vegetarian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vegetarian" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+                <RadioGroup
+                    android:id="@+id/rg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/ovo_veg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ovo Vegetarian" />
+
+                    <RadioButton
+                        android:id="@+id/vegan"
+                        android:text="Vegan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/paleo"
+                        android:text="Paleo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/user_text"

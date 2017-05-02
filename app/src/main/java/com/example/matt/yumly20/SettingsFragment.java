@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,11 +53,6 @@ public class SettingsFragment extends Fragment {
     private CheckBox mediterrenean;
     private CheckBox mexican;
     private CheckBox thai;
-    private CheckBox lacto_veg;
-    private CheckBox ovo_veg;
-    private CheckBox pesc;
-    private CheckBox vegan;
-    private CheckBox vegetarian;
     private CheckBox dairy;
     private CheckBox egg;
     private CheckBox gluten;
@@ -66,6 +63,19 @@ public class SettingsFragment extends Fragment {
     private CheckBox sulfite;
     private CheckBox treenut;
     private CheckBox wheat;
+    private RadioGroup rg1;
+    private RadioGroup rg2;
+    private RadioButton lacto_veg;
+    private RadioButton ovo_veg;
+    private RadioButton pesc;
+    private RadioButton vegan;
+    private RadioButton vegetarian;
+    private RadioButton male;
+    private RadioButton female;
+    private RadioButton nonbinary;
+
+    private RadioGroup.OnCheckedChangeListener listener1 = null;
+    private RadioGroup.OnCheckedChangeListener listener2 = null;
 
 
     // TODO: Rename and change types of parameters
@@ -144,13 +154,6 @@ public class SettingsFragment extends Fragment {
         mexican = (CheckBox) rootView.findViewById(R.id.mexican);
         thai = (CheckBox) rootView.findViewById(R.id.thai);
 
-        //Checkboxes for diets
-        lacto_veg = (CheckBox) rootView.findViewById(R.id.lacto_veg);
-        ovo_veg = (CheckBox) rootView.findViewById(R.id.ovo_veg);
-        pesc = (CheckBox) rootView.findViewById(R.id.pescetarian);
-        vegan = (CheckBox) rootView.findViewById(R.id.vegan);
-        vegetarian = (CheckBox) rootView.findViewById(R.id.vegetarian);
-
         //Checkboxes for allergies
         dairy = (CheckBox) rootView.findViewById(R.id.dairy);
         egg = (CheckBox) rootView.findViewById(R.id.egg);
@@ -162,6 +165,18 @@ public class SettingsFragment extends Fragment {
         sulfite = (CheckBox) rootView.findViewById(R.id.sulfite);
         treenut = (CheckBox) rootView.findViewById(R.id.treenut);
         wheat = (CheckBox) rootView.findViewById(R.id.wheat);
+
+        //RadioButtons for diets
+        lacto_veg = (RadioButton) rootView.findViewById(R.id.lacto_veg);
+        ovo_veg = (RadioButton) rootView.findViewById(R.id.ovo_veg);
+        pesc = (RadioButton) rootView.findViewById(R.id.pescetarian);
+        vegan = (RadioButton) rootView.findViewById(R.id.vegan);
+        vegetarian = (RadioButton) rootView.findViewById(R.id.vegetarian);
+
+        //RadioButtons for gender
+        male = (RadioButton) rootView.findViewById(R.id.male);
+        female = (RadioButton) rootView.findViewById(R.id.female);
+        nonbinary = (RadioButton) rootView.findViewById(R.id.nonbinary);
 
         //get and set cuisine checkbox according to sharedprefs
         boolean checkedam = myPrefs.getBoolean("american", false);
@@ -247,6 +262,16 @@ public class SettingsFragment extends Fragment {
         boolean checkedwhe = myPrefs.getBoolean("wheat", false);
         wheat.setChecked(checkedwhe);
 
+        //Gender RadioButtons
+        boolean checkedMale = myPrefs.getBoolean("male", false);
+        male.setChecked(checkedMale);
+
+        boolean checkedFemale = myPrefs.getBoolean("female", false);
+        female.setChecked(checkedFemale);
+
+        boolean checkedNonBinary = myPrefs.getBoolean("nonbinary", false);
+        nonbinary.setChecked(checkedNonBinary);
+
         //Edit Text Fields for user inputs
         height = (EditText) rootView.findViewById(R.id.height);
         weight = (EditText) rootView.findViewById(R.id.weight);
@@ -264,6 +289,34 @@ public class SettingsFragment extends Fragment {
         fat.setText(String.format("%.0f", myPrefs.getFloat("fat", (float) 65)));
         protein.setText(String.format("%.0f", myPrefs.getFloat("protein", (float) 50)));
         sodium.setText(String.format("%.0f", myPrefs.getFloat("sodium", (float) 2400)));
+
+        listener1 = new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    rg2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                    rg2.clearCheck(); // clear the second RadioGroup!
+                    rg2.setOnCheckedChangeListener(listener2);
+            }
+        };
+
+        listener2 = new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    rg1.setOnCheckedChangeListener(null);
+                    rg1.clearCheck();
+                    rg1.setOnCheckedChangeListener(listener1);
+            }
+        };
+
+        rg1 = (RadioGroup) rootView.findViewById(R.id.rg1);
+        rg2 = (RadioGroup) rootView.findViewById(R.id.rg2);
+        rg1.setOnCheckedChangeListener(listener1);
+        rg2.setOnCheckedChangeListener(listener2);
+
+
+
 
         Button saveButton = (Button) rootView.findViewById(R.id.save_preferences_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -333,116 +386,184 @@ public class SettingsFragment extends Fragment {
         peditor.putFloat("protein", Float.parseFloat(protein.getText().toString()));
         peditor.putFloat("sodium", Float.parseFloat(sodium.getText().toString()));
 
-        switch(getView().getId()) {
-            case R.id.american:
-                peditor.putBoolean("american", true);
-                break;
-
-            case R.id.chinese:
-                peditor.putBoolean("chinese", true);
-                break;
-
-            case R.id.english:
-                peditor.putBoolean("english", true);
-                break;
-
-            case R.id.french:
-                peditor.putBoolean("french", true);
-                break;
-
-            case R.id.greek:
-                peditor.putBoolean("greek", true);
-                break;
-
-            case R.id.hawaiin:
-                peditor.putBoolean("hawaiin", true);
-                break;
-
-            case R.id.indian:
-                peditor.putBoolean("indian", true);
-                break;
-
-            case R.id.italian:
-                peditor.putBoolean("italian", true);
-                break;
-
-            case R.id.japanese:
-                peditor.putBoolean("japanese", true);
-                break;
-
-            case R.id.mediterrenean:
-                peditor.putBoolean("mediterrenean", true);
-                break;
-
-            case R.id.mexican:
-                peditor.putBoolean("mexican", true);
-                break;
-
-            case R.id.thai:
-                peditor.putBoolean("thai", true);
-                break;
-
-            case R.id.lacto_veg:
-                peditor.putBoolean("lacto_veg", true);
-                break;
-
-            case R.id.ovo_veg:
-                peditor.putBoolean("ovo_veg", true);
-                break;
-
-            case R.id.pescetarian:
-                peditor.putBoolean("pesc", true);
-                break;
-
-            case R.id.vegan:
-                peditor.putBoolean("vegan", true);
-                break;
-
-            case R.id.vegetarian:
-                peditor.putBoolean("vegetarian", true);
-                break;
-
-            case R.id.dairy:
-                peditor.putBoolean("dairy", true);
-                break;
-
-            case R.id.egg:
-                peditor.putBoolean("egg", true);
-                break;
-
-            case R.id.gluten:
-                peditor.putBoolean("gluten", true);
-                break;
-
-            case R.id.peanut:
-                peditor.putBoolean("peanut", true);
-                break;
-
-            case R.id.seafood:
-                peditor.putBoolean("seafood", true);
-                break;
-
-            case R.id.sesame:
-                peditor.putBoolean("sesame", true);
-                break;
-
-            case R.id.soy:
-                peditor.putBoolean("soy", true);
-                break;
-
-            case R.id.sulfite:
-                peditor.putBoolean("sulfite", true);
-                break;
-
-            case R.id.treenut:
-                peditor.putBoolean("treenut", true);
-                break;
-
-            case R.id.wheat:
-                peditor.putBoolean("wheat", true);
-                break;
+        if(american.isChecked()) {
+            peditor.putBoolean("american", true);
+        } else {
+            peditor.putBoolean("american", false);
         }
 
+        if(chinese.isChecked()) {
+            peditor.putBoolean("chinese", true);
+        } else {
+            peditor.putBoolean("chinese", false);
+        }
+
+        if(english.isChecked()) {
+            peditor.putBoolean("english", true);
+        } else {
+            peditor.putBoolean("english", false);
+        }
+
+        if(french.isChecked()) {
+            peditor.putBoolean("french", true);
+        } else {
+            peditor.putBoolean("french", false);
+        }
+
+        if(greek.isChecked()) {
+            peditor.putBoolean("greek", true);
+        } else {
+            peditor.putBoolean("greek", false);
+        }
+
+        if(hawaiin.isChecked()) {
+            peditor.putBoolean("hawaiin", true);
+        } else {
+            peditor.putBoolean("hawaiin", false);
+        }
+
+        if(indian.isChecked()) {
+            peditor.putBoolean("indian", true);
+        } else {
+            peditor.putBoolean("indian", false);
+        }
+
+        if(italian.isChecked()) {
+            peditor.putBoolean("italian", true);
+        } else {
+            peditor.putBoolean("italian", false);
+        }
+
+        if(japanese.isChecked()) {
+            peditor.putBoolean("japanese", true);
+        } else {
+            peditor.putBoolean("japanese", false);
+        }
+
+        if(mediterrenean.isChecked()) {
+            peditor.putBoolean("mediterrenean", true);
+        } else {
+            peditor.putBoolean("mediterrenean", false);
+        }
+
+        if(mexican.isChecked()) {
+            peditor.putBoolean("mexican", true);
+        } else {
+            peditor.putBoolean("mexican", false);
+        }
+
+        if(thai.isChecked()) {
+            peditor.putBoolean("thai", true);
+        } else {
+            peditor.putBoolean("thai", false);
+        }
+
+        if(lacto_veg.isChecked()) {
+            peditor.putBoolean("lacto_veg", true);
+        } else {
+            peditor.putBoolean("lacto_veg", false);
+        }
+
+        if(ovo_veg.isChecked()) {
+            peditor.putBoolean("ovo_veg", true);
+        } else {
+            peditor.putBoolean("ovo_veg", false);
+        }
+
+        if(pesc.isChecked()) {
+            peditor.putBoolean("pesc", true);
+        } else {
+            peditor.putBoolean("pesc", false);
+        }
+
+        if(vegan.isChecked()) {
+            peditor.putBoolean("vegan", true);
+        } else {
+            peditor.putBoolean("vegan", false);
+        }
+
+        if(vegetarian.isChecked()) {
+            peditor.putBoolean("vegetarian", true);
+        } else {
+            peditor.putBoolean("vegetarian", false);
+        }
+
+        if(dairy.isChecked()) {
+            peditor.putBoolean("dairy", true);
+        } else {
+            peditor.putBoolean("dairy", false);
+        }
+
+        if(egg.isChecked()) {
+            peditor.putBoolean("egg", true);
+        } else {
+            peditor.putBoolean("egg", false);
+        }
+
+        if(gluten.isChecked()) {
+            peditor.putBoolean("gluten", true);
+        } else {
+            peditor.putBoolean("gluten", false);
+        }
+
+        if(peanut.isChecked()) {
+            peditor.putBoolean("peanut", true);
+        } else {
+            peditor.putBoolean("peanut", false);
+        }
+
+        if(seafood.isChecked()) {
+            peditor.putBoolean("seafood", true);
+        } else {
+            peditor.putBoolean("seafood", false);
+        }
+
+        if(sesame.isChecked()) {
+            peditor.putBoolean("sesame", true);
+        } else {
+            peditor.putBoolean("sesame", false);
+        }
+
+        if(soy.isChecked()) {
+            peditor.putBoolean("soy", true);
+        } else {
+            peditor.putBoolean("soy", false);
+        }
+
+        if(sulfite.isChecked()) {
+            peditor.putBoolean("sulfite", true);
+        } else {
+            peditor.putBoolean("sulfite", false);
+        }
+
+        if(treenut.isChecked()) {
+            peditor.putBoolean("treenut", true);
+        } else {
+            peditor.putBoolean("treenut", false);
+        }
+
+        if(wheat.isChecked()) {
+            peditor.putBoolean("wheat", true);
+        } else {
+            peditor.putBoolean("wheat", false);
+        }
+
+        if(male.isChecked()) {
+            peditor.putBoolean("male", true);
+        } else {
+            peditor.putBoolean("male", false);
+        }
+
+        if(female.isChecked()) {
+            peditor.putBoolean("female", true);
+        } else {
+            peditor.putBoolean("female", false);
+        }
+        if(nonbinary.isChecked()) {
+            peditor.putBoolean("nonbinary", true);
+        } else {
+            peditor.putBoolean("nonbinary", false);
+        }
         peditor.apply();
 
         Context context = getActivity().getApplicationContext();
