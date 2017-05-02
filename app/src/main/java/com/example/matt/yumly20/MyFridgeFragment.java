@@ -264,14 +264,14 @@ public class MyFridgeFragment extends Fragment {
 
     public void setAdapters() {
 
-        /*if (meatAdapter == null || vegAdapter == null || dryAdapter == null || carbAdapter == null
+        if (meatAdapter == null || vegAdapter == null || dryAdapter == null || carbAdapter == null
                 || (meatAdapter.getCount() + vegAdapter.getCount() + dryAdapter.getCount()
                 + carbAdapter.getCount()) != fridge.size()) {
             meatAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("M/P"));
             vegAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("F/V"));
             dryAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("Dairy"));
             carbAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("Carbs"));
-        }*/
+        }
 
         GridView gridView = (GridView) getActivity().findViewById(R.id.item_grid);
 

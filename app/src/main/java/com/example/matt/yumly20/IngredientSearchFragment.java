@@ -183,7 +183,7 @@ public class IngredientSearchFragment extends Fragment {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         try {
-                            new QueryBingImagesTask().execute(new URL("http://something.com"));
+                            new QueryBingImagesTask().execute(new URL("http://urlgoesshere.com/"));
                         } catch (MalformedURLException mue) {
                             mue.printStackTrace();
                         }
