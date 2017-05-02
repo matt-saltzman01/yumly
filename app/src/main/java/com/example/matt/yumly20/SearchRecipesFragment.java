@@ -2,12 +2,14 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.health.SystemHealthManager;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +54,7 @@ public class SearchRecipesFragment extends Fragment {
 
     private String ingredients;
     private String query;
+    private String alleriesDiets;
 
     protected ListView lv;
     protected SearchView sv;
@@ -201,17 +204,86 @@ public class SearchRecipesFragment extends Fragment {
 
     private void searchForRecipes() {
 
+        buildAllergiesAndDietsString();
+        //String[] api = {"ingredient?", "allergy?", "diet?"};
+
         try {
             if (possible == -1 || current < possible) {
-                String urlString = String.format("%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
-                        "&requirePictures=true", query, ingredients);
+                //for (int a = 0; a < api.length; a++) {
+                String urlString = String.format("%s%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
+                        "&requirePictures=true", query, alleriesDiets, ingredients);
+                    /*String urlString = String.format("%s_app_id=%s&_app_key=%s",
+                            "http://api.yummly.com/v1/api/metadata/" + api[a], APP_ID, APP_KEY);*/
                 System.out.println(urlString);
                 URL url = new URL(urlString);
                 new QueryYummlyTask().execute(url);
+                //}
             }
         } catch (MalformedURLException mue) {
             mue.printStackTrace();
         }
+
+    }
+
+    private void buildAllergiesAndDietsString() {
+
+        Context context = getActivity().getApplicationContext();
+        SharedPreferences myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        alleriesDiets = "";
+
+        //get diets booleans
+        if (myPrefs.getBoolean("lacto_veg", false)) {
+            alleriesDiets += "&allowedDiet%5B%5D=" + "388^Lacto+vegetarian";
+        }
+        if (myPrefs.getBoolean("ovo_veg", false)) {
+            alleriesDiets += "&allowedDiet%5B%5D=" + "389^Ovo+vegetarian";
+        }
+        if (myPrefs.getBoolean("pesc", false)) {
+            alleriesDiets += "&allowedDiet%5B%5D=" + "390^Pescetarian";
+        }
+        if (myPrefs.getBoolean("vegan", false)) {
+            alleriesDiets += "&allowedDiet%5B%5D=" + "386^Vegan";
+        }
+        if (myPrefs.getBoolean("vegetarian", false)) {
+            alleriesDiets += "&allowedDiet%5B%5D=" + "387^Lacto-ovo+vegetarian";
+        }
+        if (myPrefs.getBoolean("paleo", false)) {
+            alleriesDiets += "&allowedDiet%5B%5D=" + "403^Paleo";
+        }
+
+        //get and set allergies checkbox according to sharedprefs
+        if (myPrefs.getBoolean("dairy", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "396^Dairy-Free";
+        }
+        if (myPrefs.getBoolean("egg", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "397^Egg-Free";
+        }
+        if (myPrefs.getBoolean("gluten", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "393^Gluten-Free";
+        }
+        if (myPrefs.getBoolean("peanut", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "394^Peanut-Free";
+        }
+        if (myPrefs.getBoolean("seafood", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "398^Seafood-Free";
+        }
+        if (myPrefs.getBoolean("sesame", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "399^Sesame-Free";
+        }
+        if (myPrefs.getBoolean("soy", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "400^Soy-Free";
+        }
+        if (myPrefs.getBoolean("sulfite", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "401^Sulfite-Free";
+        }
+        if (myPrefs.getBoolean("treenut", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "395^Tree+Nut-Free";
+        }
+        if (myPrefs.getBoolean("wheat", false)) {
+            alleriesDiets += "&allowedAllergy%5B%5D=" + "392^Wheat-Free";
+        }
+
+        System.out.println("~~~~~~~*" + alleriesDiets + "*~~~~~~");
 
     }
 
