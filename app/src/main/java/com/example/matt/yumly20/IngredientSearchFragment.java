@@ -25,6 +25,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHttpRequest;
+import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
+import org.apache.commons.lang3.text.WordUtils;
 
 
 /**
@@ -76,6 +79,7 @@ public class IngredientSearchFragment extends Fragment {
     protected SearchView sv;
     protected IngredientSearchAdapter iSAdapter;
     protected List ingredients = new ArrayList<String>();
+    protected String name;
 
     protected ImageLoader imageLoader;
     protected Bitmap picMap;
@@ -103,7 +107,46 @@ public class IngredientSearchFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
+            HttpClient httpClient = new DefaultHttpClient();
             String result = "";
+
+            HttpGet request = new HttpGet(params[0]);
+            request.addHeader("Ocp-Apim-Subscription-Key", API_KEY);
+
+            HttpResponse response = null;
+            try {
+                response = httpClient.execute(request);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                InputStream inputStream = null;
+                try {
+                    inputStream = entity.getContent();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+
+                try {
+                    while ((line = bufferedReader.readLine()) != null) {
+                        result += line;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return result;
+
+
+            /*String result = "";
             HttpClient httpClient = new DefaultHttpClient();
 
 
@@ -114,10 +157,10 @@ public class IngredientSearchFragment extends Fragment {
 
             httpget.addHeader("Authorization", "Basic " + encodedAuth);
 
-            /*String auth = API_KEY;
+            *//*String auth = API_KEY;
             String encodedAuth = Base64.encodeToString(auth.getBytes(), Base64.NO_WRAP);
 
-            httpget.addHeader("Ocp-Apim-Subscription-Key", encodedAuth);*/
+            httpget.addHeader("Ocp-Apim-Subscription-Key", encodedAuth);*//*
 
 
             //Execute and get the response.
@@ -152,7 +195,7 @@ public class IngredientSearchFragment extends Fragment {
             //return result;
 
             //still not working so return sample
-            return getSampleResponse();
+            return getSampleResponse();*/
         }
 
         @Override
@@ -171,7 +214,11 @@ public class IngredientSearchFragment extends Fragment {
 
                     ((TextView) getActivity().findViewById(R.id.search_instructions))
                             .setText("Select the image which best fits the item.");
-                    gv.setAdapter(iSAdapter);
+
+                    iSAdapter = new IngredientSearchAdapter(getActivity(), R.layout.ingredient_search_item,
+                            ingredients, name);
+                    gv = (GridView) getActivity().findViewById(R.id.ingredient_image_list);
+                    gv.setAdapter(iSAdapter);gv.setAdapter(iSAdapter);
 
                 } catch (JSONException je) {
                     je.printStackTrace();
@@ -230,20 +277,16 @@ public class IngredientSearchFragment extends Fragment {
 
         //populateRecipes();
 
-        iSAdapter = new IngredientSearchAdapter(getActivity(), R.layout.ingredient_search_item,
-                ingredients);
-        gv = (GridView) getActivity().findViewById(R.id.ingredient_image_list);
-        gv.setAdapter(iSAdapter);
-
         sv = (SearchView) getActivity().findViewById(R.id.is_search_view);
         sv.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
 
                     @Override
-                    public boolean onQueryTextSubmit(String query) {
+                    public boolean onQueryTextSubmit(String q) {
 
-                        String urlstr = "https://api.cognitive.microsoft.com/bing/v5.0/" +
-                                "images/search?" + query;
+                        name = WordUtils.capitalizeFully(q);
+                        String urlstr = "https://api.cognitive.microsoft.com/bing/v5.0/images/" +
+                                "search?q=" + q.toLowerCase() + "&count=15&safeSearch=Strict";
                         new QueryBingImagesTask().execute(urlstr);
 
                         return false;

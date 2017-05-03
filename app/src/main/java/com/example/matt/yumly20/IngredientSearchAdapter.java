@@ -24,10 +24,12 @@ public class IngredientSearchAdapter extends BaseAdapter {
 
     private final Context context;
     private List<String> urls;
+    private String name;
 
-    public IngredientSearchAdapter(Context c, int layoutId, List fItems) {
+    public IngredientSearchAdapter(Context c, int layoutId, List fItems, String n) {
         context = c;
         urls = fItems;
+        name = n;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class IngredientSearchAdapter extends BaseAdapter {
             public void onClick(View v) {
                 ll.setBackgroundColor(ContextCompat.getColor(ingredSearchView.getContext(),
                         R.color.primaryBackgroundDark));
-                ((MainActivity) ingredSearchView.getContext()).newIngredientClick("Pepper",
+                ((MainActivity) ingredSearchView.getContext()).newIngredientClick(name,
                         urls.get(position));
             }
         });
