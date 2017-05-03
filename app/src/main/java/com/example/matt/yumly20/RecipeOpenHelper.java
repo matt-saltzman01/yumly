@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RecipeOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 3;
-    private static final String DATABASE_NAME = "cheflyDB.sql";
+    private static final String DATABASE_NAME = "cheflyRecipesDB.sql";
     private static final String TABLE_NAME = "Recipes";
     private static final String TABLE_CREATE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +

@@ -2,6 +2,8 @@ package com.example.matt.yumly20;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.view.View;
 
@@ -26,16 +28,29 @@ public class FoodItem {
 
     public FoodItem() { }
 
-    public FoodItem(Context c, String f, String g, String url) {
+    public FoodItem(Context c, SQLiteDatabase fridgeDB, String f, String g, String url) {
         context = c;
         food = f;
         group = g;
         photoURL = url;
         checked = false;
-        downloadPhoto();
+        saveToDB(fridgeDB);
+        downloadPhoto(fridgeDB);
     }
 
-    public void downloadPhoto() {
+    public void saveToDB(SQLiteDatabase fridgeDB) {
+
+        String sql = "INSERT OR REPLACE INTO Fridge (food, type, photourl) VALUES(?, ?, ?)";
+
+        SQLiteStatement insertStatement = fridgeDB.compileStatement(sql);
+        insertStatement.clearBindings();
+        insertStatement.bindString(1, food);
+        insertStatement.bindString(2, group);
+        insertStatement.bindString(3, photoURL);
+        insertStatement.executeInsert();
+    }
+
+    public void downloadPhoto(final SQLiteDatabase fridgeDB) {
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -51,14 +66,17 @@ public class FoodItem {
 
                 if (!mypath.exists()) {
                     FileOutputStream fos = null;
+
                     try {
                         fos = new FileOutputStream(mypath);
                         // Use the compress method on the BitMap object to write image to the OutputStream
                         loadedImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
                         photoURL = "file://" + mypath.toString();
-                        System.out.println("~~~~~~~~~~~~~" + photoURL);
+                        saveToDB(fridgeDB);
+
                     } catch (Exception e) {
                         e.printStackTrace();
+
                     } finally {
                         try {
                             fos.close();

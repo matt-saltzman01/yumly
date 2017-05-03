@@ -149,7 +149,10 @@ public class IngredientSearchFragment extends Fragment {
                 }
             }
 
-            return result;
+            //return result;
+
+            //still not working so return sample
+            return getSampleResponse();
         }
 
         @Override

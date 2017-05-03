@@ -233,21 +233,22 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FoodItem foodItem = new FoodItem();
+                SQLiteDatabase fridgeDB = (new FridgeOpenHelper(context)).getWritableDatabase();
                 switch (selected[0]) {
                     case 0:
-                        foodItem = new FoodItem(context, name, "M/P", url);
+                        foodItem = new FoodItem(context, fridgeDB, name, "M/P", url);
                         myFridgeFragment.group = "M/P";
                         break;
                     case 1:
-                        foodItem = new FoodItem(context, name, "F/V", url);
+                        foodItem = new FoodItem(context, fridgeDB, name, "F/V", url);
                         myFridgeFragment.group = "F/V";
                         break;
                     case 2:
-                        foodItem = new FoodItem(context, name, "Dairy", url);
+                        foodItem = new FoodItem(context, fridgeDB, name, "Dairy", url);
                         myFridgeFragment.group = "Dairy";
                         break;
                     case 3:
-                        foodItem = new FoodItem(context, name, "Carbs", url);
+                        foodItem = new FoodItem(context, fridgeDB, name, "Carbs", url);
                         myFridgeFragment.group = "Carbs";
                         break;
                     default:

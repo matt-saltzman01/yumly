@@ -112,6 +112,7 @@ public class Recipe {
 
         String sql = "INSERT OR REPLACE INTO Recipes (name, id, ingredients, directions," +
                 " nutrition, photourl) VALUES(?, ?, ?, ?, ?, ?)";
+
         SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
         insertStatement.clearBindings();
         insertStatement.bindString(1, name);
@@ -131,7 +132,7 @@ public class Recipe {
             String sql = String.format("DELETE FROM Recipes WHERE id='%s'", id);
             SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
             insertStatement.executeUpdateDelete();
-            recipesDB.close();
+
             saved = false;
         }
     }
