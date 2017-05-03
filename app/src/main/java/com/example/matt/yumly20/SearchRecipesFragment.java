@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -55,6 +56,7 @@ public class SearchRecipesFragment extends Fragment {
     private String ingredients;
     private String query;
     private String alleriesDiets;
+    private String cuisines;
 
     protected ListView lv;
     protected SearchView sv;
@@ -92,9 +94,11 @@ public class SearchRecipesFragment extends Fragment {
         if (getArguments() != null) {
             ingredients = getArguments().getString(ARG_PARAM1);
             query = getArguments().getString(ARG_PARAM2);
+            cuisines = "";
         } else {
             ingredients = "";
             query = "";
+            cuisines = "";
         }
 
     }
@@ -121,20 +125,14 @@ public class SearchRecipesFragment extends Fragment {
 
         searchForRecipes();
 
-        srAdapter = new SearchRecipesAdapter(getActivity(), R.layout.search_recipes_item, recipes);
-        lv = (ListView) getActivity().findViewById(R.id.recipes_list);
-        lv.setAdapter(srAdapter);
-
         sv = (SearchView) getActivity().findViewById(R.id.mr_search_view);
         sv.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String q) {
+
                         query = String.format("&q=%s", q.toLowerCase().replace(' ', '+'));
                         searchForRecipes();
-                        srAdapter = new SearchRecipesAdapter(getActivity(),
-                                R.layout.search_recipes_item, recipes);
-                        lv.setAdapter(srAdapter);
                         return false;
                     }
 
@@ -144,6 +142,8 @@ public class SearchRecipesFragment extends Fragment {
                     }
                 }
         );
+
+        ListView lv = (ListView) getActivity().findViewById(R.id.recipes_list);
 
         lv.setOnItemClickListener(new android.widget.ListView.OnItemClickListener() {
             @Override
@@ -165,6 +165,14 @@ public class SearchRecipesFragment extends Fragment {
                 Intent browserYummly = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://www.yummly.com/"));
                 startActivity(browserYummly);
+            }
+        });
+
+        final CheckBox cuisineBox = (CheckBox) getActivity().findViewById(R.id.cuisine_checkbox);
+        cuisineBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchForRecipes();
             }
         });
 
@@ -205,13 +213,14 @@ public class SearchRecipesFragment extends Fragment {
     private void searchForRecipes() {
 
         buildAllergiesAndDietsString();
-        //String[] api = {"ingredient?", "allergy?", "diet?"};
+        buildCuisinesString();
+        //String[] api = {"ingredient?", "allergy?", "diet?", "cuisine?"};
 
         try {
             if (possible == -1 || current < possible) {
                 //for (int a = 0; a < api.length; a++) {
-                String urlString = String.format("%s%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
-                        "&requirePictures=true", query, alleriesDiets, ingredients);
+                String urlString = String.format("%s%s%s%s%s%s%s", API_PREFIX, "&maxResult=10&start=0",
+                        "&requirePictures=true", query, alleriesDiets, ingredients, cuisines);
                     /*String urlString = String.format("%s_app_id=%s&_app_key=%s",
                             "http://api.yummly.com/v1/api/metadata/" + api[a], APP_ID, APP_KEY);*/
                 System.out.println(urlString);
@@ -287,6 +296,56 @@ public class SearchRecipesFragment extends Fragment {
 
     }
 
+    private void buildCuisinesString() {
+
+        cuisines = "";
+        Context context = getActivity().getApplicationContext();
+        SharedPreferences myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (((CheckBox) getActivity().findViewById(R.id.cuisine_checkbox)).isChecked()) {
+
+            if (myPrefs.getBoolean("american", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-american";
+            }
+            if (myPrefs.getBoolean("chinese", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-chinese";
+            }
+            if (myPrefs.getBoolean("english", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-english";
+            }
+            if (myPrefs.getBoolean("french", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-french";
+            }
+            if (myPrefs.getBoolean("greek", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-greek";
+            }
+            if (myPrefs.getBoolean("hawaiin", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-hawaiian";
+            }
+            if (myPrefs.getBoolean("indian", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-indian";
+            }
+            if (myPrefs.getBoolean("italian", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-italian";
+            }
+            if (myPrefs.getBoolean("japanese", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-japanese";
+            }
+            if (myPrefs.getBoolean("mediterrenean", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-mediterranean";
+            }
+            if (myPrefs.getBoolean("mexican", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-mexican";
+            }
+            if (myPrefs.getBoolean("thai", false)) {
+                cuisines += "&allowedCuisine%5B%5D=" + "cuisine^cuisine-thai";
+            }
+        }
+
+        System.out.println("~~~~~~~*" + cuisines + "*~~~~~~");
+
+    }
+
     /**
      * Created by Isaac on 4/25/2017.
      */
@@ -297,6 +356,7 @@ public class SearchRecipesFragment extends Fragment {
             getActivity().findViewById(R.id.progress_load).setVisibility(View.VISIBLE);
             getActivity().findViewById(R.id.recipes_list).setVisibility(View.GONE);
             getActivity().findViewById(R.id.yummly_layout).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.cuisine_checkbox).setVisibility(View.GONE);
 
             recipes = new ArrayList<>();
         }
@@ -358,16 +418,23 @@ public class SearchRecipesFragment extends Fragment {
             getActivity().findViewById(R.id.progress_load).setVisibility(View.GONE);
 
             if (recipes == null || recipes.size() == 0) {
+
                 getActivity().findViewById(R.id.yummly_layout).setVisibility(View.GONE);
                 getActivity().findViewById(R.id.recipes_list).setVisibility(View.GONE);
+                getActivity().findViewById(R.id.cuisine_checkbox).setVisibility(View.VISIBLE);
                 getActivity().findViewById(R.id.no_search_text).setVisibility(View.VISIBLE);
-                return;
+
             } else {
+
                 getActivity().findViewById(R.id.yummly_layout).setVisibility(View.VISIBLE);
                 getActivity().findViewById(R.id.recipes_list).setVisibility(View.VISIBLE);
+                getActivity().findViewById(R.id.cuisine_checkbox).setVisibility(View.VISIBLE);
                 getActivity().findViewById(R.id.no_search_text).setVisibility(View.GONE);
-            }
 
+                srAdapter = new SearchRecipesAdapter(getActivity(), R.layout.search_recipes_item,
+                        recipes);
+                ((ListView) getActivity().findViewById(R.id.recipes_list)).setAdapter(srAdapter);
+            }
         }
 
     }

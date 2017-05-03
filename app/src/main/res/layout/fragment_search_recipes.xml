@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/mr_search_view"
-        android:progressTint="@color/accent"
+        android:progressTint="@color/primary"
         android:visibility="visible" />
 
     <include layout="@layout/yummly_attribute"
@@ -27,11 +27,20 @@
         android:layout_below="@id/mr_search_view"
         android:visibility="gone" />
 
+    <CheckBox
+        android:id="@+id/cuisine_checkbox"
+        android:text="Filter by favorite cuisines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/yummly_layout"
+        android:buttonTint="@color/primary"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/recipes_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/yummly_layout"
+        android:layout_below="@id/cuisine_checkbox"
         android:layout_alignParentBottom="true"
         android:visibility="gone"/>
 
