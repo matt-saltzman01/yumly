@@ -43,10 +43,12 @@ public class FoodItem {
         String sql = "INSERT OR REPLACE INTO Fridge (food, type, photourl) VALUES(?, ?, ?)";
 
         SQLiteStatement insertStatement = fridgeDB.compileStatement(sql);
+
         insertStatement.clearBindings();
         insertStatement.bindString(1, food);
         insertStatement.bindString(2, group);
         insertStatement.bindString(3, photoURL);
+
         insertStatement.executeInsert();
     }
 

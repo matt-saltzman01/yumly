@@ -370,6 +370,7 @@ public class MyFridgeFragment extends Fragment {
         String sql = String.format("SELECT * FROM Fridge");
         Cursor cursor = (new FridgeOpenHelper(getActivity())).getWritableDatabase()
                 .rawQuery(sql, new String[] {});
+
         if (cursor.getCount() == 0) {
 
         } else {
@@ -381,6 +382,7 @@ public class MyFridgeFragment extends Fragment {
                         cursor.getString(0),
                         cursor.getString(1),
                         cursor.getString(2)
+
                     )
                 );
 

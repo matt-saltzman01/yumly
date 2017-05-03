@@ -115,12 +115,14 @@ public class Recipe {
 
         SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
         insertStatement.clearBindings();
+
         insertStatement.bindString(1, name);
         insertStatement.bindString(2, id);
         insertStatement.bindString(3, getIngredientsString());
         insertStatement.bindString(4, directions);
         insertStatement.bindString(5, getNutritionString());
         insertStatement.bindString(6, photoURL);
+
         insertStatement.executeInsert();
         savePhotoToStorage(recipesDB);
         saved = true;
