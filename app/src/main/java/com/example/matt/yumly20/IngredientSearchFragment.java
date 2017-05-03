@@ -22,7 +22,9 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -57,6 +60,7 @@ public class IngredientSearchFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private static final String API_PREFIX = "http://api.yummly.com/v1";
+    private static final String API_KEY = "f82df2f7b35444e3b8bd2da2a39e3ea3";
 
     /*
 
@@ -87,14 +91,65 @@ public class IngredientSearchFragment extends Fragment {
     }
 
 
-    public class QueryBingImagesTask extends AsyncTask<URL, Void, String> {
+    public class QueryBingImagesTask extends AsyncTask<String, Void, String> {
 
+        /**
+         * Adapted from https://github.com/Singwai/Android-Bing-Search-API-Example/
+         * blob/master/app/src/main/java/singwaichan/android/usatodayhttpsample/
+         * MainActivity.java
+         * @param params
+         * @return the json string
+         */
         @Override
-        protected String doInBackground(URL... params) {
+        protected String doInBackground(String... params) {
 
-            //Below is temporary until search is implemented
-            //This simply reads a sample JSON response for the Bing API for "bell pepper"
-            return getSampleResponse();
+            String result = "";
+            HttpClient httpClient = new DefaultHttpClient();
+
+
+            HttpGet httpget = new HttpGet(params[0]);
+
+            String auth = API_KEY + ":" + API_KEY;
+            String encodedAuth = Base64.encodeToString(auth.getBytes(), Base64.NO_WRAP);
+
+            httpget.addHeader("Authorization", "Basic " + encodedAuth);
+
+            /*String auth = API_KEY;
+            String encodedAuth = Base64.encodeToString(auth.getBytes(), Base64.NO_WRAP);
+
+            httpget.addHeader("Ocp-Apim-Subscription-Key", encodedAuth);*/
+
+
+            //Execute and get the response.
+            HttpResponse response = null;
+            try {
+                response = httpClient.execute(httpget);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                InputStream inputStream = null;
+                try {
+                    inputStream = entity.getContent();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                try {
+                    while ((line = bufferedReader.readLine()) != null) {
+                        result += line;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return result;
         }
 
         @Override
@@ -180,13 +235,14 @@ public class IngredientSearchFragment extends Fragment {
         sv = (SearchView) getActivity().findViewById(R.id.is_search_view);
         sv.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
+
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        try {
-                            new QueryBingImagesTask().execute(new URL("http://urlgoesshere.com/"));
-                        } catch (MalformedURLException mue) {
-                            mue.printStackTrace();
-                        }
+
+                        String urlstr = "https://api.cognitive.microsoft.com/bing/v5.0/" +
+                                "images/search?" + query;
+                        new QueryBingImagesTask().execute(urlstr);
+
                         return false;
                     }
 
@@ -194,8 +250,8 @@ public class IngredientSearchFragment extends Fragment {
                     public boolean onQueryTextChange(String newText) {
                         return false;
                     }
-                }
-        );
+
+                });
 
         /*lv.setOnItemClickListener(new android.widget.ListView.OnItemClickListener() {
             @Override
