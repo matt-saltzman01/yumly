@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,11 +66,13 @@ public class SettingsFragment extends Fragment {
     private CheckBox wheat;
     private RadioGroup rg1;
     private RadioGroup rg2;
+    private RadioButton no_diet;
     private RadioButton lacto_veg;
     private RadioButton ovo_veg;
     private RadioButton pesc;
     private RadioButton vegan;
     private RadioButton vegetarian;
+    private RadioButton paleo;
     private RadioButton male;
     private RadioButton female;
     private RadioButton nonbinary;
@@ -167,11 +170,13 @@ public class SettingsFragment extends Fragment {
         wheat = (CheckBox) rootView.findViewById(R.id.wheat);
 
         //RadioButtons for diets
+        no_diet = (RadioButton) rootView.findViewById(R.id.no_diet);
         lacto_veg = (RadioButton) rootView.findViewById(R.id.lacto_veg);
         ovo_veg = (RadioButton) rootView.findViewById(R.id.ovo_veg);
         pesc = (RadioButton) rootView.findViewById(R.id.pescetarian);
         vegan = (RadioButton) rootView.findViewById(R.id.vegan);
         vegetarian = (RadioButton) rootView.findViewById(R.id.vegetarian);
+        paleo = (RadioButton) rootView.findViewById(R.id.paleo);
 
         //RadioButtons for gender
         male = (RadioButton) rootView.findViewById(R.id.male);
@@ -230,6 +235,16 @@ public class SettingsFragment extends Fragment {
 
         boolean checkedveg = myPrefs.getBoolean("vegetarian", false);
         vegetarian.setChecked(checkedveg);
+
+        boolean checkedpaleo = myPrefs.getBoolean("paleo", false);
+        paleo.setChecked(checkedpaleo);
+
+        if (!checkedlac && !checkedovo && !checkedpesc && !checkedvegan &&
+                !checkedveg && !checkedpaleo) {
+            no_diet.setChecked(true);
+        } else {
+            no_diet.setChecked(false);
+        }
 
         //get and set allergies checkbox according to sharedprefs
         boolean checkeddairy = myPrefs.getBoolean("dairy", false);
@@ -314,8 +329,6 @@ public class SettingsFragment extends Fragment {
         rg2 = (RadioGroup) rootView.findViewById(R.id.rg2);
         rg1.setOnCheckedChangeListener(listener1);
         rg2.setOnCheckedChangeListener(listener2);
-
-
 
 
         Button saveButton = (Button) rootView.findViewById(R.id.save_preferences_button);
@@ -486,6 +499,12 @@ public class SettingsFragment extends Fragment {
             peditor.putBoolean("vegetarian", true);
         } else {
             peditor.putBoolean("vegetarian", false);
+        }
+
+        if(paleo.isChecked()) {
+            peditor.putBoolean("paleo", true);
+        } else {
+            peditor.putBoolean("paleo", false);
         }
 
         if(dairy.isChecked()) {
