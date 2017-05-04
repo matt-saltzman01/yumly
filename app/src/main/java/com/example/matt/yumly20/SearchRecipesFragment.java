@@ -292,8 +292,6 @@ public class SearchRecipesFragment extends Fragment {
             alleriesDiets += "&allowedAllergy%5B%5D=" + "392^Wheat-Free";
         }
 
-        System.out.println("~~~~~~~*" + alleriesDiets + "*~~~~~~");
-
     }
 
     private void buildCuisinesString() {
@@ -342,7 +340,6 @@ public class SearchRecipesFragment extends Fragment {
             }
         }
 
-        System.out.println("~~~~~~~*" + cuisines + "*~~~~~~");
 
     }
 

@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -284,9 +285,22 @@ public class IngredientSearchFragment extends Fragment {
                     @Override
                     public boolean onQueryTextSubmit(String q) {
 
-                        name = WordUtils.capitalizeFully(q);
+                        for (char c : q.toCharArray()) {
+                            if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+
+                                CharSequence text = "Item name may not contain special characters.";
+                                int duration = Toast.LENGTH_LONG;
+
+                                Toast toast = Toast.makeText(getActivity(), text, duration);
+                                toast.show();
+                                return false;
+                            }
+                        }
+
+                        name = WordUtils.capitalizeFully(q.trim());
                         String urlstr = "https://api.cognitive.microsoft.com/bing/v5.0/images/" +
-                                "search?q=" + q.toLowerCase() + "&count=15&safeSearch=Strict";
+                                "search?q=" + q.trim().toLowerCase().replace(' ', '+') +
+                                "&count=15&safeSearch=Strict";
                         new QueryBingImagesTask().execute(urlstr);
 
                         return false;
