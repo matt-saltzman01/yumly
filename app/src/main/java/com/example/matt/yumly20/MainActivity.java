@@ -257,7 +257,9 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 if (foodItem != null) {
+
                     myFridgeFragment.fridge.add(foodItem);
+
                     currentFragment = myFridgeFragment;
                     currentTitle = "My Fridge";
 
@@ -265,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements
                             .replace(R.id.content_frame, currentFragment)
                             .commit();
                     setTitle(currentTitle);
+
                 } else {
                     Toast.makeText(context, "Please select a food group.", Toast.LENGTH_SHORT)
                             .show();

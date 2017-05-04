@@ -42,10 +42,6 @@ public class MyFridgeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private FridgeAdapter fAdaptorL;
-    private FridgeAdapter fAdaptorC;
-    private FridgeAdapter fAdaptorR;
-
     private FridgeAdapter fAdapterGrid;
     private FridgeAdapter meatAdapter;
     private FridgeAdapter vegAdapter;
@@ -192,6 +188,10 @@ public class MyFridgeFragment extends Fragment {
             }
         });
 
+        if (fridge == null || fridge.size() == 0) {
+            fillMyFridge();
+        }
+
         return view;
     }
 
@@ -206,6 +206,8 @@ public class MyFridgeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("My Fridge");
+
+        setAdapters();
 
         final Button findRecipesButton =
                 (Button) getActivity().findViewById(R.id.find_recipes_button);
@@ -224,12 +226,6 @@ public class MyFridgeFragment extends Fragment {
                 ((MainActivity) getActivity()).findRecipesButtonClick(checked);
             }
         });
-
-        if (fridge == null || fridge.size() == 0) {
-            fillMyFridge();
-        }
-
-        setAdapters();
 
     }
 
@@ -267,14 +263,6 @@ public class MyFridgeFragment extends Fragment {
 
     public void setAdapters() {
 
-        if (meatAdapter == null || vegAdapter == null || dryAdapter == null || carbAdapter == null
-                || (meatAdapter.getCount() + vegAdapter.getCount() + dryAdapter.getCount()
-                + carbAdapter.getCount()) != fridge.size()) {
-            meatAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("M/P"));
-            vegAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("F/V"));
-            dryAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("Dairy"));
-            carbAdapter = new FridgeAdapter(getActivity(), R.layout.fridge_item, getItems("Carbs"));
-        }
 
         GridView gridView = (GridView) getActivity().findViewById(R.id.item_grid);
 
@@ -318,6 +306,25 @@ public class MyFridgeFragment extends Fragment {
         gridView.setAdapter(fAdapterGrid);*/
 
     }
+
+    /*public void updateAdapter() {
+        switch (group) {
+            case "M/P":
+                meatAdapter.notifyDataSetChanged();
+                break;
+            case "F/V":
+                vegAdapter.notifyDataSetChanged();
+                break;
+            case "Dairy":
+                dryAdapter.notifyDataSetChanged();
+                break;
+            case "Carbs":
+                carbAdapter.notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
+    }*/
 
     private ArrayList<FoodItem> getItems(String grp) {
         ArrayList<FoodItem> items = new ArrayList<>();

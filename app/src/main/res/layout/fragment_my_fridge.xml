@@ -99,7 +99,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"
             app:backgroundTint="@color/primary"
             app:srcCompat="@drawable/plus_blk"
             android:onClick="findNewIngredient"/>
