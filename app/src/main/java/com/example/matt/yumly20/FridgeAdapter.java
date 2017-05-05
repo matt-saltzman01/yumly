@@ -11,7 +11,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
@@ -66,17 +69,23 @@ public class FridgeAdapter extends BaseAdapter {
 
         name.setText(item.food);
 
-        ImageLoader imageLoader = ImageLoader.getInstance();
-
         System.out.println("Loading image for " + item.food);
 
-        imageLoader.loadImage(item.photoURL, new SimpleImageLoadingListener() {
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.covered_plate)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .build();
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(item.photoURL, pic, options);
+
+        /*imageLoader.loadImage(item.photoURL, new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 pic.setImageBitmap(loadedImage);
                 pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
-        });
+        });*/
 
         box.setChecked(item.checked);
 

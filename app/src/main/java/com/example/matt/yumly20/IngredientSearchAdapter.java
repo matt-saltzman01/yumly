@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
@@ -67,15 +69,21 @@ public class IngredientSearchAdapter extends BaseAdapter {
         final ImageView pic =
                 (ImageView) ingredSearchView.findViewById(R.id.ingredient_search_image);
 
-        ImageLoader imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.covered_plate)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .build();
 
-        imageLoader.loadImage(urls.get(position), new SimpleImageLoadingListener() {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(urls.get(position), pic, options);
+
+        /*imageLoader.loadImage(urls.get(position), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 pic.setImageBitmap(loadedImage);
                 pic.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
-        });
+        });*/
 
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
