@@ -207,8 +207,6 @@ public class MyFridgeFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("My Fridge");
 
-        setAdapters();
-
         final Button findRecipesButton =
                 (Button) getActivity().findViewById(R.id.find_recipes_button);
 
@@ -226,6 +224,8 @@ public class MyFridgeFragment extends Fragment {
                 ((MainActivity) getActivity()).findRecipesButtonClick(checked);
             }
         });
+
+        setAdapters();
 
     }
 
