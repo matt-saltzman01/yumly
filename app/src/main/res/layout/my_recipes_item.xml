@@ -21,4 +21,11 @@
         android:gravity="start"
         style="@style/RecipeTitleText" />
 
+    <TextView
+        android:id="@+id/orange_line"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/recipe_item_image"
+        android:background="@color/primary" />
+
 </RelativeLayout>
