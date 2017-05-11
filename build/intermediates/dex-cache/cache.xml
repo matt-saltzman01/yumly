@@ -142,8 +142,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="698526b24abd7d91f1b867531d44bc44c0c68ec3">
+        sha1="78fda84ffcc4e411e4469fa376e5c1817d934674">
         <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_e807ef71b2f5516c489dfce438d6aa02b945f9d3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Isaac\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.4\5fe28b9518e58819180a43a850fbc0dd24b7c050\commons-lang3-3.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
+        <dex dex="C:\Users\Isaac\Documents\AndroidStudioProjects\Chefly\app\build\intermediates\transforms\dex\debug\folders\1000\10\commons-lang3-3.4_c8d26208d7b29fedbf40f0290627ea08cbc25f75\classes.dex" />
     </item>
 
 </items>
