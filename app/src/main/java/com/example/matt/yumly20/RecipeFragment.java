@@ -62,8 +62,6 @@ public class RecipeFragment extends Fragment {
     private String source;
     private String id;
 
-    protected SQLiteDatabase recipesDB;
-
     private ListView iView;
     private LinearLayout dView;
     private LinearLayout nView;
@@ -177,7 +175,6 @@ public class RecipeFragment extends Fragment {
                     try {
                         recipe = new Recipe(
                                 getActivity(),
-                                recipesDB,
                                 json.getString("name"),
                                 json.getString("id"),
                                 igs,
@@ -259,8 +256,6 @@ public class RecipeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_recipe, container, false);
 
-        recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
-
         imageLoader = ImageLoader.getInstance();
 
         final Button ingredientsButton = (Button) view.findViewById(R.id.ingredients_button);
@@ -279,7 +274,7 @@ public class RecipeFragment extends Fragment {
 
         if (source.equals("saved")) {
             try {
-                recipe = new Recipe(getActivity(), recipesDB, id);
+                recipe = new Recipe(getActivity(), id);
 
                 ingredients = recipe.ingredients;
                 directionstext = recipe.parseDirections()[0];
@@ -362,7 +357,7 @@ public class RecipeFragment extends Fragment {
             public void onClick(View v) {
                 starOff.setVisibility(View.GONE);
                 starOn.setVisibility(View.VISIBLE);
-                recipe.saveToDB(recipesDB);
+                recipe.saveToDB();
             }
         });
 
@@ -371,7 +366,7 @@ public class RecipeFragment extends Fragment {
             public void onClick(View v) {
                 starOn.setVisibility(View.GONE);
                 starOff.setVisibility(View.VISIBLE);
-                recipe.deleteFromDB(recipesDB);
+                recipe.deleteFromDB();
             }
         });
 
@@ -382,8 +377,6 @@ public class RecipeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Recipe Details");
-
-        recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
 
         final ImageView image = (ImageView) getActivity().findViewById(R.id.recipe_image);
         final TextView rTitle = (TextView) getActivity().findViewById(R.id.recipe_title);
@@ -443,7 +436,6 @@ public class RecipeFragment extends Fragment {
 
     @Override
     public void onPause() {
-        recipesDB.close();
         super.onPause();
     }
 

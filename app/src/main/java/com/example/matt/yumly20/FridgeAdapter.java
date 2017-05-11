@@ -69,7 +69,7 @@ public class FridgeAdapter extends BaseAdapter {
 
         name.setText(item.food);
 
-        System.out.println("Loading image for " + item.food);
+        //System.out.println("Loading image for " + item.food);
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.covered_plate)

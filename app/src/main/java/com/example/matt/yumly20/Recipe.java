@@ -47,7 +47,7 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(Context c, String nm, String i, ArrayList igs, String drs, HashMap ns,
+    /*public Recipe(Context c, String nm, String i, ArrayList igs, String drs, HashMap ns,
                   String purl) {
         context = c;
         name = nm;
@@ -56,12 +56,15 @@ public class Recipe {
         directions = drs;
         nutrition = ns;
         photoURL = purl;
-    }
+    }*/
 
-    public Recipe(Context c, SQLiteDatabase recipesDB, String nm, String i, ArrayList igs,
+    public Recipe(Context c, String nm, String i, ArrayList igs,
                   String drs, HashMap ns, String purl)
             throws StringFormatException {
+
         context = c;
+        SQLiteDatabase recipesDB = (new RecipeOpenHelper(context)).getWritableDatabase();
+
         String sql = String.format("SELECT * FROM Recipes WHERE id='%s'", i);
         Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
@@ -84,10 +87,15 @@ public class Recipe {
         if (cursor != null && !cursor.isClosed()) {
             cursor.close();
         }
+
+        recipesDB.close();
     }
 
-    public Recipe(Context c, SQLiteDatabase recipesDB, String keyId) throws StringFormatException {
+    public Recipe(Context c, String keyId) throws StringFormatException {
+
         context = c;
+        SQLiteDatabase recipesDB = (new RecipeOpenHelper(context)).getWritableDatabase();
+
         String sql = String.format("SELECT * FROM Recipes WHERE id='%s'", keyId);
         Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
@@ -106,9 +114,12 @@ public class Recipe {
             cursor.close();
         }
 
+        recipesDB.close();
     }
 
-    public void saveToDB(SQLiteDatabase recipesDB) {
+    public void saveToDB() {
+
+        SQLiteDatabase recipesDB = (new RecipeOpenHelper(context)).getWritableDatabase();
 
         String sql = "INSERT OR REPLACE INTO Recipes (name, id, ingredients, directions," +
                 " nutrition, photourl) VALUES(?, ?, ?, ?, ?, ?)";
@@ -124,23 +135,29 @@ public class Recipe {
         insertStatement.bindString(6, photoURL);
 
         insertStatement.executeInsert();
-        savePhotoToStorage(recipesDB);
+        savePhotoToStorage();
         saved = true;
+
+        recipesDB.close();
     }
 
-    public void deleteFromDB(SQLiteDatabase recipesDB) {
+    public void deleteFromDB() {
 
         if (saved) {
+            SQLiteDatabase recipesDB = (new RecipeOpenHelper(context)).getWritableDatabase();
+
             String sql = String.format("DELETE FROM Recipes WHERE id='%s'", id);
             SQLiteStatement insertStatement = recipesDB.compileStatement(sql);
             insertStatement.executeUpdateDelete();
 
             saved = false;
+            recipesDB.close();
         }
     }
 
-    private void savePhotoToStorage(final SQLiteDatabase recipesDB){
+    private void savePhotoToStorage(){
 
+        final SQLiteDatabase recipesDB = (new RecipeOpenHelper(context)).getWritableDatabase();
         ImageLoader imageLoader = ImageLoader.getInstance();
 
         imageLoader.loadImage(photoURL, new SimpleImageLoadingListener() {
@@ -177,6 +194,7 @@ public class Recipe {
                         e.printStackTrace();
                     } finally {
                         try {
+                            recipesDB.close();
                             fos.close();
                         } catch (IOException e) {
                             e.printStackTrace();

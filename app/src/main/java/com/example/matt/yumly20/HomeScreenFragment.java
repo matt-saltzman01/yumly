@@ -262,8 +262,7 @@ public class HomeScreenFragment extends Fragment {
         SQLiteDatabase recipesDB = (new RecipeOpenHelper(getActivity())).getWritableDatabase();
 
         String sql = String.format("SELECT * FROM Recipes");
-        Cursor cursor = (new RecipeOpenHelper(getActivity())).getWritableDatabase()
-                .rawQuery(sql, new String[] {});
+        Cursor cursor = recipesDB.rawQuery(sql, new String[] {});
         if (cursor.getCount() == 0) {
 
         } else {
@@ -271,7 +270,7 @@ public class HomeScreenFragment extends Fragment {
             while (!cursor.isAfterLast() && !cursor.isClosed()) {
 
                 try {
-                    temp.add(new Recipe(getActivity(), recipesDB, cursor.getString(1)));
+                    temp.add(new Recipe(getActivity(), cursor.getString(1)));
                 } catch (StringFormatException sfe) {
                     sfe.printStackTrace();
                 }
