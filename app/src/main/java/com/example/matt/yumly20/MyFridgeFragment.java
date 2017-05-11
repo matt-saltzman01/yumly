@@ -375,8 +375,7 @@ public class MyFridgeFragment extends Fragment {
         SQLiteDatabase fridgeDB = (new FridgeOpenHelper(getActivity())).getWritableDatabase();
 
         String sql = String.format("SELECT * FROM Fridge");
-        Cursor cursor = (new FridgeOpenHelper(getActivity())).getWritableDatabase()
-                .rawQuery(sql, new String[] {});
+        Cursor cursor = fridgeDB.rawQuery(sql, new String[] {});
 
         if (cursor.getCount() == 0) {
 
@@ -385,7 +384,6 @@ public class MyFridgeFragment extends Fragment {
             while (!cursor.isAfterLast() && !cursor.isClosed()) {
 
                 fridge.add(new FoodItem(getActivity(),
-                        fridgeDB,
                         cursor.getString(0),
                         cursor.getString(1),
                         cursor.getString(2)
@@ -405,47 +403,46 @@ public class MyFridgeFragment extends Fragment {
             populateFridge();
         }
 
+        fridgeDB.close();
     }
 
     private void populateFridge() {
 
         fridge = new ArrayList<>();
 
-        SQLiteDatabase fridgeDB = (new FridgeOpenHelper(getActivity())).getWritableDatabase();
-
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Eggs", "M/P",
+        fridge.add(new FoodItem(getActivity(), "Eggs", "M/P",
                 "https://tvaraj.files.wordpress.com/2012/10/eggs.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Tomato", "F/V",
+        fridge.add(new FoodItem(getActivity(), "Tomato", "F/V",
                 "http://www.fitnessvsweightloss.com/wp-content/uploads/2014/07/tomato.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Spinach", "F/V",
+        fridge.add(new FoodItem(getActivity(), "Spinach", "F/V",
                 "http://iwantmysexyback.files.wordpress.com/2011/01/" +
                         "iron-source-spinach-lg.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Bread Crumbs", "Carbs",
+        fridge.add(new FoodItem(getActivity(), "Bread Crumbs", "Carbs",
                 "http://www.classicexhibits.com/tradeshow-blog/wp-content/uploads/2012/10/" +
                         "Bread-Crumbs.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Milk", "Dairy",
+        fridge.add(new FoodItem(getActivity(), "Milk", "Dairy",
                 "http://2.bp.blogspot.com/-M-HC4ThL9Hk/TgSuXPlvU4I/AAAAAAAAChE/YhLucY1d_no/" +
                         "s1600/milk-agriculture-commodities.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Ground Beef", "M/P",
+        fridge.add(new FoodItem(getActivity(), "Ground Beef", "M/P",
                 "http://3.bp.blogspot.com/-M-vLu0438Ic/UPHGE418XYI/AAAAAAAAAGM/l2T5oDNTDaU/" +
                         "s1600/Ground+Beef+Recipe.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Parmesan", "Dairy",
+        fridge.add(new FoodItem(getActivity(), "Parmesan", "Dairy",
                 "https://getbwoo.com/wp-content/uploads/2013/10/shutterstock_574773461.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Goat Cheese", "Dairy",
+        fridge.add(new FoodItem(getActivity(), "Goat Cheese", "Dairy",
                 "http://www.cheesemaking.com/images/recipes/33Chevre/Pics/pic02.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Chicken Breast", "M/P",
+        fridge.add(new FoodItem(getActivity(), "Chicken Breast", "M/P",
                 "http://img2.timeinc.net/health/img/web/2014/04/slides/" +
                         "chicken-breast-raw-400x400.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Onion", "F/V",
+        fridge.add(new FoodItem(getActivity(), "Onion", "F/V",
                 "http://ghk.h-cdn.co/assets/cm/15/11/" +
                         "54fe44fd11c59-ghk-stainbuster-onion-mdn.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Sourdough", "Carbs",
+        fridge.add(new FoodItem(getActivity(), "Sourdough", "Carbs",
                 "http://www.wildyeastblog.com/wp-content/uploads/2008/11/" +
                         "more-sourdough.jpg?441324"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Lettuce", "F/V",
+        fridge.add(new FoodItem(getActivity(), "Lettuce", "F/V",
                 "http://2.bp.blogspot.com/-AOP_sPL_UoY/Td_WX4XVSkI/AAAAAAAABcU/w373jilbAy0/" +
                         "s1600/iStock_000007888237XSmall.jpg"));
-        fridge.add(new FoodItem(getActivity(), fridgeDB, "Salami", "M/P",
+        fridge.add(new FoodItem(getActivity(), "Salami", "M/P",
                 "http://cdn1.theodysseyonline.com/files/2014/10/14/" +
                         "63548854034210072183215798_collagen-salami3.png"));
 

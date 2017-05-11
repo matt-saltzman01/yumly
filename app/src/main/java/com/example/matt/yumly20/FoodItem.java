@@ -28,18 +28,19 @@ public class FoodItem {
 
     public FoodItem() { }
 
-    public FoodItem(Context c, SQLiteDatabase fridgeDB, String f, String g, String url) {
+    public FoodItem(Context c, String f, String g, String url) {
         context = c;
         food = f;
         group = g;
         photoURL = url;
         checked = false;
-        saveToDB(fridgeDB);
-        downloadPhoto(fridgeDB);
+        saveToDB();
+        downloadPhoto();
     }
 
-    public void saveToDB(SQLiteDatabase fridgeDB) {
+    public void saveToDB() {
 
+        SQLiteDatabase fridgeDB = (new FridgeOpenHelper(context)).getWritableDatabase();
         String sql = "INSERT OR REPLACE INTO Fridge (food, type, photourl) VALUES(?, ?, ?)";
 
         SQLiteStatement insertStatement = fridgeDB.compileStatement(sql);
@@ -50,9 +51,10 @@ public class FoodItem {
         insertStatement.bindString(3, photoURL);
 
         insertStatement.executeInsert();
+        fridgeDB.close();
     }
 
-    public void downloadPhoto(final SQLiteDatabase fridgeDB) {
+    public void downloadPhoto() {
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -74,7 +76,7 @@ public class FoodItem {
                         // Use the compress method on the BitMap object to write image to the OutputStream
                         loadedImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
                         photoURL = "file://" + mypath.toString();
-                        saveToDB(fridgeDB);
+                        saveToDB();
 
                     } catch (Exception e) {
                         e.printStackTrace();
